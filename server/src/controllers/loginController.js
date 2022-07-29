@@ -1,5 +1,7 @@
-const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { jwtSecret } = require('../config');
 const { loginUserDb } = require('../models/loginModel');
+const { passwordsMatch } = require('../utils/helpers');
 
 async function loginUser(req, res) {
   const emailInput = req.body.email;
@@ -12,8 +14,10 @@ async function loginUser(req, res) {
     console.log('user with this email ===', foundUser);
     if (!foundUser) throw new Error(400);
     // if passwords match
-    if (!bcrypt.compareSync(passwordInput, foundUser.password)) throw new Error(400);
-    return res.json({ success: true, message: 'Login success.' });
+    if (!passwordsMatch(passwordInput, foundUser.password)) throw new Error(402);
+    // signing jwt
+    const token = jwt.sign({ userId: foundUser.id }, jwtSecret, { expiresIn: '1h' });
+    return res.json({ success: true, message: 'Login success.', token });
   } catch (err) {
     console.log('error in login controller:', err);
     if (err.message === '400') {
