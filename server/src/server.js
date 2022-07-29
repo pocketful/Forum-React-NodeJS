@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const { PORT } = require('./config');
 const registerRoute = require('./routes/registerRoute');
+const loginRoute = require('./routes/loginRoute');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/api', registerRoute);
+app.use('/api', loginRoute);
 
 app.all('*', (req, res) => {
   res.status(404).json({ err: 'Route not found.' });

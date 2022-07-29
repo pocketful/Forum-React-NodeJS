@@ -11,3 +11,13 @@ Content-Type: application/json
   "password": "secret123",
   "image": "https://placeimg.com/100/100/people"
 }
+
+
+### Login ============================================================================================
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{
+  "email": "hermionegranger@email.com",
+  "password": "secret123"
+}
