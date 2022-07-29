@@ -1,0 +1,12 @@
+{
+  "name": "ca-crud-be",
+  "version": "0.1.0",
+  "description": "CRUD",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Iv",
+  "license": "ISC"
+}
