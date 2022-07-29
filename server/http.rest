@@ -1,1 +1,13 @@
 GET http://localhost:3000/
+
+
+### Register =========================================================================================
+POST http://localhost:3000/api/register
+Content-Type: application/json
+
+{
+  "username": "hermione",
+  "email": "hermionegranger@email.com",
+  "password": "secret123",
+  "image": "https://placeimg.com/100/100/people"
+}
