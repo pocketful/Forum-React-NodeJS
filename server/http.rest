@@ -26,5 +26,16 @@ Content-Type: application/json
 GET http://localhost:3000/api/questions
 
 
+### ----------------------------------
+POST http://localhost:3000/api/questions
+Content-Type: application/json
+
+{
+  "userId": 9,
+  "title": "test title",
+  "content": "test content"
+}
+
+
 ### Answers ========================================================================================
 GET http://localhost:3000/api/answers
