@@ -37,6 +37,9 @@ Content-Type: application/json
 }
 
 
+### ----------------------------------
+DELETE http://localhost:3000/api/questions/9
+
 ### Answers ========================================================================================
 GET http://localhost:3000/api/answers
 
