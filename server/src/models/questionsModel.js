@@ -31,7 +31,23 @@ async function postQuestionsDb(userId, title, content) {
   }
 }
 
+async function deleteQuestionsDb(questionId) {
+  let conn;
+  try {
+    conn = await mysql.createConnection(dbConfig);
+    const sql = 'DELETE FROM questions WHERE question_id = ?';
+    const [deleteResult] = await conn.execute(sql, [questionId]);
+    return deleteResult;
+  } catch (err) {
+    console.log('error in delete questions model:', err);
+    throw err;
+  } finally {
+    conn?.end();
+  }
+}
+
 module.exports = {
   getQuestionsDb,
   postQuestionsDb,
+  deleteQuestionsDb,
 };
