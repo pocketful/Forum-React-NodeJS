@@ -1,4 +1,4 @@
-const { getAnswersDb, postAnswersDb } = require('../models/answersModel');
+const { getAnswersDb, postAnswerDb, deleteAnswerDb } = require('../models/answersModel');
 
 async function getAnswers(req, res) {
   try {
@@ -10,10 +10,10 @@ async function getAnswers(req, res) {
   }
 }
 
-async function postAnswers(req, res) {
+async function postAnswer(req, res) {
   const { userId, questionId, content } = req.body;
   try {
-    const insertResult = await postAnswersDb(userId, questionId, content);
+    const insertResult = await postAnswerDb(userId, questionId, content);
     if (insertResult.affectedRows === 1) {
       return res.status(201).json({ success: true, message: 'New answer successfully added.' });
     }
@@ -27,7 +27,25 @@ async function postAnswers(req, res) {
   }
 }
 
+async function deleteAnswer(req, res) {
+  const { answerId } = req.params;
+  try {
+    const deleteResult = await deleteAnswerDb(answerId);
+    if (deleteResult.affectedRows === 1) {
+      return res.status(200).json({ success: true, message: 'Answer successfully deleted.' });
+    }
+    if (deleteResult.affectedRows === 0) {
+      return res.status(400).json({ success: false, message: 'Unable to delete an answer.' });
+    }
+    throw new Error('unable to delete an answer');
+  } catch (err) {
+    console.log('error tryin to deleten a answer:', err);
+    return res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+}
+
 module.exports = {
   getAnswers,
-  postAnswers,
+  postAnswer,
+  deleteAnswer,
 };

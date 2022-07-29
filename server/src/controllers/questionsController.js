@@ -1,4 +1,4 @@
-const { getQuestionsDb, postQuestionsDb, deleteQuestionsDb } = require('../models/questionsModel');
+const { getQuestionsDb, postQuestionDb, deleteQuestionDb } = require('../models/questionsModel');
 
 async function getQuestions(req, res) {
   try {
@@ -10,10 +10,10 @@ async function getQuestions(req, res) {
   }
 }
 
-async function postQuestions(req, res) {
+async function postQuestion(req, res) {
   const { userId, title, content } = req.body;
   try {
-    const insertResult = await postQuestionsDb(userId, title, content);
+    const insertResult = await postQuestionDb(userId, title, content);
     if (insertResult.affectedRows === 1) {
       return res.status(201).json({ success: true, message: 'New question successfully added.' });
     }
@@ -27,13 +27,10 @@ async function postQuestions(req, res) {
   }
 }
 
-async function deleteQuestions(req, res) {
+async function deleteQuestion(req, res) {
   const { questionId } = req.params;
-  console.log('req.params', req.params);
-  console.log('questionId', questionId);
   try {
-    const deleteResult = await deleteQuestionsDb(questionId);
-    console.log('deleteResult', deleteResult);
+    const deleteResult = await deleteQuestionDb(questionId);
     if (deleteResult.affectedRows === 1) {
       return res.status(200).json({ success: true, message: 'Question successfully deleted.' });
     }
@@ -49,6 +46,6 @@ async function deleteQuestions(req, res) {
 
 module.exports = {
   getQuestions,
-  postQuestions,
-  deleteQuestions,
+  postQuestion,
+  deleteQuestion,
 };

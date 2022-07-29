@@ -22,6 +22,7 @@ Content-Type: application/json
   "password": "secret123"
 }
 
+
 ### Questions ========================================================================================
 GET http://localhost:3000/api/questions
 
@@ -38,7 +39,8 @@ Content-Type: application/json
 
 
 ### ----------------------------------
-DELETE http://localhost:3000/api/questions/9
+DELETE http://localhost:3000/api/questions/10
+
 
 ### Answers ========================================================================================
 GET http://localhost:3000/api/answers
@@ -53,3 +55,7 @@ Content-Type: application/json
   "questionId": 1,
   "content": "test content"
 }
+
+
+### ----------------------------------
+DELETE http://localhost:3000/api/answers/9

@@ -16,7 +16,7 @@ async function getQuestionsDb() {
   }
 }
 
-async function postQuestionsDb(userId, title, content) {
+async function postQuestionDb(userId, title, content) {
   let conn;
   try {
     conn = await mysql.createConnection(dbConfig);
@@ -24,14 +24,14 @@ async function postQuestionsDb(userId, title, content) {
     const [insertResult] = await conn.execute(sql, [userId, title, content]);
     return insertResult;
   } catch (err) {
-    console.log('error in post questions model:', err);
+    console.log('error in post question model:', err);
     throw err;
   } finally {
     conn?.end();
   }
 }
 
-async function deleteQuestionsDb(questionId) {
+async function deleteQuestionDb(questionId) {
   let conn;
   try {
     conn = await mysql.createConnection(dbConfig);
@@ -39,7 +39,7 @@ async function deleteQuestionsDb(questionId) {
     const [deleteResult] = await conn.execute(sql, [questionId]);
     return deleteResult;
   } catch (err) {
-    console.log('error in delete questions model:', err);
+    console.log('error in delete question model:', err);
     throw err;
   } finally {
     conn?.end();
@@ -48,6 +48,6 @@ async function deleteQuestionsDb(questionId) {
 
 module.exports = {
   getQuestionsDb,
-  postQuestionsDb,
-  deleteQuestionsDb,
+  postQuestionDb,
+  deleteQuestionDb,
 };
