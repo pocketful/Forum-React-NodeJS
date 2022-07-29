@@ -39,3 +39,14 @@ Content-Type: application/json
 
 ### Answers ========================================================================================
 GET http://localhost:3000/api/answers
+
+
+### ----------------------------------
+POST http://localhost:3000/api/answers
+Content-Type: application/json
+
+{
+  "userId": 9,
+  "questionId": 1,
+  "content": "test content"
+}

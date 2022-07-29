@@ -1,8 +1,9 @@
 const express = require('express');
-const getAnswers = require('../controllers/answersController');
+const controller = require('../controllers/answersController');
 
 const answersRoute = express.Router();
 
-answersRoute.get('/answers', getAnswers);
+answersRoute.get('/answers', controller.getAnswers);
+answersRoute.post('/answers', controller.postAnswers);
 
 module.exports = answersRoute;
