@@ -21,3 +21,6 @@ Content-Type: application/json
   "email": "hermionegranger@email.com",
   "password": "secret123"
 }
+
+### Questions ========================================================================================
+GET http://localhost:3000/api/questions
