@@ -11,7 +11,8 @@ async function getQuestions(req, res) {
 }
 
 async function postQuestion(req, res) {
-  const { userId, title, content } = req.body;
+  const { userId } = req;
+  const { title, content } = req.body;
   try {
     const insertResult = await postQuestionDb(userId, title, content);
     if (insertResult.affectedRows === 1) {

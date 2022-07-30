@@ -1,5 +1,5 @@
 const { registerUserDb } = require('../models/registerModel');
-const { hashPassword } = require('../utils/helpers');
+const { hashPassword } = require('../utils/hashPass');
 
 async function registerUser(req, res) {
   console.log('req.body===', req.body);
