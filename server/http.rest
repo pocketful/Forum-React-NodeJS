@@ -39,6 +39,16 @@ Content-Type: application/json
 
 
 ### ----------------------------------
+PUT http://localhost:3000/api/questions/10
+Content-Type: application/json
+
+{
+  "title": "update question title",
+  "content": "update question content"
+}
+
+
+### ----------------------------------
 DELETE http://localhost:3000/api/questions/10
 
 
@@ -58,4 +68,3 @@ Content-Type: application/json
 
 
 ### ----------------------------------
-DELETE http://localhost:3000/api/answers/9

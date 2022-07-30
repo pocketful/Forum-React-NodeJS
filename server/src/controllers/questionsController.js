@@ -1,4 +1,4 @@
-const { getQuestionsDb, postQuestionDb, deleteQuestionDb } = require('../models/questionsModel');
+const { getQuestionsDb, postQuestionDb, updateQuestionDb, deleteQuestionDb } = require('../models/questionsModel');
 
 async function getQuestions(req, res) {
   try {
@@ -27,6 +27,25 @@ async function postQuestion(req, res) {
   }
 }
 
+async function updateQuestion(req, res) {
+  const { questionId } = req.params;
+  const { title, content } = req.body;
+  try {
+    const updateResult = await updateQuestionDb(questionId, title, content);
+    console.log('updateResult', updateResult);
+    if (updateResult.affectedRows === 1) {
+      return res.status(201).json({ success: true, message: 'Question successfully updated.' });
+    }
+    return res.status(400).json({ success: false, message: 'Failed to update a question.' });
+  } catch (err) {
+    console.log('error in update a question controller:', err);
+    if (err.errno === 1054) {
+      return res.status(400).json({ success: false, message: 'Bad request.' });
+    }
+    return res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+}
+
 async function deleteQuestion(req, res) {
   const { questionId } = req.params;
   try {
@@ -47,5 +66,6 @@ async function deleteQuestion(req, res) {
 module.exports = {
   getQuestions,
   postQuestion,
+  updateQuestion,
   deleteQuestion,
 };

@@ -5,7 +5,7 @@ async function getQuestionsDb() {
   let conn;
   try {
     conn = await mysql.createConnection(dbConfig);
-    const sql = 'SELECT * FROM questions';
+    const sql = 'SELECT * FROM questions WHERE archived = 0';
     const [questions] = await conn.execute(sql, []);
     return questions;
   } catch (err) {
@@ -31,11 +31,27 @@ async function postQuestionDb(userId, title, content) {
   }
 }
 
+async function updateQuestionDb(questionId, title, content) {
+  let conn;
+  try {
+    conn = await mysql.createConnection(dbConfig);
+    const sql = 'UPDATE questions SET title = ?, content = ? WHERE question_id = ?';
+    const [updateResult] = await conn.execute(sql, [title, content, questionId]);
+    return updateResult;
+  } catch (err) {
+    console.log('error in update question model:', err);
+    throw err;
+  } finally {
+    conn?.end();
+  }
+}
+
 async function deleteQuestionDb(questionId) {
   let conn;
   try {
     conn = await mysql.createConnection(dbConfig);
-    const sql = 'DELETE FROM questions WHERE question_id = ?';
+    const sql = 'UPDATE questions SET archived = 1 WHERE question_id = ?';
+    // const sql = 'DELETE FROM questions WHERE question_id = ?';
     const [deleteResult] = await conn.execute(sql, [questionId]);
     return deleteResult;
   } catch (err) {
@@ -49,5 +65,6 @@ async function deleteQuestionDb(questionId) {
 module.exports = {
   getQuestionsDb,
   postQuestionDb,
+  updateQuestionDb,
   deleteQuestionDb,
 };
