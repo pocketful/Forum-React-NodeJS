@@ -20,6 +20,11 @@ function deleteAnswerDb(answerId) {
   return executeDb(sql, [answerId]);
 }
 
+function getAnswerVotesDb(answerId) {
+  const sql = 'SELECT answer_id, sum(vote) AS votes FROM answers_votes WHERE answer_id = ?';
+  return executeDb(sql, [answerId]);
+}
+
 // const mysql = require('mysql2/promise');
 // const { dbConfig } = require('../config');
 
@@ -89,4 +94,5 @@ module.exports = {
   postAnswerDb,
   updateAnswerDb,
   deleteAnswerDb,
+  getAnswerVotesDb,
 };

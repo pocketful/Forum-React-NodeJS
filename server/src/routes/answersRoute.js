@@ -8,5 +8,6 @@ answersRoute.get('/questions/:questionId/answers', controller.getAnswers);
 answersRoute.post('/questions/:questionId/answers', validateToken, controller.postAnswer);
 answersRoute.patch('/answers/:answerId', validateToken, controller.updateAnswer);
 answersRoute.delete('/answers/:answerId', validateToken, controller.deleteAnswer);
+answersRoute.get('/answers/:answerId', controller.getAnswerVotes);
 
 module.exports = answersRoute;

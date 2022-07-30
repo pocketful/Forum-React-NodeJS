@@ -3,6 +3,7 @@ const {
   postAnswerDb,
   updateAnswerDb,
   deleteAnswerDb,
+  getAnswerVotesDb,
 } = require('../models/answersModel');
 
 async function getAnswers(req, res) {
@@ -71,9 +72,21 @@ async function deleteAnswer(req, res) {
   }
 }
 
+async function getAnswerVotes(req, res) {
+  const { answerId } = req.params;
+  try {
+    const answerVotes = await getAnswerVotesDb(answerId);
+    return res.json(answerVotes);
+  } catch (err) {
+    console.log('error in get answer votes controller:', err);
+    return res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+}
+
 module.exports = {
   getAnswers,
   postAnswer,
   updateAnswer,
   deleteAnswer,
+  getAnswerVotes,
 };
