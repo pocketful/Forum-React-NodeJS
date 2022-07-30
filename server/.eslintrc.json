@@ -12,6 +12,7 @@
   "rules": {
     "no-console": "off",
     "linebreak-style": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "ignoreChainWithDepth": 3
   }
 }

@@ -2,7 +2,7 @@ const { registerUserDb } = require('../models/registerModel');
 const { hashPassword } = require('../utils/hashPass');
 
 async function registerUser(req, res) {
-  console.log('req.body===', req.body);
+  console.log('req.body:', req.body);
   const { username, email, password, image } = req.body;
   try {
     const hashedPass = hashPassword(password);

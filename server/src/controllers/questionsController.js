@@ -1,4 +1,10 @@
-const { getQuestionsDb, getOneQuestionDb, postQuestionDb, updateQuestionDb, deleteQuestionDb } = require('../models/questionsModel');
+const {
+  getQuestionsDb,
+  getOneQuestionDb,
+  postQuestionDb,
+  updateQuestionDb,
+  deleteQuestionDb,
+} = require('../models/questionsModel');
 
 async function getQuestions(req, res) {
   try {

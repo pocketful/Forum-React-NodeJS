@@ -4,14 +4,14 @@ const { signingJwt } = require('../utils/jwtTokens');
 
 async function loginUser(req, res) {
   const emailInput = req.body.email;
-  console.log('emailInput ===', emailInput);
+  console.log('emailInput:', emailInput);
   const passwordInput = req.body.password;
-  console.log('passwordInput ===', passwordInput);
+  console.log('passwordInput:', passwordInput);
 
   try {
     // if user with this email exists
     const [foundUser] = await loginUserDb(emailInput);
-    console.log('user with this email ===', foundUser);
+    console.log('user with this email:', foundUser);
 
     if (!foundUser) throw new Error(400);
 

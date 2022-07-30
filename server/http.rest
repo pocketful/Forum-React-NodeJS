@@ -9,6 +9,7 @@ Content-Type: application/json
   "username": "hermione",
   "email": "hermionegranger@email.com",
   "password": "secret123",
+  "passwordConfirm": "secret123",  
   "image": "https://placeimg.com/100/100/people"
 }
 
@@ -28,11 +29,15 @@ GET http://localhost:3000/api/questions
 
 
 ### ----------------------------------
+GET http://localhost:3000/api/questions/1
+
+
+### ----------------------------------
 POST http://localhost:3000/api/questions
 Content-Type: application/json
+Authorization: Bearer ...
 
 {
-  "userId": 9,
   "title": "test title",
   "content": "test content"
 }
@@ -41,6 +46,7 @@ Content-Type: application/json
 ### ----------------------------------
 PUT http://localhost:3000/api/questions/10
 Content-Type: application/json
+Authorization: Bearer ...
 
 {
   "title": "update question title",
@@ -50,19 +56,20 @@ Content-Type: application/json
 
 ### ----------------------------------
 DELETE http://localhost:3000/api/questions/10
+Content-Type: application/json
+Authorization: Bearer ...
 
 
 ### Answers ========================================================================================
-GET http://localhost:3000/api/answers
+GET http://localhost:3000/api/questions/1/answers
 
 
 ### ----------------------------------
-POST http://localhost:3000/api/answers
+POST http://localhost:3000/api/questions/4/answers
 Content-Type: application/json
+Authorization: Bearer ...
 
 {
-  "userId": 9,
-  "questionId": 1,
   "content": "test content"
 }
 
@@ -70,6 +77,7 @@ Content-Type: application/json
 ### ----------------------------------
 PATCH http://localhost:3000/api/answers/10
 Content-Type: application/json
+Authorization: Bearer ...
 
 {
   "content": "update answer content"
@@ -78,3 +86,22 @@ Content-Type: application/json
 
 ### ----------------------------------
 DELETE http://localhost:3000/api/answers/10
+Content-Type: application/json
+Authorization: Bearer ...
+
+
+### Votes ========================================================================================
+### Get answer votes ----------------------------------
+GET http://localhost:3000/api/answers/3
+Content-Type: application/json
+
+
+### Post answer vote ----------------------------------
+POST http://localhost:3000/api/answers/3
+Content-Type: application/json
+Authorization: Bearer ...
+
+{
+  "vote": 1
+}
+
