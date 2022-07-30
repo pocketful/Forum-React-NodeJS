@@ -5,6 +5,11 @@ function getQuestionsDb() {
   return executeDb(sql);
 }
 
+function getOneQuestionDb(questionId) {
+  const sql = 'SELECT * FROM questions WHERE question_id = ? AND archived = 0';
+  return executeDb(sql, [questionId]);
+}
+
 function postQuestionDb(userId, title, content) {
   const sql = 'INSERT INTO questions (user_id, title, content) VALUES (?, ?, ?)';
   return executeDb(sql, [userId, title, content]);
@@ -87,6 +92,7 @@ function deleteQuestionDb(questionId) {
 
 module.exports = {
   getQuestionsDb,
+  getOneQuestionDb,
   postQuestionDb,
   updateQuestionDb,
   deleteQuestionDb,

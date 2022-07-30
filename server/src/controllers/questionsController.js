@@ -1,4 +1,4 @@
-const { getQuestionsDb, postQuestionDb, updateQuestionDb, deleteQuestionDb } = require('../models/questionsModel');
+const { getQuestionsDb, getOneQuestionDb, postQuestionDb, updateQuestionDb, deleteQuestionDb } = require('../models/questionsModel');
 
 async function getQuestions(req, res) {
   try {
@@ -6,6 +6,17 @@ async function getQuestions(req, res) {
     return res.json(questions);
   } catch (err) {
     console.log('error in get questions controller:', err);
+    return res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+}
+
+async function getOneQuestion(req, res) {
+  const { questionId } = req.params;
+  try {
+    const question = await getOneQuestionDb(questionId);
+    return res.json(question);
+  } catch (err) {
+    console.log('error in get single question controller:', err);
     return res.status(500).json({ success: false, message: 'Something went wrong.' });
   }
 }
@@ -66,6 +77,7 @@ async function deleteQuestion(req, res) {
 
 module.exports = {
   getQuestions,
+  getOneQuestion,
   postQuestion,
   updateQuestion,
   deleteQuestion,
