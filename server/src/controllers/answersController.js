@@ -1,8 +1,14 @@
-const { getAnswersDb, postAnswerDb, updateAnswerDb, deleteAnswerDb } = require('../models/answersModel');
+const {
+  getAnswersDb,
+  postAnswerDb,
+  updateAnswerDb,
+  deleteAnswerDb,
+} = require('../models/answersModel');
 
 async function getAnswers(req, res) {
+  const { questionId } = req.params;
   try {
-    const answers = await getAnswersDb();
+    const answers = await getAnswersDb(questionId);
     return res.json(answers);
   } catch (err) {
     console.log('error in get answers controller:', err);
@@ -12,7 +18,8 @@ async function getAnswers(req, res) {
 
 async function postAnswer(req, res) {
   const { userId } = req;
-  const { questionId, content } = req.body;
+  const { questionId } = req.params;
+  const { content } = req.body;
   try {
     const insertResult = await postAnswerDb(userId, questionId, content);
     if (insertResult.affectedRows === 1) {

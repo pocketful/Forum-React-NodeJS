@@ -4,8 +4,8 @@ const validateToken = require('../middlewares/validateToken');
 
 const answersRoute = express.Router();
 
-answersRoute.get('/answers', controller.getAnswers);
-answersRoute.post('/answers', validateToken, controller.postAnswer);
+answersRoute.get('/questions/:questionId/answers', controller.getAnswers);
+answersRoute.post('/questions/:questionId/answers', validateToken, controller.postAnswer);
 answersRoute.patch('/answers/:answerId', validateToken, controller.updateAnswer);
 answersRoute.delete('/answers/:answerId', validateToken, controller.deleteAnswer);
 

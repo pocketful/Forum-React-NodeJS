@@ -1,8 +1,8 @@
 const executeDb = require('../utils/executeDb');
 
-function getAnswersDb() {
-  const sql = 'SELECT * FROM answers WHERE archived = 0';
-  return executeDb(sql);
+function getAnswersDb(questionId) {
+  const sql = 'SELECT * FROM answers WHERE question_id = ? AND archived = 0';
+  return executeDb(sql, [questionId]);
 }
 
 function postAnswerDb(userId, questionId, content) {
@@ -10,12 +10,12 @@ function postAnswerDb(userId, questionId, content) {
   return executeDb(sql, [userId, questionId, content]);
 }
 
-async function updateAnswerDb(answerId, content) {
+function updateAnswerDb(answerId, content) {
   const sql = 'UPDATE answers SET content = ? WHERE answer_id = ?';
   return executeDb(sql, [content, answerId]);
 }
 
-async function deleteAnswerDb(answerId) {
+function deleteAnswerDb(answerId) {
   const sql = 'UPDATE answers SET archived = 1 WHERE answer_id = ?';
   return executeDb(sql, [answerId]);
 }
