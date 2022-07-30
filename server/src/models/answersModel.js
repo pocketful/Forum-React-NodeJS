@@ -5,7 +5,7 @@ async function getAnswersDb() {
   let conn;
   try {
     conn = await mysql.createConnection(dbConfig);
-    const sql = 'SELECT * FROM answers';
+    const sql = 'SELECT * FROM answers WHERE archived = 0';
     const [answers] = await conn.execute(sql, []);
     return answers;
   } catch (err) {
@@ -31,11 +31,27 @@ async function postAnswerDb(userId, questionId, content) {
   }
 }
 
+async function updateAnswerDb(answerId, content) {
+  let conn;
+  try {
+    conn = await mysql.createConnection(dbConfig);
+    const sql = 'UPDATE answers SET content = ? WHERE answer_id = ?';
+    const [updateResult] = await conn.execute(sql, [content, answerId]);
+    return updateResult;
+  } catch (err) {
+    console.log('error in update answer model:', err);
+    throw err;
+  } finally {
+    conn?.end();
+  }
+}
+
 async function deleteAnswerDb(answerId) {
   let conn;
   try {
     conn = await mysql.createConnection(dbConfig);
-    const sql = 'DELETE FROM answers WHERE answer_id = ?';
+    const sql = 'UPDATE answers SET archived = 1 WHERE answer_id = ?';
+    // const sql = 'DELETE FROM answers WHERE answer_id = ?';
     const [deleteResult] = await conn.execute(sql, [answerId]);
     return deleteResult;
   } catch (err) {
@@ -49,5 +65,6 @@ async function deleteAnswerDb(answerId) {
 module.exports = {
   getAnswersDb,
   postAnswerDb,
+  updateAnswerDb,
   deleteAnswerDb,
 };

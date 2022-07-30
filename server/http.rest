@@ -68,3 +68,13 @@ Content-Type: application/json
 
 
 ### ----------------------------------
+PATCH http://localhost:3000/api/answers/10
+Content-Type: application/json
+
+{
+  "content": "update answer content"
+}
+
+
+### ----------------------------------
+DELETE http://localhost:3000/api/answers/10
