@@ -25,6 +25,11 @@ function getAnswerVotesDb(answerId) {
   return executeDb(sql, [answerId]);
 }
 
+function postAnswerVoteDb(answerId, userId, vote) {
+  const sql = 'INSERT INTO answers_votes (answer_id, user_id, vote) VALUES (?, ?, ?)';
+  return executeDb(sql, [answerId, userId, vote]);
+}
+
 // const mysql = require('mysql2/promise');
 // const { dbConfig } = require('../config');
 
@@ -95,4 +100,5 @@ module.exports = {
   updateAnswerDb,
   deleteAnswerDb,
   getAnswerVotesDb,
+  postAnswerVoteDb,
 };

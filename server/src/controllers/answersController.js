@@ -4,6 +4,7 @@ const {
   updateAnswerDb,
   deleteAnswerDb,
   getAnswerVotesDb,
+  postAnswerVoteDb,
 } = require('../models/answersModel');
 
 async function getAnswers(req, res) {
@@ -83,10 +84,30 @@ async function getAnswerVotes(req, res) {
   }
 }
 
+async function postAnswerVote(req, res) {
+  const { answerId } = req.params;
+  const { userId } = req;
+  const { vote } = req.body;
+  try {
+    const insertResult = await postAnswerVoteDb(answerId, userId, vote);
+    if (insertResult.affectedRows === 1) {
+      return res.status(201).json({ success: true, message: 'Your vote successfully added.' });
+    }
+    return res.status(400).json({ success: false, message: 'Failed to add new vote.' });
+  } catch (err) {
+    console.log('error in vote controller:', err);
+    if (err.errno === 1054) {
+      return res.status(400).json({ success: false, message: 'Bad request.' });
+    }
+    return res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+}
+
 module.exports = {
   getAnswers,
   postAnswer,
   updateAnswer,
   deleteAnswer,
   getAnswerVotes,
+  postAnswerVote,
 };
