@@ -1,4 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
+import Header from './components/Header/Header';
+import Container from './components/UI/Container/Container';
 import AddQuestionPage from './pages/AddQuestionPage';
 import AnswersPage from './pages/AnswersPage';
 import NotFoundPage from './pages/ErrorPages/NotFoundPage';
@@ -9,6 +11,8 @@ import RegisterPage from './pages/RegisterPage';
 function App() {
   return (
     <div className="App">
+      <Header />
+      <Container>
         <Switch>
           <Route path="/login">
             <LoginPage />
@@ -29,6 +33,7 @@ function App() {
             <NotFoundPage />
           </Route>
         </Switch>
+      </Container>
     </div>
   );
 }

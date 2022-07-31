@@ -1,0 +1,26 @@
+.header {
+  background-color: #000;
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.5em;
+}
+
+.img {
+  max-height: 30px;
+  margin: 0.5em;
+}
+
+.nav {
+  display: flex;
+}
+.nav > a {
+  padding: 0.5em;
+}
+.nav > a:hover {
+  color: #e4e4e4;
+}
+.nav > a:active,
+.nav > a.active {
+  color: #2ccbff;
+}
