@@ -1,9 +1,10 @@
 import { Route, Switch } from 'react-router-dom';
+import NotFoundError from './components/Errors/NotFoundError';
+import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Container from './components/UI/Container/Container';
 import AddQuestionPage from './pages/AddQuestionPage';
 import AnswersPage from './pages/AnswersPage';
-import NotFoundPage from './pages/ErrorPages/NotFoundPage';
 import LoginPage from './pages/LoginPage';
 import QuestionsPage from './pages/QuestionsPage';
 import RegisterPage from './pages/RegisterPage';
@@ -11,8 +12,8 @@ import RegisterPage from './pages/RegisterPage';
 function App() {
   return (
     <div className="App">
-      <Header />
       <Container>
+      <Header />
         <Switch>
           <Route path="/login">
             <LoginPage />
@@ -30,9 +31,10 @@ function App() {
             <QuestionsPage />
           </Route>
           <Route path="*">
-            <NotFoundPage />
+            <NotFoundError />
           </Route>
         </Switch>
+        <Footer />
       </Container>
     </div>
   );
