@@ -22,5 +22,6 @@
 }
 .nav > a:active,
 .nav > a.active {
-  color: #2ccbff;
+  /* color: #2ccbff; */
+  color: #81b3c5;
 }
