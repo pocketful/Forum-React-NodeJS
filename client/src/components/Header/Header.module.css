@@ -7,13 +7,11 @@
 }
 
 .img {
+  display: block;
   max-height: 30px;
   margin: 0.5em;
 }
 
-.nav {
-  display: flex;
-}
 .nav > a {
   padding: 0.5em;
 }

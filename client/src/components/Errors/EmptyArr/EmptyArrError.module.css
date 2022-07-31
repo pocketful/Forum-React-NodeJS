@@ -1,0 +1,10 @@
+.wrapper {
+  margin: auto;
+  text-align: center;
+  width: 40%;
+}
+
+.text {
+  font-size: 1.1rem;
+  padding-bottom: 1em;
+}

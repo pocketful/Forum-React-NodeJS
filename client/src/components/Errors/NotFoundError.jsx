@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import Button from '../../components/UI/Button/Button';
-import style from './ErrorPage.module.css';
+import Button from '../UI/Button/Button';
+import style from './Errors.module.css';
 
-function NotFoundPage() {
+function NotFoundError() {
   return (
     <div className={style.wrapper}>
       <p className={style.title}>404</p>
@@ -12,14 +12,14 @@ function NotFoundPage() {
       </p>
       <div className={style.btnWrapper}>
         <Link to="/login">
-          <Button>Go to login page</Button>
+          <Button>Login</Button>
         </Link>
         <Link to="/">
-          <Button>Go to homepage</Button>
+          <Button>Register</Button>
         </Link>
       </div>
     </div>
   );
 }
 
-export default NotFoundPage;
+export default NotFoundError;
