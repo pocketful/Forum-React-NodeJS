@@ -1,0 +1,76 @@
+.card {
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.909);
+  box-shadow: 1px 1px 2px 1px gainsboro;
+  padding: 1em 1.5em;
+  border: 1px solid transparent;
+  /* border-bottom: 1px solid rgb(0 0 0 / 11%); */
+  margin-bottom: 10px;
+}
+
+.title {
+  color: #4f7b8b;
+  margin-bottom: 0.5em;
+  font-size: 1.25rem;
+  border-bottom: 1px solid rgba(201, 200, 200, 0.5);
+}
+.title:hover {
+  color: #000;
+}
+.title:active {
+  color: #334c56;
+}
+
+.content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 0.5em;
+}
+
+.grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'count created'
+    'count updated';
+}
+
+.count {
+  grid-area: count;
+  text-align: start;
+  font-weight: 600;
+}
+
+.created {
+  grid-area: created;
+  text-align: end;
+  font-size: 0.9rem;
+  color: rgb(72, 72, 72);
+}
+
+.updated {
+  grid-area: updated;
+  text-align: end;
+  font-size: 0.9rem;
+  color: grey;
+}
+
+@media screen and (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'count'
+      'created'
+      'updated';
+    gap: 0px;
+  }
+  .created,
+  .updated {
+    text-align: start;
+  }
+  .count {
+    padding-bottom: 0.5em;
+  }
+}
