@@ -2,11 +2,12 @@ import { Link, NavLink } from 'react-router-dom';
 import style from './Header.module.css';
 import Flex from '../UI/Flex/Flex';
 import logo from '../../assets/img/logo.png';
+import Container from '../UI/Container/Container';
 
 function Header() {
   return (
     <header className={style.header}>
-      {/* <Container> */}
+      <Container>
       <Flex jc="spaceBetween" dir="column">
         {/* <div className={style.flex}> */}
           <Link to="/">
@@ -28,7 +29,7 @@ function Header() {
           </nav>
         </Flex>
         {/* </div> */}
-      {/* </Container> */}
+      </Container>
     </header>
   );
 }
