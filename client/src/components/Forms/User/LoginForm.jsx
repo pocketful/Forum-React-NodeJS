@@ -1,11 +1,12 @@
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 import { postFetch } from '../../../helpers/fetch';
 import {
   inputFeedback,
   inputFeedbackText,
 } from '../../../helpers/inputFeedback/inputFeedback';
+import AuthContext from '../../../store/authContext';
 import Button from '../../UI/Button/Button';
 import style from './UserForm.module.css';
 
@@ -16,6 +17,7 @@ const initialValues = {
 
 function LoginForm() {
   const [feedbackCommon, setFeedbackCommon] = useState({ msg: '', class: '' });
+  const { login } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues,
@@ -29,6 +31,7 @@ function LoginForm() {
       console.log('submitted values: ', values);
       if (result.success) {
         setFeedbackCommon({ msg: result.message, class: 'danger' });
+        login(values.email);
         return;
       }
       setFeedbackCommon({ msg: result.message, class: 'success' });
