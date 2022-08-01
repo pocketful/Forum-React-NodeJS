@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 export const AuthContext = createContext({
   isLoggedIn: false,
@@ -35,6 +35,11 @@ function AuthProvider({ children }) {
   };
 
   return <AuthContext.Provider value={ctx}>{children}</AuthContext.Provider>;
+}
+
+// custom hook for auth context
+export function useAuthCtx() {
+  return useContext(AuthContext);
 }
 
 export default AuthProvider;

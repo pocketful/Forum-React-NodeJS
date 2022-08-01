@@ -4,7 +4,8 @@ input.inputErr {
 }
 
 input.inputSucc {
-  border: 2px solid #1a7f48; /* #1a7f2f90; */
+  /* border: 2px solid #1a7f48; #1a7f2f90; */
+  border: 2px solid #2d714b; /* #1a7f2f90; */
 }
 
 .inputFeedbackMsg {
@@ -18,5 +19,6 @@ input.inputSucc {
 
 .inputSuccMsg {
   composes: inputFeedbackMsg;
-  color: #1a7f48;
+  /* color: #1a7f48; */
+  color: #2d714b;
 }
