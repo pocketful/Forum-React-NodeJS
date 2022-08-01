@@ -30,11 +30,11 @@ function LoginForm() {
       const result = await postFetch('login', values);
       console.log('submitted values: ', values);
       if (result.success) {
-        setFeedbackCommon({ msg: result.message, class: 'danger' });
-        login(values.email);
+        setFeedbackCommon({ msg: result.message, class: 'success' });
+        login(result.token, values.email);
         return;
       }
-      setFeedbackCommon({ msg: result.message, class: 'success' });
+      setFeedbackCommon({ msg: result.message, class: 'danger' });
     },
   });
 
