@@ -3,7 +3,7 @@ const executeDb = require('../utils/executeDb');
 function getAnswersDb(questionId) {
   // with votes, user username and image
   const sql =
-    'SELECT answers.*, SUM(answers_votes.vote) AS votes, users.username, users.image FROM answers LEFT JOIN answers_votes ON answers.answer_id = answers_votes.answer_id LEFT JOIN users ON answers.user_id = users.user_id WHERE answers.archived = 0 GROUP BY answers.answer_id;';
+    'SELECT answers.*, SUM(answers_votes.vote) AS votes, users.username, users.image FROM answers LEFT JOIN answers_votes ON answers.answer_id = answers_votes.answer_id LEFT JOIN users ON answers.user_id = users.user_id WHERE answers.archived = 0 AND question_id = ? GROUP BY answers.answer_id';
   // const sql = 'SELECT * FROM answers WHERE question_id = ? AND archived = 0';
   return executeDb(sql, [questionId]);
 }

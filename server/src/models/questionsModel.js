@@ -10,7 +10,10 @@ function getQuestionsDb() {
 }
 
 function getOneQuestionDb(questionId) {
-  const sql = 'SELECT * FROM questions WHERE question_id = ? AND archived = 0';
+  // with username, image:
+  const sql =
+    'SELECT questions.*, users.username, users.image FROM questions LEFT JOIN users ON questions.user_id = users.user_id WHERE question_id = ? AND archived = 0';
+  // const sql = 'SELECT * FROM questions WHERE question_id = ? AND archived = 0';
   return executeDb(sql, [questionId]);
 }
 
