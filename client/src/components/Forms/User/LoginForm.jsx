@@ -33,13 +33,13 @@ function LoginForm() {
             name="email"
             placeholder="Email"
             className={`${style.input} ${
-              formik.errors.email ? style.inputErr : ''
+              formik.touched.email && formik.errors.email ? style.inputErr : ''
             }`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
           />
-          {formik.errors.email && (
+          {formik.touched.email && formik.errors.email && (
             <p className={style.inputErrMsg}>{formik.errors.email}</p>
           )}
         </div>
@@ -55,7 +55,7 @@ function LoginForm() {
             onBlur={formik.handleBlur}
             value={formik.values.password}
           />
-          {formik.errors.password && (
+          {formik.touched.password && formik.errors.password && (
             <p className={style.inputErrMsg}>{formik.errors.password}</p>
           )}
         </div>
