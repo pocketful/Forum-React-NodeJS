@@ -1,29 +1,62 @@
+import { useFormik } from 'formik';
+import { useState } from 'react';
+import * as Yup from 'yup';
+import { postFetch } from '../../../helpers/fetch';
 import Button from '../../UI/Button/Button';
+import Input from '../../UI/Input/Input';
 import style from '../User/UserForm.module.css';
 
-function AddQuestionForm() {
+const initialValues = {
+  title: '',
+  content: '',
+};
+
+function AddQuestionForm({ onSuccessPost }) {
+  const [feedbackCommon, setFeedbackCommon] = useState({
+    message: '',
+    class: '',
+  });
+  const formik = useFormik({
+    initialValues,
+    validationSchema: Yup.object({
+      title: Yup.string().min(3).max(255).required(),
+      content: Yup.string().min(3).required(),
+    }),
+    onSubmit: async (values) => {
+      const result = await postFetch('questions', values);
+      // console.log('submitted values: ', values);
+      console.log('result: ', result);
+      if (!result.success) {
+        setFeedbackCommon({ message: result.message, class: 'danger' });
+        return;
+      }
+      setFeedbackCommon({ message: result.message, class: 'success' });
+      setTimeout(() => {
+        onSuccessPost();
+      }, 2000);
+    },
+  });
+
   return (
     <>
       <h2>Ask a public question</h2>
-      <form className={style.wrapper}>
+      <form onSubmit={formik.handleSubmit} className={style.wrapper}>
+        <Input type="text" name="title" placeholder="Title" formik={formik} />
+        <Input
+          type="textarea"
+          name="content"
+          placeholder="More information about your question"
+          formik={formik}
+        />
         <div className={style.group}>
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            className={style.input}
-          />
+          <Button type="submit">Post your question</Button>
+          {/* <Button type="submit" isDisabled={!(formik.dirty && formik.isValid)}>Post your question</Button> */}
         </div>
-        <div className={style.group}>
-          <textarea
-            name="content"
-            placeholder="Content"
-            className={`${style.input} ${style.textarea}`}
-          />
-        </div>
-        <div className={style.group}>
-          <Button>Post your question</Button>
-        </div>
+        {feedbackCommon.message.length !== 0 && (
+          <p className={style[feedbackCommon.class]}>
+            {feedbackCommon.message}
+          </p>
+        )}
       </form>
     </>
   );
