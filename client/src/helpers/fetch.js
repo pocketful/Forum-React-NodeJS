@@ -1,9 +1,16 @@
 import { baseUrl } from '../config';
 
-export async function getFetch(endpoint) {
+export async function getFetch(endpoint, token = null) {
   try {
-    const resp = await fetch(`${baseUrl}/${endpoint}`);
-    console.log('resp:', resp);
+    const authorization = token
+      ? {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      : {};
+    const resp = await fetch(`${baseUrl}/${endpoint}`, authorization);
+    // console.log('resp fetch:', resp);
     if (resp.ok) {
       return resp.json();
     }
