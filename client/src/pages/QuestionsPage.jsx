@@ -41,7 +41,7 @@ function QuestionsPage() {
       ) : !isServerOn ? (
         <ServerError />
       ) : questionsArr.length === 0 ? (
-        <EmptyArrError name="answers" />
+        <EmptyArrError name="questions" />
       ) : (
         <QuestionsCardList data={questionsArr} />
       )}

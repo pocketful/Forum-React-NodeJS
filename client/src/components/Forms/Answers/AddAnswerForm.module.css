@@ -1,7 +1,11 @@
-.wrapper {
+.wrapperBig {
+  margin-top: 2rem;
+}
+
+/* .wrapper {
   margin: auto;
   width: 40%;
-}
+} */
 
 .group {
   margin-bottom: 1em;
@@ -43,8 +47,4 @@
   .wrapper {
     width: 100%;
   }
-}
-
-.wrapperBig {
-  margin: 2rem 0 ;
 }

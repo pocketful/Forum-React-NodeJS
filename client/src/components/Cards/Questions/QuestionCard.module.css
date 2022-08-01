@@ -25,12 +25,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-bottom: 0.5em;
+  padding-bottom: 1.5em;  
 }
 
 .grid {
   display: grid;
-  gap: 10px;
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
     'count created'
@@ -64,7 +63,6 @@
       'count'
       'created'
       'updated';
-    gap: 0px;
   }
   .created,
   .updated {

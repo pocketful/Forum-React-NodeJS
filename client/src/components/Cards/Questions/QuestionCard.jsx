@@ -19,7 +19,7 @@ function QuestionCard(props) {
   
   return (
     <article className={style.card}>
-      <Link to={`questions/${question_id}/answers`}>
+      <Link to={`${question_id}/answers`}>
         <h3 className={style.title}>{title}</h3>
       </Link>
       <p className={style.content}>{content}</p>
