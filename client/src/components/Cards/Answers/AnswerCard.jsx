@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 import formattedDate from '../../../helpers/date';
 import Image from '../../UI/Image/Image';
+import Icon from '../../UI/Icon/Icon';
 
 // answer_id, user_id, question_id, content, created_at, updated_at, archived, votes, username, image
 function AnswerCard(props) {
@@ -22,16 +23,20 @@ function AnswerCard(props) {
   return (
     <article className={style.card}>
       <p className={style.content}>{content}</p>
-      {/* <div className={style.grid}> */}
 
       <div className={style.flexBig}>
-        <p className={style.votes}>{98}</p>
+        <div className={style.votesWrapper}>
+          <Icon icon="fa-thumbs-o-up" />
+          <p className={style.votes}>{votes}</p>
+          <Icon icon="fa-thumbs-o-down" />
+        </div>
 
         <div className={style.flex}>
           <div className={style.dates}>
             <p className={style.created}>
               {`asked on `}
-              {createdAtFormatted} by <em>{username}</em>
+              {createdAtFormatted} by{' '}
+              <em className={style.username}>{username}</em>
             </p>
             {updated_at !== null && (
               <p className={style.updated}>
@@ -42,6 +47,15 @@ function AnswerCard(props) {
           </div>
           <Image srcText={image} altText={`${username} profile image`} />
         </div>
+      </div>
+
+      <div className={style.updateDeleteWrapper}>
+        <span>
+          Update <Icon icon="fa-pencil" size="small" />
+        </span>
+        <span>
+          Delete <Icon icon="fa-trash" size="small" />
+        </span>
       </div>
     </article>
   );

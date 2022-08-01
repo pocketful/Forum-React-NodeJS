@@ -14,7 +14,7 @@
 .flexBig {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   gap: 10px;
 }
 
@@ -32,9 +32,20 @@
   line-height: 1.2;
 }
 
+.username {
+  color: #4f7b8b;
+}
+
+.votesWrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .votes {
-  font-size: 1.3rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: black;
   color: #4f7b8b;
 }
 
@@ -49,6 +60,14 @@
   padding-top: 0.2rem;
 }
 
+.updateDeleteWrapper {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  font-size: 0.9rem;
+  margin-top: 1em;
+}
+
 @media screen and (max-width: 650px) {
   .flexBig {
     flex-direction: column;
@@ -57,6 +76,9 @@
   .flex {
     flex-direction: row-reverse;
     align-items: flex-end;
+  }
+  .updateDeleteWrapper {
+    flex-direction: row-reverse;
   }
   .dates {
     align-items: flex-start;

@@ -2,6 +2,7 @@ import style from './SingleQuestionCard.module.css';
 import PropTypes from 'prop-types';
 import formattedDate from '../../../helpers/date';
 import Image from '../../UI/Image/Image';
+import Icon from '../../UI/Icon/Icon';
 
 // question_id, user_id, title, content, created_at, updated_at, archived, username, image
 function SingleQuestionCard(props) {
@@ -27,7 +28,7 @@ function SingleQuestionCard(props) {
         <div className={style.dates}>
           <p className={style.created}>
             {`asked on `}
-            {createdAtFormatted} by <em>{username}</em>
+            {createdAtFormatted} by <em className={style.username}>{username}</em>
           </p>
           {updated_at !== null && (
             <p className={style.updated}>
@@ -37,6 +38,14 @@ function SingleQuestionCard(props) {
           )}
         </div>
         <Image srcText={image} altText={`${username} profile image`} />
+      </div>
+      <div className={style.updateDeleteWrapper}>
+        <span>
+          Update <Icon icon="fa-pencil" size="small" />
+        </span>
+        <span>
+          Delete <Icon icon="fa-trash" size="small" />
+        </span>
       </div>
     </article>
   );

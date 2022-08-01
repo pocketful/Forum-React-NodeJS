@@ -1,0 +1,19 @@
+.icon {
+  color: #4f7b8b;
+  color: #000;
+}
+
+.icon:hover {
+  color: #4f7b8b;
+  cursor: pointer;
+}
+
+.normal {
+  composes: icon;
+  font-size: 1.6rem;
+}
+
+.small {
+  composes: icon;
+  font-size: 1.3rem;
+}

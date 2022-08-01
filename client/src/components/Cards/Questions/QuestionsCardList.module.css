@@ -4,3 +4,26 @@
   color: black;
   padding: 2%;
 }
+
+.filterWrapper {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.filterItem {
+  display: flex;
+  align-items: center;
+}
+
+.filterItemSpan {
+  padding-right: 5px;
+}
+
+.filterItem:hover {
+  cursor: pointer;
+  /* color: #4f7b8b; */
+  text-decoration: underline;
+}
