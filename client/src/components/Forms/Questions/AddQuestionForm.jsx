@@ -1,7 +1,9 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { postFetch } from '../../../helpers/fetch';
+import { useAuthCtx } from '../../../store/authContext';
 import Button from '../../UI/Button/Button';
 import Input from '../../UI/Input/Input';
 import style from '../User/UserForm.module.css';
@@ -12,6 +14,10 @@ const initialValues = {
 };
 
 function AddQuestionForm({ onSuccessPost }) {
+  const history = useHistory();
+  const { token } = useAuthCtx();
+  if (!token) history.replace('/login');
+
   const [feedbackCommon, setFeedbackCommon] = useState({
     message: '',
     class: '',
@@ -23,7 +29,7 @@ function AddQuestionForm({ onSuccessPost }) {
       content: Yup.string().min(3).required(),
     }),
     onSubmit: async (values) => {
-      const result = await postFetch('questions', values);
+      const result = await postFetch('questions', values, token);
       // console.log('submitted values: ', values);
       console.log('result: ', result);
       if (!result.success) {
