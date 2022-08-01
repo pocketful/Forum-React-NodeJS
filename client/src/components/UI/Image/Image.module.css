@@ -1,0 +1,4 @@
+.image {
+  grid-area: image;
+  max-height: 50px;
+}
