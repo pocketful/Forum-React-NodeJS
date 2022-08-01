@@ -1,6 +1,7 @@
 import style from './QuestionCard.module.css';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import formattedDate from '../../../helpers/date';
 
 // question_id, user_id, title, content, created_at, updated_at, archived, answers_count, username
 function QuestionCard(props) {
@@ -13,8 +14,9 @@ function QuestionCard(props) {
     answers_count,
     username,
   } = props;
-  const createdAtFormatted = new Date(created_at).toUTCString().slice(0, -4);
-  const updatedAtFormatted = new Date(updated_at).toUTCString().slice(0, -4);
+  const createdAtFormatted = formattedDate(created_at);
+  const updatedAtFormatted = formattedDate(updated_at);
+  
   return (
     <article className={style.card}>
       <Link to={`questions/${question_id}/answers`}>
