@@ -79,6 +79,14 @@ h2 {
   line-height: 1.5;
 }
 
+h4 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 0.3em;
+  margin-top: 0.8em;
+}
+
 @media screen and (max-width: 420px) {
   /* body {
     background-size: auto;

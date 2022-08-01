@@ -1,22 +1,21 @@
 .card {
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.909);
+  box-shadow: 1px 1px 2px 1px gainsboro;
   padding: 1em 1.5em;
-  border: 3px solid #4f7b8b;
-  /* border-bottom: 1px solid rgb(0 0 0 / 11%); */
+  border: 1px solid transparent;
   margin-bottom: 10px;
 }
 
-.title {
-  color: #4f7b8b;
-  margin-bottom: 0.5em;
-  font-size: 2rem;
-  border-bottom: 1px solid rgba(201, 200, 200, 0.5);
+.content {
+  padding-bottom: 1em;
 }
 
-.content {
-  color: black;
-  padding-bottom: 1em;
+.flexBig {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }
 
 .flex {
@@ -33,6 +32,12 @@
   line-height: 1.2;
 }
 
+.votes {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #4f7b8b;
+}
+
 .created {
   font-size: 0.9rem;
   color: rgb(72, 72, 72);
@@ -41,9 +46,14 @@
 .updated {
   font-size: 0.9rem;
   color: grey;
+  padding-top: 0.2rem;
 }
 
 @media screen and (max-width: 650px) {
+  .flexBig {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   .flex {
     flex-direction: row-reverse;
     align-items: flex-end;
@@ -51,6 +61,9 @@
   .dates {
     align-items: flex-start;
     line-height: 1.2;
+  }
+  .votes {
+    align-self: center;
   }
 }
 
