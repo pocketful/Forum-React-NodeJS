@@ -8,6 +8,7 @@ import Icon from '../../UI/Icon/Icon';
 // answer_id, user_id, question_id, content, created_at, updated_at, archived, votes, username, image
 function AnswerCard(props) {
   const {
+    answer_id,
     // user_id,
     // question_id,
     content,
@@ -16,6 +17,8 @@ function AnswerCard(props) {
     votes,
     username,
     image,
+    onUpdate,
+    onDelete,
   } = props;
   const createdAtFormatted = formattedDate(created_at);
   const updatedAtFormatted = formattedDate(updated_at);
@@ -51,10 +54,20 @@ function AnswerCard(props) {
 
       <div className={style.updateDeleteWrapper}>
         <span>
-          Update <Icon icon="fa-pencil" size="small" />
+          Update{' '}
+          <Icon
+            icon="fa-pencil"
+            size="small"
+            onClick={() => onUpdate(answer_id)}
+          />
         </span>
         <span>
-          Delete <Icon icon="fa-trash" size="small" />
+          Delete{' '}
+          <Icon
+            icon="fa-trash"
+            size="small"
+            onClick={() => onDelete(answer_id)}
+          />
         </span>
       </div>
     </article>

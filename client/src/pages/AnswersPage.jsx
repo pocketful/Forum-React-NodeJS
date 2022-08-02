@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import EmptyArrError from '../components/Errors/EmptyArr/EmptyArrError';
 import ServerError from '../components/Errors/ServerError';
 import Loader from '../components/UI/Loader/Loader';
-import { getFetch } from '../helpers/fetch';
+import { deleteFetch, getFetch } from '../helpers/fetch';
 import { useAuthCtx } from '../store/authContext';
 import AddAnswerForm from '../components/Forms/Answers/AddAnswerForm';
 import AnswersCardList from '../components/Cards/Answers/AnswersCardList';
@@ -46,6 +46,25 @@ function AnswersPage() {
     }
   }
 
+  async function updateAnsHandler(answerId) {
+    console.log('updateAnsHandler', answerId);
+  }
+
+  async function deleteAnsHandler(answerId) {
+    console.log('deleteAnsHandler', answerId);
+    try {
+      const deleteResult = await deleteFetch(`answers/${answerId}`, token);
+      console.log('deleteResult:', deleteResult);
+      if (!deleteResult.success) {
+        console.log('failed to delete');
+        return;
+      }
+      getAnswers();
+    } catch (err) {
+      console.log('err in deleteAnsHandler:', err);
+    }
+  }
+
   useEffect(() => {
     if (token) {
       getAnswers();
@@ -67,7 +86,11 @@ function AnswersPage() {
           <div className={style.wrapper}>
             <SingleQuestionCard data={oneQuestion} />
             <h4 className={style.title}>Read all answers</h4>
-            <AnswersCardList data={answersArr} />
+            <AnswersCardList
+              data={answersArr}
+              onUpdate={updateAnsHandler}
+              onDelete={deleteAnsHandler}
+            />
           </div>
           <AddAnswerForm />
         </>
