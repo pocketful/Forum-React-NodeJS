@@ -56,6 +56,10 @@
   color: grey;
 }
 
+.username {
+  color: #4f7b8b;
+}
+
 @media screen and (max-width: 700px) {
   .grid {
     grid-template-columns: 1fr;

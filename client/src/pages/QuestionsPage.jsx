@@ -24,6 +24,24 @@ function QuestionsPage() {
     }
   }
 
+  function filterUnansweredHandler() {
+    const questionsArrCopy = [...questionsArr];
+    const unansweredQuestions = questionsArrCopy.filter(
+      (qObj) => qObj.answers_count === 0,
+    );
+    console.log('unansweredQuestions', unansweredQuestions);
+    setQuestionsArr(unansweredQuestions);
+  }
+
+  function filterAnsweredHandler() {
+    const questionsArrCopy = [...questionsArr];
+    const answeredQuestions = questionsArrCopy.filter(
+      (qObj) => qObj.answers_count === 0,
+    );
+    console.log('answeredQuestions', answeredQuestions);
+    setQuestionsArr(answeredQuestions);
+  }
+
   function sortByAnswersHandler() {
     const questionsArrCopy = [...questionsArr];
     if (sortByAnsDown) {
@@ -71,6 +89,9 @@ function QuestionsPage() {
           data={questionsArr}
           onSortAnswers={sortByAnswersHandler}
           onSortDate={sortByDateHandler}
+          onFilterUnanswered={filterUnansweredHandler}
+          onFilterAnswered={filterAnsweredHandler}
+          onFilterAll={getQuestions}
         />
       )}
     </>

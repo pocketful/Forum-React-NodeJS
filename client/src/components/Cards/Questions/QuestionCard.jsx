@@ -16,7 +16,7 @@ function QuestionCard(props) {
   } = props;
   const createdAtFormatted = formattedDate(created_at);
   const updatedAtFormatted = formattedDate(updated_at);
-  
+
   return (
     <article className={style.card}>
       <Link to={`${question_id}/answers`}>
@@ -31,7 +31,7 @@ function QuestionCard(props) {
 
         <p className={style.created}>
           {`asked on `}
-          {createdAtFormatted} by <em>{username}</em>
+          {createdAtFormatted} by <em className={style.username}>{username}</em>
         </p>
         {updated_at !== null && (
           <p className={style.updated}>
