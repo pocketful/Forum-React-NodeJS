@@ -19,12 +19,15 @@ function EditQuestionForm({ onSuccessPost }) {
     message: '',
     class: '',
   });
-
   async function getQuestion() {
     try {
-      const question = await getFetch(`questions/${id}/answers`, token);
+      const question = await getFetch(`questions/${id}`, token);
+      console.log('question', question);
       if (question) {
-        setInitialValues({ title: question.title, content: question.content });
+        setInitialValues({
+          title: question[0].title,
+          content: question[0].content,
+        });
         return;
       }
     } catch (err) {
@@ -55,9 +58,7 @@ function EditQuestionForm({ onSuccessPost }) {
   });
 
   useEffect(() => {
-    if (token) {
-      getQuestion();
-    }
+    getQuestion();
   }, []);
 
   return (

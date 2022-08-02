@@ -39,7 +39,10 @@ function EditAnswerForm({ onSuccessPost }) {
       content: Yup.string().min(3).required(),
     }),
     onSubmit: async (values) => {
-      if (!token) toast.error('You have to login first.');
+      if (!token) {
+        toast.error('You have to login first.');
+        return;
+      }
       const result = await updateOneFetch(`answers/${answerId}`, values, token);
       // console.log('result: ', result);
       if (!result.success) {
@@ -54,9 +57,7 @@ function EditAnswerForm({ onSuccessPost }) {
   });
 
   useEffect(() => {
-    if (token) {
-      getAnswerById();
-    }
+    getAnswerById();
   }, []);
 
   return (

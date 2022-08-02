@@ -16,18 +16,18 @@ function Header() {
             <img className={style.img} src={logo} alt="logo" />
           </Link>
           <nav className={style.nav}>
+            <>
+              <NavLink exact to="/" activeClassName={style.active}>
+                Questions
+              </NavLink>
+              <NavLink to="/add" activeClassName={style.active}>
+                Ask Question
+              </NavLink>
+            </>
             {isLoggedIn && (
-              <>
-                <NavLink exact to="/" activeClassName={style.active}>
-                  Questions
-                </NavLink>
-                <NavLink to="/add" activeClassName={style.active}>
-                  Ask Question
-                </NavLink>
-                <Link to="/login" onClick={logout}>
-                  Logout
-                </Link>
-              </>
+              <Link to="/login" onClick={logout}>
+                Logout
+              </Link>
             )}
             {!isLoggedIn && (
               <>

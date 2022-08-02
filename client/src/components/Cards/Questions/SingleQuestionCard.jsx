@@ -45,7 +45,7 @@ function SingleQuestionCard(props) {
       </div>
       <div className={style.updateDeleteWrapper}>
         <span>
-          Update
+          Update{' '}
           <Link to={`/${question_id}/editQuestion`}>
             <Icon
               icon="fa-pencil"

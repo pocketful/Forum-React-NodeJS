@@ -1,7 +1,6 @@
 import style from './AnswersPage.module.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import EmptyArrError from '../components/Errors/EmptyArr/EmptyArrError';
 import ServerError from '../components/Errors/ServerError';
 import Loader from '../components/UI/Loader/Loader';
 import { deleteFetch, getFetch } from '../helpers/fetch';
@@ -44,11 +43,14 @@ function AnswersPage() {
   }
 
   async function deleteAnsHandler(answerId) {
+    if (!token) {
+      toast.error('You have to login first.');
+      return;
+    }
     window.alert('Are you sure you want to delete this answer?');
     try {
       const deleteResult = await deleteFetch(`answers/${answerId}`, token);
       // console.log('deleteResult:', deleteResult);
-      if (!token) toast.error('You have to login first.');
       if (!deleteResult.success) {
         console.log('failed to delete');
         toast.error(deleteResult.message);
@@ -62,10 +64,8 @@ function AnswersPage() {
   }
 
   useEffect(() => {
-    if (token) {
-      getAnswers();
-      getQuestion();
-    }
+    getAnswers();
+    getQuestion();
   }, []);
 
   return (
@@ -75,21 +75,19 @@ function AnswersPage() {
         <Loader />
       ) : !isServerOn ? (
         <ServerError />
-      ) : answersArr.length === 0 ? (
-        <>
-          <EmptyArrError name="answers" />
-          <AddAnswerForm />
-        </>
       ) : (
         <>
           <div className={style.wrapper}>
-            <SingleQuestionCard
-              data={oneQuestion}
-            />
-            <h4 className={style.title}>Read all answers</h4>
+            <SingleQuestionCard data={oneQuestion} />
+            {answersArr.length !== 0 ? (
+              <h4 className={style.title}>Read all answers</h4>
+            ) : (
+              <h4 className={style.title}>There are no answers yet.</h4>
+            )}
             <AnswersCardList
               data={answersArr}
               onDelete={deleteAnsHandler}
+              dataUpdated={getAnswers}
             />
           </div>
           <AddAnswerForm dataUpdated={getAnswers} />

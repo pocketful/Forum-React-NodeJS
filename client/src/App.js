@@ -10,6 +10,7 @@ import QuestionsPage from './pages/QuestionsPage';
 import RegisterPage from './pages/RegisterPage';
 import { Toaster } from 'react-hot-toast';
 import EditAnswerPage from './pages/EditAnswerPage';
+import EditQuestionPage from './pages/EditQuestionPage';
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route exact path="/:id/editAnswer/:answerId">
             <EditAnswerPage />
+          </Route>
+          <Route exact path="/:id/editQuestion">
+            <EditQuestionPage />
           </Route>
           <Route path="*">
             <NotFoundError />
