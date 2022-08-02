@@ -8,13 +8,12 @@ import Button from '../../UI/Button/Button';
 import Input from '../../UI/Input/Input';
 import style from '../User/UserForm.module.css';
 import toast from 'react-hot-toast';
-// import style from './AddAnswerForm.module.css';
 
 const initialValues = {
   content: '',
 };
 
-function AddAnswerForm() {
+function AddAnswerForm({ dataUpdated }) {
   const { id } = useParams();
   const { token } = useAuthCtx();
   const [feedbackCommon, setFeedbackCommon] = useState({
@@ -30,15 +29,13 @@ function AddAnswerForm() {
       if (!token) toast.error('You have to login first.');
       const result = await postFetch(`questions/${id}/answers`, values, token);
       // console.log('submitted values: ', values);
-      console.log('result: ', result);
+      // console.log('result: ', result);
       if (!result.success) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
         return;
       }
       setFeedbackCommon({ message: result.message, class: 'success' });
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      dataUpdated();
     },
   });
 

@@ -1,12 +1,12 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { postFetch } from '../../../helpers/fetch';
 import { useAuthCtx } from '../../../store/authContext';
 import Button from '../../UI/Button/Button';
 import Input from '../../UI/Input/Input';
 import style from '../User/UserForm.module.css';
+import toast from 'react-hot-toast';
 
 const initialValues = {
   title: '',
@@ -14,10 +14,7 @@ const initialValues = {
 };
 
 function AddQuestionForm({ onSuccessPost }) {
-  const history = useHistory();
   const { token } = useAuthCtx();
-  if (!token) history.replace('/login');
-
   const [feedbackCommon, setFeedbackCommon] = useState({
     message: '',
     class: '',
@@ -29,6 +26,7 @@ function AddQuestionForm({ onSuccessPost }) {
       content: Yup.string().min(3).required(),
     }),
     onSubmit: async (values) => {
+      if (!token) toast.error('You have to login first.');
       const result = await postFetch('questions', values, token);
       // console.log('submitted values: ', values);
       console.log('result: ', result);
