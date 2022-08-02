@@ -7,6 +7,7 @@ import { getFetch } from '../helpers/fetch';
 
 function QuestionsPage() {
   const [questionsArr, setQuestionsArr] = useState([]);
+  const [sortByAnsDown, setSortByAnsDown] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [isServerOn, setIsServerOn] = useState(true);
 
@@ -23,6 +24,18 @@ function QuestionsPage() {
     }
   }
 
+  function sortAnswersHandler() {
+    const questionsArrCopy = [...questionsArr];
+    if (sortByAnsDown) {
+      questionsArrCopy.sort((a, b) => b.answers_count - a.answers_count);
+    } else {
+      questionsArrCopy.sort((a, b) => a.answers_count - b.answers_count);
+    }
+    console.log('sortNewestHandler');
+    setSortByAnsDown(!sortByAnsDown);
+    setQuestionsArr(questionsArrCopy);
+  }
+ 
   useEffect(() => {
     getQuestions();
   }, []);
@@ -37,7 +50,10 @@ function QuestionsPage() {
       ) : questionsArr.length === 0 ? (
         <EmptyArrError name="questions" />
       ) : (
-        <QuestionsCardList data={questionsArr} />
+        <QuestionsCardList
+          data={questionsArr}
+          onSortAnswers={sortAnswersHandler}
+        />
       )}
     </>
   );

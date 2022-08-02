@@ -3,19 +3,24 @@ import PropTypes from 'prop-types';
 import QuestionCard from './QuestionCard';
 import Icon from '../../UI/Icon/Icon';
 
-function QuestionsCardList({ data }) {
+function QuestionsCardList({ data, onSortAnswers }) {
+
   return (
     <div className={style.wrapper}>
       <div className={style.filterWrapper}>
+
         <div className={style.filterItem}>
           <span className={style.filterItemSpan}>Unanswered</span>
           <Icon icon="fa-eye" size="small" />
         </div>
+
         <div className={style.filterItem}>
+        {/* <div className={style.filterItem} onClick={onSortData}> */}
           <span className={style.filterItemSpan}>Newest </span>
           <Icon icon="fa-sort" size="small" />
         </div>
-        <div className={style.filterItem}>
+
+        <div className={style.filterItem} onClick={onSortAnswers}>
           <span className={style.filterItemSpan}>Most Answers</span>
           <Icon icon="fa-sort" size="small" />
         </div>
