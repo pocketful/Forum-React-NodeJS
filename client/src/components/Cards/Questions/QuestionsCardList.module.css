@@ -24,6 +24,6 @@
 
 .filterItem:hover {
   cursor: pointer;
-  /* color: #4f7b8b; */
-  text-decoration: underline;
+  color: #4f7b8b;
+  /* text-decoration: underline; */
 }

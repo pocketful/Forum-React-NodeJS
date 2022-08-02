@@ -3,19 +3,16 @@ import PropTypes from 'prop-types';
 import QuestionCard from './QuestionCard';
 import Icon from '../../UI/Icon/Icon';
 
-function QuestionsCardList({ data, onSortAnswers }) {
-
+function QuestionsCardList({ data, onSortAnswers, onSortDate }) {
   return (
     <div className={style.wrapper}>
       <div className={style.filterWrapper}>
-
         <div className={style.filterItem}>
           <span className={style.filterItemSpan}>Unanswered</span>
           <Icon icon="fa-eye" size="small" />
         </div>
 
-        <div className={style.filterItem}>
-        {/* <div className={style.filterItem} onClick={onSortData}> */}
+        <div className={style.filterItem} onClick={onSortDate}>
           <span className={style.filterItemSpan}>Newest </span>
           <Icon icon="fa-sort" size="small" />
         </div>

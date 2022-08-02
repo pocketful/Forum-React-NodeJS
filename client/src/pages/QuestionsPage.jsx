@@ -8,13 +8,13 @@ import { getFetch } from '../helpers/fetch';
 function QuestionsPage() {
   const [questionsArr, setQuestionsArr] = useState([]);
   const [sortByAnsDown, setSortByAnsDown] = useState(true);
+  const [sortByDateDown, setSortByDateDown] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [isServerOn, setIsServerOn] = useState(true);
 
   async function getQuestions() {
     try {
       const data = await getFetch('/questions');
-      // console.log('data:', data);
       setQuestionsArr(data);
     } catch (err) {
       console.log('error in getQuestions: ', err);
@@ -24,18 +24,35 @@ function QuestionsPage() {
     }
   }
 
-  function sortAnswersHandler() {
+  function sortByAnswersHandler() {
     const questionsArrCopy = [...questionsArr];
     if (sortByAnsDown) {
       questionsArrCopy.sort((a, b) => b.answers_count - a.answers_count);
     } else {
       questionsArrCopy.sort((a, b) => a.answers_count - b.answers_count);
     }
-    console.log('sortNewestHandler');
     setSortByAnsDown(!sortByAnsDown);
     setQuestionsArr(questionsArrCopy);
   }
- 
+
+  function sortByDateHandler() {
+    const questionsArrCopy = [...questionsArr];
+    console.log('questionsArrCopy', questionsArrCopy);
+    if (sortByDateDown) {
+      questionsArrCopy.sort(
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      );
+    } else {
+      questionsArrCopy.sort(
+        (a, b) =>
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+      );
+    }
+    setSortByDateDown(!sortByDateDown);
+    setQuestionsArr(questionsArrCopy);
+  }
+
   useEffect(() => {
     getQuestions();
   }, []);
@@ -52,7 +69,8 @@ function QuestionsPage() {
       ) : (
         <QuestionsCardList
           data={questionsArr}
-          onSortAnswers={sortAnswersHandler}
+          onSortAnswers={sortByAnswersHandler}
+          onSortDate={sortByDateHandler}
         />
       )}
     </>
