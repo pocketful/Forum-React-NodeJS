@@ -1,5 +1,3 @@
-// import { Link } from 'react-router-dom';
-// import Button from '../../UI/Button/Button';
 import style from './EmptyArrError.module.css';
 import PropTypes from 'prop-types';
 

@@ -1,6 +1,5 @@
 import style from './AnswerCard.module.css';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
 import formattedDate from '../../../helpers/date';
 import Image from '../../UI/Image/Image';
 import Icon from '../../UI/Icon/Icon';
@@ -21,7 +20,6 @@ function AnswerCard(props) {
     votes,
     username,
     image,
-    // onUpdate,
     onDelete,
     dataUpdated,
   } = props;
@@ -32,7 +30,6 @@ function AnswerCard(props) {
 
   async function upVoteHandler(answerId) {
     const upVote = { vote: 1 };
-    // console.log('up answerId', answerId);
     if (!token) toast.error('You have to login first.');
     const result = await postFetch(`answers/${answerId}`, upVote, token);
     if (!result.success) {
@@ -43,7 +40,6 @@ function AnswerCard(props) {
   }
 
   async function downVoteHandler(answerId) {
-    //console.log('down answerId', answerId);
     const downVote = { vote: -1 };
     if (!token) toast.error('You have to login first.');
     const result = await postFetch(`answers/${answerId}`, downVote, token);
@@ -96,7 +92,6 @@ function AnswerCard(props) {
             <Icon
               icon="fa-pencil"
               size="small"
-              // onClick={() => onUpdate(answer_id)}
             />
           </Link>
         </span>

@@ -25,8 +25,6 @@ function LoginForm({ onSuccessLogin }) {
     
     onSubmit: async (values) => {
       const result = await postFetch('login', values);
-      // console.log('submitted values: ', values);
-      console.log('result: ', result);
       if (!result.success) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
         return;
@@ -52,7 +50,6 @@ function LoginForm({ onSuccessLogin }) {
         />
         <div className={style.group}>
           <Button type="submit">Sign In</Button>
-          {/* <Button type="submit" isDisabled={!(formik.dirty && formik.isValid)}>Sign In</Button> */}
         </div>
         {feedbackCommon.message.length !== 0 && (
           <p className={style[feedbackCommon.class]}>{feedbackCommon.message}</p>

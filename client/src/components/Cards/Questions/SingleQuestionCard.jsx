@@ -34,9 +34,7 @@ function SingleQuestionCard(props) {
     window.alert('Are you sure you want to delete this question?');
     try {
       const deleteResult = await deleteFetch(`questions/${questionId}`, token);
-      // console.log('deleteResult:', deleteResult);
       if (!deleteResult.success) {
-        // console.log('failed to delete');
         toast.error(deleteResult.message);
         return;
       }
@@ -45,7 +43,7 @@ function SingleQuestionCard(props) {
         history.push('/');
       }, 3000);
     } catch (err) {
-      console.log('err in deleteQueHandler:', err);
+      console.error('err in deleteQueHandler:', err);
     }
   }
 

@@ -23,7 +23,7 @@ function AnswersPage() {
       const data = await getFetch(`questions/${id}/answers`, token);
       setAnswersArr(data);
     } catch (err) {
-      console.log('error in getAnswers: ', err);
+      console.error('error in getAnswers: ', err);
       setIsServerOn(false);
     } finally {
       setIsLoading(false);
@@ -35,7 +35,7 @@ function AnswersPage() {
       const data = await getFetch(`questions/${id}`, token);
       setOneQuestion(data[0]);
     } catch (err) {
-      console.log('error in getQuestions: ', err);
+      console.error('error in getQuestions: ', err);
       setIsServerOn(false);
     } finally {
       setIsLoading(false);
@@ -50,16 +50,14 @@ function AnswersPage() {
     window.alert('Are you sure you want to delete this answer?');
     try {
       const deleteResult = await deleteFetch(`answers/${answerId}`, token);
-      // console.log('deleteResult:', deleteResult);
       if (!deleteResult.success) {
-        console.log('failed to delete');
         toast.error(deleteResult.message);
         return;
       }
       getAnswers();
       toast.success(deleteResult.message);
     } catch (err) {
-      console.log('err in deleteAnsHandler:', err);
+      console.error('err in deleteAnsHandler:', err);
     }
   }
 

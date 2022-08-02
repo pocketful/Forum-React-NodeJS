@@ -28,8 +28,6 @@ function AddQuestionForm({ onSuccessPost }) {
     onSubmit: async (values) => {
       if (!token) toast.error('You have to login first.');
       const result = await postFetch('questions', values, token);
-      // console.log('submitted values: ', values);
-      console.log('result: ', result);
       if (!result.success) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
         return;
@@ -54,7 +52,6 @@ function AddQuestionForm({ onSuccessPost }) {
         />
         <div className={style.group}>
           <Button type="submit">Post your question</Button>
-          {/* <Button type="submit" isDisabled={!(formik.dirty && formik.isValid)}>Post your question</Button> */}
         </div>
         {feedbackCommon.message.length !== 0 && (
           <p className={style[feedbackCommon.class]}>

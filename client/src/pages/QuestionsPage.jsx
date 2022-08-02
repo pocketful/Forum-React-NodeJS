@@ -17,7 +17,7 @@ function QuestionsPage() {
       const data = await getFetch('/questions');
       setQuestionsArr(data);
     } catch (err) {
-      console.log('error in getQuestions: ', err);
+      console.error('error in getQuestions: ', err);
       setIsServerOn(false);
     } finally {
       setIsLoading(false);
@@ -29,7 +29,6 @@ function QuestionsPage() {
     const unansweredQuestions = questionsArrCopy.filter(
       (qObj) => qObj.answers_count === 0,
     );
-    console.log('unansweredQuestions', unansweredQuestions);
     setQuestionsArr(unansweredQuestions);
   }
 
@@ -38,7 +37,6 @@ function QuestionsPage() {
     const answeredQuestions = questionsArrCopy.filter(
       (qObj) => qObj.answers_count === 0,
     );
-    console.log('answeredQuestions', answeredQuestions);
     setQuestionsArr(answeredQuestions);
   }
 
@@ -55,7 +53,6 @@ function QuestionsPage() {
 
   function sortByDateHandler() {
     const questionsArrCopy = [...questionsArr];
-    console.log('questionsArrCopy', questionsArrCopy);
     if (sortByDateDown) {
       questionsArrCopy.sort(
         (a, b) =>

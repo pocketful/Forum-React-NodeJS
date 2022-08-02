@@ -34,8 +34,6 @@ function RegisterForm({ onSuccessRegister }) {
     }),
     onSubmit: async (values) => {
       const result = await postFetch('register', values);
-      // console.log('submitted values: ', values);
-      console.log('result: ', result);
       if (!result.success) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
         return;
@@ -78,7 +76,6 @@ function RegisterForm({ onSuccessRegister }) {
         />
         <div className={style.group}>
           <Button type="submit">Sign Up</Button>
-          {/* <Button type="submit" isDisabled={!(formik.dirty && formik.isValid)}>Sign In</Button> */}
         </div>
         {feedbackCommon.message.length !== 0 && (
           <p className={style[feedbackCommon.class]}>

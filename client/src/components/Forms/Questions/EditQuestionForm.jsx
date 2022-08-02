@@ -22,7 +22,6 @@ function EditQuestionForm({ onSuccessPost }) {
   async function getQuestion() {
     try {
       const question = await getFetch(`questions/${id}`, token);
-      console.log('question', question);
       if (question) {
         setInitialValues({
           title: question[0].title,
@@ -31,7 +30,7 @@ function EditQuestionForm({ onSuccessPost }) {
         return;
       }
     } catch (err) {
-      console.log('error in getQuestion:', err);
+      console.error('error in getQuestion:', err);
     }
   }
 
@@ -45,7 +44,6 @@ function EditQuestionForm({ onSuccessPost }) {
     onSubmit: async (values) => {
       if (!token) toast.error('You have to login first.');
       const result = await updateFetch(`questions/${id}`, values, token);
-      // console.log('result: ', result);
       if (!result.success) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
         return;

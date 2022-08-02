@@ -1,6 +1,9 @@
 import style from './Input.module.css';
 import PropTypes from 'prop-types';
-import { inputFeedback, inputFeedbackText } from '../../../helpers/inputFeedback/inputFeedback';
+import {
+  inputFeedback,
+  inputFeedbackText,
+} from '../../../helpers/inputFeedback/inputFeedback';
 function Input({ type = 'text', name, placeholder, children, formik }) {
   if (type === 'textarea') {
     return (
@@ -11,7 +14,7 @@ function Input({ type = 'text', name, placeholder, children, formik }) {
           className={`${style.textarea} ${inputFeedback(name, formik)}`}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values[name]}
+          value={formik.values[name] || ''}
         >
           {children}
         </textarea>
@@ -28,7 +31,7 @@ function Input({ type = 'text', name, placeholder, children, formik }) {
         className={`${style.input} ${inputFeedback(name, formik)}`}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values[name]}
+        value={formik.values[name] || ''}
       />
       {inputFeedbackText(name, formik)}
     </div>

@@ -28,7 +28,7 @@ function EditAnswerForm({ onSuccessPost }) {
         return;
       }
     } catch (err) {
-      console.log('error in getAnswerById: ', err);
+      console.error('error in getAnswerById: ', err);
     }
   }
 
@@ -44,7 +44,6 @@ function EditAnswerForm({ onSuccessPost }) {
         return;
       }
       const result = await updateOneFetch(`answers/${answerId}`, values, token);
-      // console.log('result: ', result);
       if (!result.success) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
         return;
