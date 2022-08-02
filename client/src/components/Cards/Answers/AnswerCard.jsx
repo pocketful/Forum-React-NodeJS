@@ -5,6 +5,9 @@ import formattedDate from '../../../helpers/date';
 import Image from '../../UI/Image/Image';
 import Icon from '../../UI/Icon/Icon';
 import { Link } from 'react-router-dom';
+import { useAuthCtx } from '../../../store/authContext';
+import toast from 'react-hot-toast';
+import { postFetch } from '../../../helpers/fetch';
 
 // answer_id, user_id, question_id, content, created_at, updated_at, archived, votes, username, image
 function AnswerCard(props) {
@@ -20,9 +23,36 @@ function AnswerCard(props) {
     image,
     // onUpdate,
     onDelete,
+    dataUpdated,
   } = props;
+  const { token } = useAuthCtx();
+
   const createdAtFormatted = formattedDate(created_at);
   const updatedAtFormatted = formattedDate(updated_at);
+
+  async function upVoteHandler(answerId) {
+    const upVote = { vote: 1 };
+    // console.log('up answerId', answerId);
+    if (!token) toast.error('You have to login first.');
+    const result = await postFetch(`answers/${answerId}`, upVote, token);
+    if (!result.success) {
+      toast.error('We cannot include your vote, please try again later');
+      return;
+    }
+    dataUpdated();
+  }
+
+  async function downVoteHandler(answerId) {
+    //console.log('down answerId', answerId);
+    const downVote = { vote: -1 };
+    if (!token) toast.error('You have to login first.');
+    const result = await postFetch(`answers/${answerId}`, downVote, token);
+    if (!result.success) {
+      toast.error('We cannot include your vote, please try again later');
+      return;
+    }
+    dataUpdated();
+  }
 
   return (
     <article className={style.card}>
@@ -30,9 +60,15 @@ function AnswerCard(props) {
 
       <div className={style.flexBig}>
         <div className={style.votesWrapper}>
-          <Icon icon="fa-thumbs-o-up" />
-          <p className={style.votes}>{votes}</p>
-          <Icon icon="fa-thumbs-o-down" />
+          <Icon
+            icon="fa-thumbs-o-up"
+            onClick={() => upVoteHandler(answer_id)}
+          />
+          <p className={style.votes}>{!votes ? 0 : votes}</p>
+          <Icon
+            icon="fa-thumbs-o-down"
+            onClick={() => downVoteHandler(answer_id)}
+          />
         </div>
 
         <div className={style.flex}>

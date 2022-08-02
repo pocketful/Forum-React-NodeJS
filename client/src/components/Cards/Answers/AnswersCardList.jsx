@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import AnswerCard from './AnswerCard';
 
-function AnswersCardList({ data, onDelete }) {
+function AnswersCardList({ data, onDelete, dataUpdated }) {
   // function AnswersCardList({ data, onUpdate, onDelete }) {
   return (
     <>
@@ -11,6 +11,7 @@ function AnswersCardList({ data, onDelete }) {
           {...dataObj}
           // onUpdate={onUpdate}
           onDelete={onDelete}
+          dataUpdated={dataUpdated}
         />
       ))}
     </>

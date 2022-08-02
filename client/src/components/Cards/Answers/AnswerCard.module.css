@@ -47,6 +47,8 @@
   font-weight: 700;
   color: black;
   color: #4f7b8b;
+  min-width: 30px;
+  text-align: center;
 }
 
 .created {
