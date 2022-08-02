@@ -58,7 +58,7 @@ export async function deleteFetch(endpoint, token) {
   }
 }
 
-export async function updateFetch(endpoint, token) {
+export async function updateFetch(endpoint, inputData, token) {
   try {
     const resp = await fetch(`${baseUrl}/${endpoint}`, {
       method: 'PUT',
@@ -66,6 +66,7 @@ export async function updateFetch(endpoint, token) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(inputData),
     });
     // console.log('resp fetch:', resp);
     if (resp.ok) {
@@ -77,7 +78,7 @@ export async function updateFetch(endpoint, token) {
   }
 }
 
-export async function updateOneFetch(endpoint, token) {
+export async function updateOneFetch(endpoint, inputData, token) {
   try {
     const resp = await fetch(`${baseUrl}/${endpoint}`, {
       method: 'PATCH',
@@ -85,6 +86,7 @@ export async function updateOneFetch(endpoint, token) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(inputData),
     });
     // console.log('resp fetch:', resp);
     if (resp.ok) {
@@ -95,5 +97,3 @@ export async function updateOneFetch(endpoint, token) {
     throw err;
   }
 }
-
-

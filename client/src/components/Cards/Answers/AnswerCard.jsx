@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import formattedDate from '../../../helpers/date';
 import Image from '../../UI/Image/Image';
 import Icon from '../../UI/Icon/Icon';
+import { Link } from 'react-router-dom';
 
 // answer_id, user_id, question_id, content, created_at, updated_at, archived, votes, username, image
 function AnswerCard(props) {
@@ -17,7 +18,7 @@ function AnswerCard(props) {
     votes,
     username,
     image,
-    onUpdate,
+    // onUpdate,
     onDelete,
   } = props;
   const createdAtFormatted = formattedDate(created_at);
@@ -55,12 +56,17 @@ function AnswerCard(props) {
       <div className={style.updateDeleteWrapper}>
         <span>
           Update{' '}
-          <Icon
-            icon="fa-pencil"
-            size="small"
-            onClick={() => onUpdate(answer_id)}
-          />
+          <Link to={`editAnswer/${answer_id}`}>
+            <Icon
+              icon="fa-pencil"
+              size="small"
+              // onClick={() => onUpdate(answer_id)}
+            />
+          </Link>
         </span>
+        {/* <ButtonIcon onClick={() => deleteHandler(question_id)}>
+          <Icon icon="fa-trash" size="small" /> Delete
+        </ButtonIcon> */}
         <span>
           Delete{' '}
           <Icon

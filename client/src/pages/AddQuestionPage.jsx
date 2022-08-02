@@ -5,8 +5,8 @@ function AddQuestionPage() {
   const history = useHistory();
   return (
     <>
-      <h1>Question</h1>
-      <AddQuestionForm onSuccessPost={() => history.replace('/')} />
+      <h1>Add a Question</h1>
+      <AddQuestionForm onSuccessPost={() => history.push('/')} />
     </>
   );
 }

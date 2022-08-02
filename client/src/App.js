@@ -8,10 +8,13 @@ import AnswersPage from './pages/AnswersPage';
 import LoginPage from './pages/LoginPage';
 import QuestionsPage from './pages/QuestionsPage';
 import RegisterPage from './pages/RegisterPage';
+import { Toaster } from 'react-hot-toast';
+import EditAnswerPage from './pages/EditAnswerPage';
 
 function App() {
   return (
     <div className="App">
+      <Toaster />
       <Header />
       <Container>
         <Switch>
@@ -29,6 +32,9 @@ function App() {
           </Route>
           <Route exact path="/">
             <QuestionsPage />
+          </Route>
+          <Route exact path="/:id/editAnswer/:answerId">
+            <EditAnswerPage />
           </Route>
           <Route path="*">
             <NotFoundError />
