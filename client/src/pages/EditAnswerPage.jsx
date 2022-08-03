@@ -5,7 +5,7 @@ function EditAnswerPage() {
   const history = useHistory();
   return (
     <>
-      <h1>Edit answer</h1>
+      <h1>Answer</h1>
       <EditAnswerForm onSuccessPost={() => history.goBack()} />
     </>
   );
