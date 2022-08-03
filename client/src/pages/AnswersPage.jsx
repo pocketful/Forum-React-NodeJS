@@ -29,7 +29,7 @@ function AnswersPage() {
       setIsLoading(false);
     }
   }
-  console.log('oneQuestion', oneQuestion);
+
   async function getQuestion() {
     try {
       const data = await getFetch(`questions/${id}`, token);

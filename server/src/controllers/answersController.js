@@ -5,6 +5,8 @@ const {
   deleteAnswerDb,
   getAnswerVotesDb,
   postAnswerVoteDb,
+  getAnswerVoteDb,
+  updateAnswerVoteDb,
 } = require('../models/answersModel');
 
 async function getAnswers(req, res) {
@@ -103,6 +105,37 @@ async function postAnswerVote(req, res) {
   }
 }
 
+async function updateAnswerVote(req, res) {
+  const { answerId } = req.params;
+  const { content } = req.body;
+  const { userId } = req;
+  try {
+    const updateResult = await updateAnswerVoteDb(answerId, userId, content);
+    console.log('updateResult', updateResult);
+    if (updateResult.affectedRows === 1) {
+      return res.status(201).json({ success: true, message: 'Your vote successfully updated.' });
+    }
+    return res.status(400).json({ success: false, message: 'Failed to update a vote.' });
+  } catch (err) {
+    console.log('error in update vote controller:', err);
+    if (err.errno === 1054) {
+      return res.status(400).json({ success: false, message: 'Bad request.' });
+    }
+    return res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+}
+
+async function getAnswerVote(req, res) {
+  const { answerId } = req.params;
+  try {
+    const votes = await getAnswerVoteDb(answerId);
+    return res.json(votes);
+  } catch (err) {
+    console.log('error in get votes controller:', err);
+    return res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+}
+
 module.exports = {
   getAnswers,
   postAnswer,
@@ -110,4 +143,6 @@ module.exports = {
   deleteAnswer,
   getAnswerVotes,
   postAnswerVote,
+  updateAnswerVote,
+  getAnswerVote
 };

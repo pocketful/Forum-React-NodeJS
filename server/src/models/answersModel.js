@@ -32,6 +32,17 @@ function postAnswerVoteDb(answerId, userId, vote) {
   return executeDb(sql, [answerId, userId, vote]);
 }
 
+function updateAnswerVoteDb(answerId, userId, vote) {
+  const sql = 'UPDATE answers_votes SET vote = ? WHERE answer_id = ? and user_id = ?';
+  return executeDb(sql, [answerId, userId, vote]);
+}
+
+function getAnswerVoteDb(answerId) {
+  const sql =
+    'SELECT answers_votes.*, users.email FROM answers_votes  LEFT JOIN users ON answers_votes.user_id = users.user_id WHERE answer_id = ?';
+  return executeDb(sql, [answerId]);
+}
+
 module.exports = {
   getAnswersDb,
   postAnswerDb,
@@ -39,4 +50,6 @@ module.exports = {
   deleteAnswerDb,
   getAnswerVotesDb,
   postAnswerVoteDb,
+  updateAnswerVoteDb,
+  getAnswerVoteDb,
 };

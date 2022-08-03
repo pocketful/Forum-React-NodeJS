@@ -12,5 +12,7 @@ answersRoute.delete('/answers/:answerId', validateToken, controller.deleteAnswer
 // answers votes:
 answersRoute.get('/answers/:answerId', controller.getAnswerVotes);
 answersRoute.post('/answers/:answerId', validateToken, controller.postAnswerVote);
+answersRoute.patch('/answerss/:answerId', validateToken, controller.updateAnswerVote);
+answersRoute.get('/answerss/:answerId', validateToken, controller.getAnswerVote);
 
 module.exports = answersRoute;

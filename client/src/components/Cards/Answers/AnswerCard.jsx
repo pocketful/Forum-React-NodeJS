@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { getFetch, postFetch, updateOneFetch } from '../../../helpers/fetch';
 import style from './AnswerCard.module.css';
 import PropTypes from 'prop-types';
 import formattedDate from '../../../helpers/date';
@@ -6,7 +8,6 @@ import Icon from '../../UI/Icon/Icon';
 import { Link } from 'react-router-dom';
 import { useAuthCtx } from '../../../store/authContext';
 import toast from 'react-hot-toast';
-import { postFetch } from '../../../helpers/fetch';
 
 // answer_id, user_id, question_id, content, created_at, updated_at, archived, votes, username, email, image
 function AnswerCard(props) {
@@ -24,15 +25,49 @@ function AnswerCard(props) {
     onDelete,
     dataUpdated,
   } = props;
+  const [votesArr, setVotesArr] = useState([]);
   const { token, userEmail } = useAuthCtx();
 
   const createdAtFormatted = formattedDate(created_at);
   const updatedAtFormatted = formattedDate(updated_at);
 
+  async function getVotes() {
+    try {
+      const data = await getFetch(`/answerss/${answer_id}`, token);
+      setVotesArr(data);
+    } catch (err) {
+      console.error('error in getVotes: ', err);
+    }
+  }
+
+  useEffect(() => {
+    getVotes();
+  }, []);
+
   async function upVoteHandler(answerId) {
-    const upVote = { vote: 1 };
     if (!token) toast.error('You have to login first.');
-    const result = await postFetch(`answers/${answerId}`, upVote, token);
+    getVotes();
+    const isUserVote = votesArr.find((v) => v.email === userEmail);
+    // console.log('userEmail', userEmail);
+    // console.log('isUserVote', isUserVote);
+    // console.log('votesArr', votesArr);
+    if (isUserVote) {
+      const upVote0 = { vote: 0 };
+      console.log('isUserVote true');
+      const result = await updateOneFetch(
+        `answerss/${answerId}`,
+        upVote0,
+        token,
+      );
+      if (!result.success) {
+        toast.error('We cannot include your vote, please try again later');
+        return;
+      }
+      dataUpdated();
+      return;
+    }
+    const upVote1 = { vote: 1 };
+    const result = await postFetch(`answers/${answerId}`, upVote1, token);
     if (!result.success) {
       toast.error('We cannot include your vote, please try again later');
       return;
@@ -41,9 +76,29 @@ function AnswerCard(props) {
   }
 
   async function downVoteHandler(answerId) {
-    const downVote = { vote: -1 };
     if (!token) toast.error('You have to login first.');
-    const result = await postFetch(`answers/${answerId}`, downVote, token);
+    getVotes();
+    const isUserVote = votesArr.find((v) => v.email === userEmail);
+    // console.log('userEmail', userEmail);
+    // console.log('isUserVote', isUserVote);
+    // console.log('votesArr', votesArr);
+    if (isUserVote) {
+      const upVote0 = { vote: 0 };
+      console.log('isUserVote true');
+      const result = await updateOneFetch(
+        `answerss/${answerId}`,
+        upVote0,
+        token,
+      );
+      if (!result.success) {
+        toast.error('We cannot include your vote, please try again later');
+        return;
+      }
+      dataUpdated();
+      return;
+    }
+    const upVote1 = { vote: -1 };
+    const result = await postFetch(`answers/${answerId}`, upVote1, token);
     if (!result.success) {
       toast.error('We cannot include your vote, please try again later');
       return;
