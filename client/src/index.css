@@ -98,3 +98,9 @@ h4 {
     line-height: 1;
   }
 }
+
+@media screen and (max-width: 600px) {
+  h4 {
+    margin-top: 0;
+  }
+}

@@ -75,4 +75,7 @@
   .count {
     padding-bottom: 0.5em;
   }
+  .content {
+    padding-bottom: 1.2em;  
+  }
 }

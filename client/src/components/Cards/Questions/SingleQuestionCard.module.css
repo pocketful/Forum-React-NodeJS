@@ -3,7 +3,6 @@
   background: rgba(255, 255, 255, 0.909);
   padding: 1em 1.5em;
   border: 3px solid #4f7b8b;
-  /* border-bottom: 1px solid rgb(0 0 0 / 11%); */
   margin-bottom: 10px;
 }
 
@@ -12,6 +11,7 @@
   margin-bottom: 0.5em;
   font-size: 2rem;
   border-bottom: 1px solid rgba(201, 200, 200, 0.5);
+  line-height: 1.4;
 }
 
 .content {
