@@ -8,8 +8,8 @@ import Input from '../../UI/Input/Input';
 import style from './UserForm.module.css';
 
 const initialValues = {
-  email: 'hermionegranger@email.com',
-  password: 'secret123',
+  email: '',
+  password: '',
 };
 
 function LoginForm({ onSuccessLogin }) {

@@ -29,11 +29,11 @@ function AnswersPage() {
       setIsLoading(false);
     }
   }
-
+  console.log('oneQuestion', oneQuestion);
   async function getQuestion() {
     try {
       const data = await getFetch(`questions/${id}`, token);
-      setOneQuestion(data[0]);
+      setOneQuestion(data[0]);   
     } catch (err) {
       console.error('error in getQuestions: ', err);
       setIsServerOn(false);

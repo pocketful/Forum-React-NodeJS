@@ -35,7 +35,7 @@ function QuestionsPage() {
   function filterAnsweredHandler() {
     const questionsArrCopy = [...questionsArr];
     const answeredQuestions = questionsArrCopy.filter(
-      (qObj) => qObj.answers_count === 0,
+      (qObj) => qObj.answers_count !== 0,
     );
     setQuestionsArr(answeredQuestions);
   }

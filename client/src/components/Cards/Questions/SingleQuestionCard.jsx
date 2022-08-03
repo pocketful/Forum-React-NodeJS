@@ -8,7 +8,7 @@ import { deleteFetch } from '../../../helpers/fetch';
 import toast from 'react-hot-toast';
 import { useAuthCtx } from '../../../store/authContext';
 
-// question_id, user_id, title, content, created_at, updated_at, archived, username, image
+// question_id, user_id, title, content, created_at, updated_at, archived, username, email, image
 function SingleQuestionCard(props) {
   const {
     question_id,
@@ -17,12 +17,13 @@ function SingleQuestionCard(props) {
     created_at,
     updated_at,
     username,
+    email,
     image,
   } = props.data;
 
-  const { token } = useAuthCtx();
+  const { token, userEmail } = useAuthCtx();
   const history = useHistory();
-  
+
   const createdAtFormatted = formattedDate(created_at);
   const updatedAtFormatted = formattedDate(updated_at);
 
@@ -67,22 +68,24 @@ function SingleQuestionCard(props) {
         </div>
         <Image srcText={image} altText={`${username} profile image`} />
       </div>
-      <div className={style.updateDeleteWrapper}>
-        <span>
-          Update{' '}
-          <Link to={`/${question_id}/editQuestion`}>
-            <Icon icon="fa-pencil" size="small" />
-          </Link>
-        </span>
-        <span>
-          Delete{' '}
-          <Icon
-            icon="fa-trash"
-            size="small"
-            onClick={() => deleteQueHandler(question_id)}
-          />
-        </span>
-      </div>
+      {userEmail === email && (
+        <div className={style.updateDeleteWrapper}>
+          <span>
+            Update{' '}
+            <Link to={`/${question_id}/editQuestion`}>
+              <Icon icon="fa-pencil" size="small" />
+            </Link>
+          </span>
+          <span>
+            Delete{' '}
+            <Icon
+              icon="fa-trash"
+              size="small"
+              onClick={() => deleteQueHandler(question_id)}
+            />
+          </span>
+        </div>
+      )}
     </article>
   );
 }

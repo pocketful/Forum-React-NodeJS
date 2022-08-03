@@ -42,11 +42,6 @@ function QuestionsCardList(props) {
           <span className={style.filterItemSpan}>By Answers</span>
           <Icon icon="fa-sort" size="small" />
         </div>
-        {/* 
-        <Icon icon="fa-eye-slash" /> 
-        <Icon icon="fa-sort-desc" />
-        <Icon icon="fa-sort-asc" />
-        */}
       </div>
 
       {data.map((dataObj) => (

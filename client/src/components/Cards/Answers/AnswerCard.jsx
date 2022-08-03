@@ -8,7 +8,7 @@ import { useAuthCtx } from '../../../store/authContext';
 import toast from 'react-hot-toast';
 import { postFetch } from '../../../helpers/fetch';
 
-// answer_id, user_id, question_id, content, created_at, updated_at, archived, votes, username, image
+// answer_id, user_id, question_id, content, created_at, updated_at, archived, votes, username, email, image
 function AnswerCard(props) {
   const {
     answer_id,
@@ -19,11 +19,12 @@ function AnswerCard(props) {
     updated_at,
     votes,
     username,
+    email,
     image,
     onDelete,
     dataUpdated,
   } = props;
-  const { token } = useAuthCtx();
+  const { token, userEmail } = useAuthCtx();
 
   const createdAtFormatted = formattedDate(created_at);
   const updatedAtFormatted = formattedDate(updated_at);
@@ -86,26 +87,24 @@ function AnswerCard(props) {
       </div>
 
       <div className={style.updateDeleteWrapper}>
-        <span>
-          Update{' '}
-          <Link to={`editAnswer/${answer_id}`}>
-            <Icon
-              icon="fa-pencil"
-              size="small"
-            />
-          </Link>
-        </span>
-        {/* <ButtonIcon onClick={() => deleteHandler(question_id)}>
-          <Icon icon="fa-trash" size="small" /> Delete
-        </ButtonIcon> */}
-        <span>
-          Delete{' '}
-          <Icon
-            icon="fa-trash"
-            size="small"
-            onClick={() => onDelete(answer_id)}
-          />
-        </span>
+        {userEmail === email && (
+          <>
+            <span>
+              Update{' '}
+              <Link to={`editAnswer/${answer_id}`}>
+                <Icon icon="fa-pencil" size="small" />
+              </Link>
+            </span>
+            <span>
+              Delete{' '}
+              <Icon
+                icon="fa-trash"
+                size="small"
+                onClick={() => onDelete(answer_id)}
+              />
+            </span>
+          </>
+        )}
       </div>
     </article>
   );
