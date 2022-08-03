@@ -56,12 +56,12 @@ function QuestionsPage() {
     if (sortByDateDown) {
       questionsArrCopy.sort(
         (a, b) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
       );
     } else {
       questionsArrCopy.sort(
         (a, b) =>
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
       );
     }
     setSortByDateDown(!sortByDateDown);

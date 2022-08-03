@@ -26,15 +26,19 @@ function AddAnswerForm({ dataUpdated }) {
     validationSchema: Yup.object({
       content: Yup.string().min(3).required(),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       if (!token) toast.error('You have to login first.');
       const result = await postFetch(`questions/${id}/answers`, values, token);
       if (!result.success) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
         return;
-      }
-      setFeedbackCommon({ message: result.message, class: 'success' });
+      }      
       dataUpdated();
+      resetForm({ values: '' });
+      setFeedbackCommon({ message: result.message, class: 'success' });
+      // setTimeout(() => {
+      //   window.scrollTo(0, 0)
+      // }, 1000);
     },
   });
 
