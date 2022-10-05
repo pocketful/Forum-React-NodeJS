@@ -1,0 +1,99 @@
+.card {
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.909);
+  box-shadow: 1px 1px 2px 1px gainsboro;
+  padding: 1em 1.5em;
+  border: 1px solid transparent;
+  margin-bottom: 10px;
+}
+
+.content {
+  padding-bottom: 1em;
+}
+
+.flexBig {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.flex {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  line-height: 1.2;
+}
+
+.username {
+  color: #4f7b8b;
+}
+
+.votesWrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.votes {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: black;
+  color: #4f7b8b;
+  min-width: 30px;
+  text-align: center;
+}
+
+.created {
+  font-size: 0.9rem;
+  color: rgb(72, 72, 72);
+}
+
+.updated {
+  font-size: 0.9rem;
+  color: grey;
+  padding-top: 0.2rem;
+}
+
+.updateDeleteWrapper {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  font-size: 0.9rem;
+  margin-top: 1em;
+}
+
+@media screen and (max-width: 650px) {
+  .flexBig {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .flex {
+    flex-direction: row-reverse;
+    align-items: flex-end;
+  }
+  .updateDeleteWrapper {
+    flex-direction: row-reverse;
+  }
+  .dates {
+    align-items: flex-start;
+    line-height: 1.2;
+  }
+  .votes {
+    align-self: center;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .flex {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+}

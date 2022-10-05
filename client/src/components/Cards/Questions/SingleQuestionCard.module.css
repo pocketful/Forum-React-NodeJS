@@ -1,0 +1,77 @@
+.card {
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.909);
+  padding: 1em 1.5em;
+  border: 3px solid #4f7b8b;
+  margin-bottom: 10px;
+}
+
+.title {
+  color: #4f7b8b;
+  margin-bottom: 0.5em;
+  font-size: 2rem;
+  border-bottom: 1px solid rgba(201, 200, 200, 0.5);
+  line-height: 1.4;
+}
+
+.content {
+  color: black;
+  padding-bottom: 1em;
+}
+
+.flex {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  line-height: 1.2;
+}
+
+.username {
+  color: #4f7b8b;
+}
+
+.created {
+  font-size: 0.9rem;
+  color: rgb(72, 72, 72);
+}
+
+.updated {
+  font-size: 0.9rem;
+  color: grey;
+}
+
+.updateDeleteWrapper {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  font-size: 0.9rem;
+  margin-top: 1em;
+}
+
+@media screen and (max-width: 650px) {
+  .flex {
+    flex-direction: row-reverse;
+    align-items: flex-end;
+  }
+  .updateDeleteWrapper {
+    flex-direction: row-reverse;
+  }
+  .dates {
+    align-items: flex-start;
+    line-height: 1.2;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .flex {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+}

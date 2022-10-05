@@ -1,0 +1,27 @@
+.wrapper {
+  margin: auto;
+  text-align: center;
+}
+
+.btnWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  padding-bottom: 1.2em;
+}
+
+.text {
+  font-size: 1.1rem;
+  padding-bottom: 2em;
+}
