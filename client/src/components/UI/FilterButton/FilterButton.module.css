@@ -1,0 +1,19 @@
+.filterButton {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+}
+
+.filterButtonSpan {
+  padding-right: 5px;
+}
+
+.filterButton:hover * {
+  cursor: pointer;
+  color: #4f7b8b;
+}

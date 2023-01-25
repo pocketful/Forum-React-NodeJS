@@ -1,7 +1,7 @@
 import style from './QuestionsCardList.module.css';
 import PropTypes from 'prop-types';
 import QuestionCard from './QuestionCard';
-import Icon from '../../UI/Icon/Icon';
+import FilterButton from '../../UI/FilterButton/FilterButton';
 
 function QuestionsCardList(props) {
   const {
@@ -15,35 +15,26 @@ function QuestionsCardList(props) {
   return (
     <div className={style.wrapper}>
       <div className={style.filterWrapper}>
-        
         {/* Filter */}
-        <div className={style.filterItem} onClick={onFilterUnanswered}>
-          <span className={style.filterItemSpan}>Unanswered</span>
-          <Icon icon="fa-times" size="small" />
-        </div>
-
-        <div className={style.filterItem} onClick={onFilterAnswered}>
-          <span className={style.filterItemSpan}>Answered</span>
-          <Icon icon="fa-check" size="small" />
-        </div>
-
-        <div className={style.filterItem} onClick={onFilterAll}>
-          <span className={style.filterItemSpan}>All</span>
-          <Icon icon="fa-circle-o" size="small" />
-        </div>
-
+        <FilterButton
+          text="Unanswered"
+          icon="fa-times"
+          onClick={onFilterUnanswered}
+        />
+        <FilterButton
+          text="Answered"
+          icon="fa-check"
+          onClick={onFilterAnswered}
+        />
+        <FilterButton text="All" icon="fa-circle-o" onClick={onFilterAll} />
         {/* Sort */}
-        <div className={style.filterItem} onClick={onSortDate}>
-          <span className={style.filterItemSpan}>By Date </span>
-          <Icon icon="fa-sort" size="small" />
-        </div>
-
-        <div className={style.filterItem} onClick={onSortAnswers}>
-          <span className={style.filterItemSpan}>By Answers</span>
-          <Icon icon="fa-sort" size="small" />
-        </div>
+        <FilterButton text="By Date" icon="fa-sort" onClick={onSortDate} />
+        <FilterButton
+          text="By Answers"
+          icon="fa-sort"
+          onClick={onSortAnswers}
+        />
       </div>
-
       {data.map((dataObj) => (
         <QuestionCard key={dataObj.question_id} {...dataObj} />
       ))}

@@ -13,20 +13,6 @@
   flex-wrap: wrap;
 }
 
-.filterItem {
-  display: flex;
-  align-items: center;
-}
-
-.filterItemSpan {
-  padding-right: 5px;
-}
-
-.filterItem:hover {
-  cursor: pointer;
-  color: #4f7b8b;
-}
-
 @media screen and (max-width: 550px) {
   .filterWrapper {
     gap: 10px;
