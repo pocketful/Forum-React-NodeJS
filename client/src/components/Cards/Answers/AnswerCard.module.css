@@ -3,7 +3,7 @@
   background: rgba(255, 255, 255, 0.909);
   box-shadow: 1px 1px 2px 1px gainsboro;
   padding: 1em 1.5em;
-  border: 1px solid transparent;
+  border: 3px solid transparent;
   margin-bottom: 10px;
 }
 
@@ -38,7 +38,7 @@
 
 .votesWrapper {
   display: flex;
-  gap: 10px;
+  gap: 7px;
   align-items: center;
 }
 
@@ -71,13 +71,16 @@
 }
 
 @media screen and (max-width: 650px) {
+  .card {
+    padding: 1.2em;
+  }
   .flexBig {
     flex-direction: column;
     align-items: flex-start;
   }
   .flex {
     flex-direction: row-reverse;
-    align-items: flex-end;
+    align-items: flex-start;
   }
   .updateDeleteWrapper {
     flex-direction: row-reverse;
@@ -91,9 +94,15 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 420px) {
+  .card {
+    padding: 1em;
+  }
   .flex {
     flex-direction: column-reverse;
     align-items: flex-start;
+  }
+  .dates {
+    line-height: 1.4;
   }
 }

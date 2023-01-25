@@ -11,23 +11,30 @@ function QuestionsFilter(props) {
   } = props;
 
   return (
-    <div className={style.filterWrapper}>
+    <div className={style.wrapper}>
       {/* Filter */}
-      <FilterButton
-        text="Unanswered"
-        icon="fa-times"
-        onClick={onFilterUnanswered}
-      />
-      <FilterButton
-        text="Answered"
-        icon="fa-check"
-        onClick={onFilterAnswered}
-      />
-      <FilterButton text="All" icon="fa-circle-o" onClick={onFilterAll} />
-
-      {/* Sort */}
-      <FilterButton text="By Date" icon="fa-sort" onClick={onSortDate} />
-      <FilterButton text="By Answers" icon="fa-sort" onClick={onSortAnswers} />
+      <div className={style.filter}>
+        <FilterButton
+          text="Unanswered"
+          icon="fa-times"
+          onClick={onFilterUnanswered}
+        />
+        <FilterButton
+          text="Answered"
+          icon="fa-check"
+          onClick={onFilterAnswered}
+        />
+        <FilterButton text="All" icon="fa-circle-o" onClick={onFilterAll} />
+      </div>
+      <div className={style.sort}>
+        {/* Sort */}
+        <FilterButton text="By Date" icon="fa-sort" onClick={onSortDate} />
+        <FilterButton
+          text="By Answers"
+          icon="fa-sort"
+          onClick={onSortAnswers}
+        />
+      </div>
     </div>
   );
 }
