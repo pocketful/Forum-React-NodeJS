@@ -33,7 +33,7 @@ function AnswersPage() {
   async function getQuestion() {
     try {
       const data = await getFetch(`questions/${id}`, token);
-      setOneQuestion(data[0]);   
+      setOneQuestion(data[0]);
     } catch (err) {
       console.error('error in getQuestions: ', err);
       setIsServerOn(false);
@@ -66,6 +66,8 @@ function AnswersPage() {
     getQuestion();
   }, []);
 
+  const answersLength = answersArr.length;
+
   return (
     <>
       <h1>Answers</h1>
@@ -77,10 +79,14 @@ function AnswersPage() {
         <>
           <div className={style.wrapper}>
             <SingleQuestionCard data={oneQuestion} />
-            {answersArr.length !== 0 ? (
-              <h4 className={style.title}>Read all answers</h4>
+            {answersLength !== 0 ? (
+              <p className={style.answersCount}>
+                {answersLength} {answersLength === 1 ? 'Answer' : 'Answers'}
+              </p>
             ) : (
-              <h4 className={style.title}>There are no answers yet.</h4>
+              <p className={style.answersCountZero}>
+                There are no answers yet.
+              </p>
             )}
             <AnswersCardList
               data={answersArr}
