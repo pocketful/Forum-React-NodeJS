@@ -7,6 +7,7 @@ import { getFetch } from '../helpers/fetch';
 
 function QuestionsPage() {
   const [questionsArr, setQuestionsArr] = useState([]);
+  const [allQuestionsArr, setAllQuestionsArr] = useState([]);
   const [sortByAnsDown, setSortByAnsDown] = useState(true);
   const [sortByDateDown, setSortByDateDown] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +17,7 @@ function QuestionsPage() {
     try {
       const data = await getFetch('/questions');
       setQuestionsArr(data);
+      setAllQuestionsArr(data);
     } catch (err) {
       console.error('error in getQuestions: ', err);
       setIsServerOn(false);
@@ -25,7 +27,7 @@ function QuestionsPage() {
   }
 
   function filterUnansweredHandler() {
-    const questionsArrCopy = [...questionsArr];
+    const questionsArrCopy = [...allQuestionsArr];
     const unansweredQuestions = questionsArrCopy.filter(
       (qObj) => qObj.answers_count === 0,
     );
@@ -33,7 +35,7 @@ function QuestionsPage() {
   }
 
   function filterAnsweredHandler() {
-    const questionsArrCopy = [...questionsArr];
+    const questionsArrCopy = [...allQuestionsArr];
     const answeredQuestions = questionsArrCopy.filter(
       (qObj) => qObj.answers_count !== 0,
     );
