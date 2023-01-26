@@ -1,4 +1,4 @@
-.filterButton {
+.buttonTI {
   display: flex;
   align-items: center;
   background-color: transparent;
@@ -9,11 +9,15 @@
   padding: 0;
 }
 
-.filterButtonSpan {
+.text {
   padding-right: 5px;
 }
 
-.filterButton:hover * {
+.buttonTI:hover * {
   cursor: pointer;
   color: #4f7b8b;
+}
+
+.buttonTI:active * {
+  color: #365764;
 }

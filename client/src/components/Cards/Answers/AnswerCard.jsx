@@ -8,6 +8,8 @@ import Icon from '../../UI/Icon/Icon';
 import { Link } from 'react-router-dom';
 import { useAuthCtx } from '../../../store/authContext';
 import toast from 'react-hot-toast';
+import TextIconButton from '../../UI/TextIconButton/TextIconButton';
+
 
 // answer_id, user_id, question_id, content, created_at, updated_at, archived, votes, username, email, image
 function AnswerCard(props) {
@@ -47,24 +49,24 @@ function AnswerCard(props) {
   async function upVoteHandler(answerId) {
     if (!token) toast.error('You have to login first.');
     // await getVotes();
-    
+
     // const isUserVote = votesArr.find((v) => v.email === userEmail);
     // setVotesArr(isUserVote);
     // console.log('userEmail', userEmail);
     // console.log('isUserVote', isUserVote);
     // console.log('votesArr', votesArr);
     // if (isUserVote) {
-      // console.log('isUserVote true');
-      // const result = await updateOneFetch(
-      //   `answerss/${answerId}`,
-      //   { vote: 0 },
-      //   token,
-      // );
-      // if (!result.success) {
-      //   toast.error('We cannot include your vote, please try again later');
-      //   return;
-      // }
-      // dataUpdated();
+    // console.log('isUserVote true');
+    // const result = await updateOneFetch(
+    //   `answerss/${answerId}`,
+    //   { vote: 0 },
+    //   token,
+    // );
+    // if (!result.success) {
+    //   toast.error('We cannot include your vote, please try again later');
+    //   return;
+    // }
+    // dataUpdated();
     //   toast.error('You already voted');
     //   return;
     // }
@@ -85,17 +87,17 @@ function AnswerCard(props) {
     // console.log('isUserVote', isUserVote);
     // console.log('votesArr', votesArr);
     // if (isUserVote) {
-      // console.log('isUserVote true');
-      // const result = await updateOneFetch(
-      //   `answerss/${answerId}`,
-      //   { vote: 0 },
-      //   token,
-      // );
-      // if (!result.success) {
-      //   toast.error('We cannot include your vote, please try again later');
-      //   return;
-      // }
-      // dataUpdated();
+    // console.log('isUserVote true');
+    // const result = await updateOneFetch(
+    //   `answerss/${answerId}`,
+    //   { vote: 0 },
+    //   token,
+    // );
+    // if (!result.success) {
+    //   toast.error('We cannot include your vote, please try again later');
+    //   return;
+    // }
+    // dataUpdated();
     //   toast.error('You already voted');
     //   return;
     // }
@@ -106,6 +108,8 @@ function AnswerCard(props) {
     }
     dataUpdated();
   }
+
+  const isLoggedInUserPost = userEmail === email;
 
   return (
     <article className={style.card}>
@@ -142,26 +146,21 @@ function AnswerCard(props) {
         </div>
       </div>
 
-      <div className={style.updateDeleteWrapper}>
-        {userEmail === email && (
-          <>
-            <span>
-              Update{' '}
-              <Link to={`editAnswer/${answer_id}`}>
-                <Icon icon="fa-pencil" size="small" />
-              </Link>
-            </span>
-            <span>
-              Delete{' '}
-              <Icon
-                icon="fa-trash"
-                size="small"
-                onClick={() => onDelete(answer_id)}
-              />
-            </span>
-          </>
-        )}
-      </div>
+      {isLoggedInUserPost && (
+        <div className={style.updateDeleteWrapper}>
+          <Link to={`editAnswer/${answer_id}`}>
+            <TextIconButton
+              text="Update"
+              icon="fa-pencil"
+            />
+          </Link>
+          <TextIconButton
+            text="Delete"
+            icon="fa-trash"
+            onClick={() => onDelete(answer_id)}
+          />
+        </div>
+      )}
     </article>
   );
 }

@@ -1,5 +1,5 @@
 import style from './QuestionsFilter.module.css';
-import FilterButton from '../../../UI/FilterButton/FilterButton';
+import TextIconButton from '../../../UI/TextIconButton/TextIconButton';
 
 function QuestionsFilter(props) {
   const {
@@ -14,22 +14,22 @@ function QuestionsFilter(props) {
     <div className={style.wrapper}>
       {/* Filter */}
       <div className={style.filter}>
-        <FilterButton
+        <TextIconButton
           text="Unanswered"
           icon="fa-times"
           onClick={onFilterUnanswered}
         />
-        <FilterButton
+        <TextIconButton
           text="Answered"
           icon="fa-check"
           onClick={onFilterAnswered}
         />
-        <FilterButton text="All" icon="fa-circle-o" onClick={onFilterAll} />
+        <TextIconButton text="All" icon="fa-circle-o" onClick={onFilterAll} />
       </div>
       <div className={style.sort}>
         {/* Sort */}
-        <FilterButton text="By Date" icon="fa-sort" onClick={onSortDate} />
-        <FilterButton
+        <TextIconButton text="By Date" icon="fa-sort" onClick={onSortDate} />
+        <TextIconButton
           text="By Answers"
           icon="fa-sort"
           onClick={onSortAnswers}
