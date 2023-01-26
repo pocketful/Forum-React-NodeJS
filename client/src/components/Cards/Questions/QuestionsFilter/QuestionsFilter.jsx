@@ -10,49 +10,56 @@ function QuestionsFilter(props) {
     onFilterAll,
     activeFilters,
   } = props;
+  const { filter, sort } = activeFilters;
 
   return (
     <div className={style.wrapper}>
       {/* Filter */}
-      <div className={style.filter}>
+      <div className={style.filterWrapper}>
         <TextIconButton
           text="All"
           icon="fa-circle-o"
           onClick={onFilterAll}
-          active={activeFilters.filter === 'All'}
+          active={filter === 'All'}
         />
         <TextIconButton
           text="Answered"
           icon="fa-check"
           onClick={onFilterAnswered}
-          active={activeFilters.filter === 'Answered'}
+          active={filter === 'Answered'}
         />
         <TextIconButton
           text="Unanswered"
           icon="fa-times"
           onClick={onFilterUnanswered}
-          active={activeFilters.filter === 'Unanswered'}
+          active={filter === 'Unanswered'}
         />
       </div>
-      <div className={style.sort}>
+      <div className={style.sortWrapper}>
         {/* Sort */}
         <TextIconButton
           text="By Date"
-          icon="fa-sort"
-          onClick={onSortDate}
-          active={
-            activeFilters.sort === 'ByDateAsc' ||
-            activeFilters.sort === 'ByDateDesc'
+          icon={
+            sort === 'ByDateAsc'
+              ? 'fa-sort-numeric-asc'
+              : sort === 'ByDateDesc'
+              ? 'fa-sort-numeric-desc'
+              : 'fa-sort'
           }
+          onClick={onSortDate}
+          active={sort === 'ByDateAsc' || sort === 'ByDateDesc'}
         />
         <TextIconButton
           text="By Answers"
-          icon="fa-sort"
-          onClick={onSortAnswers}
-          active={
-            activeFilters.sort === 'ByAnswersAsc' ||
-            activeFilters.sort === 'ByAnswersDesc'
+          icon={
+            sort === 'ByAnswersAsc'
+              ? 'fa-sort-amount-asc'
+              : sort === 'ByAnswersDesc'
+              ? 'fa-sort-amount-desc'
+              : 'fa-sort'
           }
+          onClick={onSortAnswers}
+          active={sort === 'ByAnswersAsc' || sort === 'ByAnswersDesc'}
         />
       </div>
     </div>

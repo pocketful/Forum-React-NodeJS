@@ -7,8 +7,8 @@
   flex-wrap: wrap;
 }
 
-.filter,
-.sort {
+.filterWrapper,
+.sortWrapper {
   display: flex;
   gap: 15px;
 }
