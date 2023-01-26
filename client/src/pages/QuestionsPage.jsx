@@ -12,12 +12,14 @@ function QuestionsPage() {
   const [sortByDateDown, setSortByDateDown] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [isServerOn, setIsServerOn] = useState(true);
+  const [activeFilters, setActiveFilters] = useState({ filter: 'All', sort: '' });
 
   async function getQuestions() {
     try {
       const data = await getFetch('/questions');
       setQuestionsArr(data);
       setAllQuestionsArr(data);
+      setActiveFilters(prevFilters => ({ ...prevFilters, filter: 'All' }));
     } catch (err) {
       console.error('error in getQuestions: ', err);
       setIsServerOn(false);
@@ -32,6 +34,7 @@ function QuestionsPage() {
       (qObj) => qObj.answers_count === 0,
     );
     setQuestionsArr(unansweredQuestions);
+    setActiveFilters(prevFilters => ({ ...prevFilters, filter: 'Unanswered' }));
   }
 
   function filterAnsweredHandler() {
@@ -40,14 +43,19 @@ function QuestionsPage() {
       (qObj) => qObj.answers_count !== 0,
     );
     setQuestionsArr(answeredQuestions);
+    setActiveFilters(prevFilters => ({ ...prevFilters, filter: 'Answered' }));
   }
 
   function sortByAnswersHandler() {
     const questionsArrCopy = [...questionsArr];
+    // Descending	 9-1  (Highest to lowest)
     if (sortByAnsDown) {
       questionsArrCopy.sort((a, b) => b.answers_count - a.answers_count);
+      setActiveFilters(prevFilters => ({ ...prevFilters, sort: 'ByAnswersDesc' }));
+      // Ascending  1-9  (Lowest to highest)
     } else {
       questionsArrCopy.sort((a, b) => a.answers_count - b.answers_count);
+      setActiveFilters(prevFilters => ({ ...prevFilters, sort: 'ByAnswersAsc' }));
     }
     setSortByAnsDown(!sortByAnsDown);
     setQuestionsArr(questionsArrCopy);
@@ -55,16 +63,20 @@ function QuestionsPage() {
 
   function sortByDateHandler() {
     const questionsArrCopy = [...questionsArr];
+    // Ascending  01.01.1970-Today  (Oldest to newest)
     if (sortByDateDown) {
       questionsArrCopy.sort(
         (a, b) =>
           new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
       );
+      setActiveFilters(prevFilters => ({ ...prevFilters, sort: 'ByDateAsc' }));
+      // Descending  Today-01.01.1970  (Newest to oldest)
     } else {
       questionsArrCopy.sort(
         (a, b) =>
           new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
       );
+      setActiveFilters(prevFilters => ({ ...prevFilters, sort: 'ByDateDesc' }));
     }
     setSortByDateDown(!sortByDateDown);
     setQuestionsArr(questionsArrCopy);
@@ -91,6 +103,7 @@ function QuestionsPage() {
           onFilterUnanswered={filterUnansweredHandler}
           onFilterAnswered={filterAnsweredHandler}
           onFilterAll={getQuestions}
+          activeFilters={activeFilters}
         />
       )}
     </>

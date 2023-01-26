@@ -13,6 +13,10 @@
   padding-right: 5px;
 }
 
+.active * {
+  color: #4f7b8b;
+}
+
 .buttonTI:hover * {
   cursor: pointer;
   color: #4f7b8b;

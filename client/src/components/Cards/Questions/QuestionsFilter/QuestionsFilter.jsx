@@ -8,6 +8,7 @@ function QuestionsFilter(props) {
     onFilterUnanswered,
     onFilterAnswered,
     onFilterAll,
+    activeFilters,
   } = props;
 
   return (
@@ -15,24 +16,43 @@ function QuestionsFilter(props) {
       {/* Filter */}
       <div className={style.filter}>
         <TextIconButton
-          text="Unanswered"
-          icon="fa-times"
-          onClick={onFilterUnanswered}
+          text="All"
+          icon="fa-circle-o"
+          onClick={onFilterAll}
+          active={activeFilters.filter === 'All'}
         />
         <TextIconButton
           text="Answered"
           icon="fa-check"
           onClick={onFilterAnswered}
+          active={activeFilters.filter === 'Answered'}
         />
-        <TextIconButton text="All" icon="fa-circle-o" onClick={onFilterAll} />
+        <TextIconButton
+          text="Unanswered"
+          icon="fa-times"
+          onClick={onFilterUnanswered}
+          active={activeFilters.filter === 'Unanswered'}
+        />
       </div>
       <div className={style.sort}>
         {/* Sort */}
-        <TextIconButton text="By Date" icon="fa-sort" onClick={onSortDate} />
+        <TextIconButton
+          text="By Date"
+          icon="fa-sort"
+          onClick={onSortDate}
+          active={
+            activeFilters.sort === 'ByDateAsc' ||
+            activeFilters.sort === 'ByDateDesc'
+          }
+        />
         <TextIconButton
           text="By Answers"
           icon="fa-sort"
           onClick={onSortAnswers}
+          active={
+            activeFilters.sort === 'ByAnswersAsc' ||
+            activeFilters.sort === 'ByAnswersDesc'
+          }
         />
       </div>
     </div>
