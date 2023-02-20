@@ -4,3 +4,39 @@
   color: black;
   padding: 2%;
 }
+
+.answersCount {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 0.3em;
+  margin-top: 0.8em;
+  padding-left: 1.5rem;
+  border: 3px solid transparent;
+}
+
+.answersCountZero {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 2%;
+  text-align: center;
+}
+
+@media screen and (max-width: 650px) {
+  .answersCount {
+    margin-top: 0;
+    font-size: 1.1rem;
+    padding-left: 1.2rem;
+  }
+  .answersCountZero {
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .answersCount {
+    padding-left: 1rem;
+  }
+  .answersCountZero {
+    font-size: 1rem;
+  }
+}

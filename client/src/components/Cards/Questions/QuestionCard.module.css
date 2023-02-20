@@ -10,8 +10,6 @@
 
 .title {
   color: #4f7b8b;
-  margin-bottom: 0.5em;
-  font-size: 1.25rem;
   border-bottom: 1px solid rgba(201, 200, 200, 0.5);
 }
 .title:hover {
@@ -61,12 +59,16 @@
 }
 
 @media screen and (max-width: 700px) {
+  .card {
+    padding: 1.2em;
+  }
   .grid {
     grid-template-columns: 1fr;
     grid-template-areas:
       'count'
       'created'
       'updated';
+    line-height: 1.5;
   }
   .created,
   .updated {
@@ -79,3 +81,12 @@
     padding-bottom: 1.2em;  
   }
 }
+
+@media screen and (max-width: 420px) {
+  .card {
+    padding: 1em;
+  }
+  .updated {
+    padding-top: 0.3rem;
+  }
+} 

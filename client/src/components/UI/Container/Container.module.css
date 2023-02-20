@@ -4,3 +4,17 @@
   padding-right: 20px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 650px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .container {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}

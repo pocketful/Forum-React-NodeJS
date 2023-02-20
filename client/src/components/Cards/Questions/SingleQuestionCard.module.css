@@ -8,10 +8,8 @@
 
 .title {
   color: #4f7b8b;
-  margin-bottom: 0.5em;
-  font-size: 2rem;
   border-bottom: 1px solid rgba(201, 200, 200, 0.5);
-  line-height: 1.4;
+  padding-bottom: 0.5em;
 }
 
 .content {
@@ -45,6 +43,7 @@
 .updated {
   font-size: 0.9rem;
   color: grey;
+  padding-top: 0.2rem;
 }
 
 .updateDeleteWrapper {
@@ -56,22 +55,31 @@
 }
 
 @media screen and (max-width: 650px) {
+  .card {
+    padding: 1.2em;
+  }
   .flex {
     flex-direction: row-reverse;
-    align-items: flex-end;
+    align-items: flex-start;
   }
   .updateDeleteWrapper {
     flex-direction: row-reverse;
   }
   .dates {
     align-items: flex-start;
-    line-height: 1.2;
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 420px) {
+  .card {
+    padding: 1em;
+    margin-bottom: 7.5px;
+  }
   .flex {
     flex-direction: column-reverse;
     align-items: flex-start;
+  }
+  .dates {
+    line-height: 1.4;
   }
 }

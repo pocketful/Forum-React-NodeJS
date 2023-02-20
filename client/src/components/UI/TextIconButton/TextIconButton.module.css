@@ -1,0 +1,27 @@
+.buttonTI {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+}
+
+.text {
+  padding-right: 5px;
+}
+
+.active * {
+  color: #4f7b8b;
+}
+
+.buttonTI:hover * {
+  cursor: pointer;
+  color: #4f7b8b;
+}
+
+.buttonTI:active * {
+  color: #365764;
+}

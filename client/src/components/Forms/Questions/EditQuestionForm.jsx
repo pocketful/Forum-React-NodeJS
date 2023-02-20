@@ -61,7 +61,7 @@ function EditQuestionForm({ onSuccessPost }) {
 
   return (
     <div className={style.wrapperBig}>
-      <h2>You can update your question</h2>
+      <h2>You can update your question here</h2>
       <form onSubmit={formik.handleSubmit}>
         <Input type="text" name="title" placeholder="Title" formik={formik} />
         <Input
