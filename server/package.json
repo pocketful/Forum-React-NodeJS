@@ -1,7 +1,7 @@
 {
-  "name": "ca-crud-be",
+  "name": "forum-be",
   "version": "0.1.0",
-  "description": "CRUD",
+  "description": "Q&A website Back-End",
   "main": "src/server.js",
   "scripts": {
     "start": "nodemon src/server.js",
