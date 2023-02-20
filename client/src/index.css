@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 * {
   box-sizing: border-box;
@@ -11,15 +10,12 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 100%;
 }
 
 body {
-  /* background: url('./assets/img/bg.jpg') no-repeat 50% 35% / cover; */
-  background: url('./assets/img/bg.jpg') 50% 35% / cover;
-  background-color: #0a1a1f;
+  background: url('./assets/img/bg.webp') 50% 35% / cover fixed #0a1a1f;
   color: white;
-  font-family: 'Lato', sans-serif;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   height: 100vh;
@@ -67,7 +63,6 @@ h1 {
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 0.8em;
-  /* padding-top: 0.5em; */
   line-height: 1.5;
 }
 
@@ -95,9 +90,6 @@ h3 {
 }
 
 @media screen and (max-width: 420px) {
-  /* body {
-    background-size: auto;
-  } */
   html {
     font-size: 90%;
   }

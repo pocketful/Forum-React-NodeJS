@@ -7,10 +7,12 @@
   font: inherit;
   letter-spacing: inherit;
   padding: 0;
+  text-align: right;
+  line-height: 1;
 }
 
 .text {
-  padding-right: 5px;
+  padding-right: 0.4em;
 }
 
 .active * {
