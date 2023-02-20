@@ -2,8 +2,8 @@ import { createContext, useContext, useState } from 'react';
 
 export const AuthContext = createContext({
   isLoggedIn: false,
-  login() {},
-  logout() {},
+  login() { },
+  logout() { },
   userEmail: null,
   token: null,
 });
@@ -12,18 +12,21 @@ AuthContext.displayName = 'AuthContext';
 
 function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem('userToken'));
-  const [userEmail, setUserEmail] = useState('');
+  const [userEmail, setUserEmail] = useState(localStorage.getItem('userEmail'));
 
   function login(userToken, email) {
-    setToken(userToken);
-    setUserEmail(email);
     localStorage.setItem('userToken', userToken);
+    localStorage.setItem('userEmail', email);
+    setUserEmail(email);
+    setToken(userToken);
   }
 
   function logout() {
-    setToken(null);
+    // localStorage.removeItem('userToken');
+    // localStorage.removeItem('userEmail');
+    localStorage.clear();
     setUserEmail(null);
-    localStorage.removeItem('userToken');
+    setToken(null);
   }
 
   const ctx = {

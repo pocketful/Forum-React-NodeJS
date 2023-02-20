@@ -32,13 +32,17 @@ function AddAnswerForm({ dataUpdated }) {
       if (!result.success) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
         return;
-      }      
+      }
       dataUpdated();
       resetForm({ values: '' });
       setFeedbackCommon({ message: result.message, class: 'success' });
-      // setTimeout(() => {
-      //   window.scrollTo(0, 0)
-      // }, 1000);
+      setTimeout(() => {
+        setFeedbackCommon({
+          message: '',
+          class: '',
+        });
+      }, 1000);
+      // window.scrollTo(0, 0)
     },
   });
 

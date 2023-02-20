@@ -22,7 +22,7 @@ function LoginForm({ onSuccessLogin }) {
       email: Yup.string().email().min(5).max(100).lowercase().required(),
       password: Yup.string().min(5).max(255).required(),
     }),
-    
+
     onSubmit: async (values) => {
       const result = await postFetch('login', values);
       if (!result.success) {
@@ -33,7 +33,7 @@ function LoginForm({ onSuccessLogin }) {
       login(result.token, values.email);
       setTimeout(() => {
         onSuccessLogin();
-      }, 2000);
+      }, 1000);
     },
   });
 

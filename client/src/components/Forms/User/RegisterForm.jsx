@@ -41,7 +41,7 @@ function RegisterForm({ onSuccessRegister }) {
       setFeedbackCommon({ message: result.message, class: 'success' });
       setTimeout(() => {
         onSuccessRegister();
-      }, 2000);
+      }, 1000);
     },
   });
 
