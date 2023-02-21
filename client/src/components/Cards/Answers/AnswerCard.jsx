@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getFetch, postFetch } from '../../../helpers/fetch';
+import { getFetch, postFetch, updateOneFetch, } from '../../../helpers/fetch';
 import style from './AnswerCard.module.css';
 import PropTypes from 'prop-types';
-import formattedDate from '../../../helpers/date';
+import formatDate from '../../../helpers/date';
 import Image from '../../UI/Image/Image';
 import Icon from '../../UI/Icon/Icon';
 import { Link } from 'react-router-dom';
@@ -11,7 +10,6 @@ import toast from 'react-hot-toast';
 import TextIconButton from '../../UI/TextIconButton/TextIconButton';
 
 
-// answer_id, user_id, question_id, content, created_at, updated_at, archived, votes, username, email, image
 function AnswerCard(props) {
   const {
     answer_id,
@@ -25,88 +23,66 @@ function AnswerCard(props) {
     email,
     image,
     onDelete,
-    dataUpdated,
+    onDataUpdated,
   } = props;
-  const [votesArr, setVotesArr] = useState([]);
+
   const { token, userEmail } = useAuthCtx();
 
-  const createdAtFormatted = formattedDate(created_at);
-  const updatedAtFormatted = formattedDate(updated_at);
-
-  async function getVotes() {
-    try {
-      const data = await getFetch(`/answerss/${answer_id}`, token);
-      if (data) setVotesArr(data);
-    } catch (err) {
-      console.error('error in getVotes: ', err);
-    }
-  }
-
-  useEffect(() => {
-    getVotes();
-  }, []);
+  const createdAt = formatDate(created_at);
+  const updatedAt = formatDate(updated_at);
 
   async function upVoteHandler(answerId) {
-    if (!token) toast.error('You have to login first.');
-    // await getVotes();
-
-    // const isUserVote = votesArr.find((v) => v.email === userEmail);
-    // setVotesArr(isUserVote);
-    // console.log('userEmail', userEmail);
-    // console.log('isUserVote', isUserVote);
-    // console.log('votesArr', votesArr);
-    // if (isUserVote) {
-    // console.log('isUserVote true');
-    // const result = await updateOneFetch(
-    //   `answerss/${answerId}`,
-    //   { vote: 0 },
-    //   token,
-    // );
-    // if (!result.success) {
-    //   toast.error('We cannot include your vote, please try again later');
-    //   return;
-    // }
-    // dataUpdated();
-    //   toast.error('You already voted');
-    //   return;
-    // }
-    const result = await postFetch(`answers/${answerId}`, { vote: 1 }, token);
-    if (!result.success) {
-      toast.error('We cannot include your vote, please try again later');
+    if (!token) {
+      toast.error('Only registered users can vote.');
       return;
     }
-    dataUpdated();
+    // Check if the user has already voted for this answer
+    const userVote = await getFetch(`answers/${answerId}/vote`, token);
+
+    // If user has already voted, update their vote
+    if (userVote.length > 0) {
+      const result = await updateOneFetch(`answers/${answerId}/vote`, { vote: 1 }, token);
+      if (!result.success) {
+        toast.error('We cannot include your vote, please try again later');
+        return;
+      }
+      
+      // If user hasn't voted, insert their vote
+    } else {
+      const result = await postFetch(`answers/${answerId}/vote`, { vote: 1 }, token);
+      if (!result.success) {
+        toast.error('We cannot update your vote, please try again later');
+        return;
+      }
+    }
+    onDataUpdated();
   }
 
   async function downVoteHandler(answerId) {
-    if (!token) toast.error('You have to login first.');
-    // await getVotes();
-    // const isUserVote = votesArr.find((v) => v.email === userEmail);
-    // setVotesArr(isUserVote);
-    // console.log('userEmail', userEmail);
-    // console.log('isUserVote', isUserVote);
-    // console.log('votesArr', votesArr);
-    // if (isUserVote) {
-    // console.log('isUserVote true');
-    // const result = await updateOneFetch(
-    //   `answerss/${answerId}`,
-    //   { vote: 0 },
-    //   token,
-    // );
-    // if (!result.success) {
-    //   toast.error('We cannot include your vote, please try again later');
-    //   return;
-    // }
-    // dataUpdated();
-    //   toast.error('You already voted');
-    //   return;
-    // }
-    const result = await postFetch(`answers/${answerId}`, { vote: -1 }, token);
-    if (!result.success) {
-      toast.error('We cannot include your vote, please try again later');
+    if (!token) {
+      toast.error('Only registered users can vote.');
       return;
     }
-    dataUpdated();
+    // Check if the user has already voted for this answer
+    const userVote = await getFetch(`answers/${answerId}/vote`, token);
+
+    // If user has already voted, update their existing vote
+    if (userVote.length > 0) {
+      const result = await updateOneFetch(`answers/${answerId}/vote`, { vote: -1 }, token);
+      if (!result.success) {
+        toast.error('We cannot include your vote, please try again later');
+        return;
+      }
+
+      // If user hasn't voted, insert their new vote
+    } else {
+      const result = await postFetch(`answers/${answerId}/vote`, { vote: -1 }, token);
+      if (!result.success) {
+        toast.error('We cannot update your vote, please try again later');
+        return;
+      }
+    }
+    onDataUpdated();
   }
 
   const isLoggedInUserPost = userEmail === email;
@@ -132,13 +108,13 @@ function AnswerCard(props) {
           <div className={style.dates}>
             <p className={style.created}>
               {`asked on `}
-              {createdAtFormatted} by{' '}
+              {createdAt} by{' '}
               <em className={style.username}>{username}</em>
             </p>
             {updated_at !== null && (
               <p className={style.updated}>
                 {`updated at `}
-                {updatedAtFormatted}
+                {updatedAt}
               </p>
             )}
           </div>

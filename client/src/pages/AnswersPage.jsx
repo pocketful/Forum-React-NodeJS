@@ -67,6 +67,7 @@ function AnswersPage() {
   }, []);
 
   const answersLength = answersArr.length;
+  // const answersLength = useMemo(() => answersArr.length, [answersArr]);
 
   return (
     <>
@@ -91,10 +92,10 @@ function AnswersPage() {
             <AnswersCardList
               data={answersArr}
               onDelete={deleteAnsHandler}
-              dataUpdated={getAnswers}
+              onDataUpdated={getAnswers}
             />
           </div>
-          <AddAnswerForm dataUpdated={getAnswers} />
+          <AddAnswerForm onDataUpdated={getAnswers} />
         </>
       )}
     </>

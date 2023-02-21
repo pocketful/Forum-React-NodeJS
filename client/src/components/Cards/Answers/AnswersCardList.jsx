@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import AnswerCard from './AnswerCard';
 
-function AnswersCardList({ data, onDelete, dataUpdated }) {
+function AnswersCardList({ data, onDelete, onDataUpdated }) {
   return (
     <>
       {data.map((dataObj) => (
@@ -9,7 +9,7 @@ function AnswersCardList({ data, onDelete, dataUpdated }) {
           key={dataObj.answer_id}
           {...dataObj}
           onDelete={onDelete}
-          dataUpdated={dataUpdated}
+          onDataUpdated={onDataUpdated}
         />
       ))}
     </>
