@@ -10,9 +10,9 @@ const answersRoute = require('./routes/answersRoute');
 const app = express();
 
 // Middlewares
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(cors());
+app.use(morgan('dev')); // HTTP request logger
+app.use(express.json()); // JSON to JS
+app.use(cors()); // Enable All CORS Requests
 
 app.get('/', (req, res) => {
   res.json('ok');

@@ -22,9 +22,14 @@ function deleteAnswerDb(answerId) {
   return executeDb(sql, [answerId]);
 }
 
-function getAnswerVotesDb(answerId) {
-  const sql = 'SELECT answer_id, sum(vote) AS votes FROM answers_votes WHERE answer_id = ?';
-  return executeDb(sql, [answerId]);
+function getAnswerVoteByUserDb(answerId, userId) {
+  const sql = 'SELECT * FROM answers_votes WHERE answer_id = ? AND user_id = ?';
+  return executeDb(sql, [answerId, userId]);
+}
+
+function updateAnswerVoteDb(vote, answerId, userId) {
+  const sql = 'UPDATE answers_votes SET vote = ? WHERE answer_id = ? AND user_id = ?';
+  return executeDb(sql, [vote, answerId, userId]);
 }
 
 function postAnswerVoteDb(answerId, userId, vote) {
@@ -32,24 +37,13 @@ function postAnswerVoteDb(answerId, userId, vote) {
   return executeDb(sql, [answerId, userId, vote]);
 }
 
-function updateAnswerVoteDb(answerId, userId, vote) {
-  const sql = 'UPDATE answers_votes SET vote = ? WHERE answer_id = ? and user_id = ?';
-  return executeDb(sql, [answerId, userId, vote]);
-}
-
-function getAnswerVoteDb(answerId) {
-  const sql =
-    'SELECT answers_votes.*, users.email FROM answers_votes  LEFT JOIN users ON answers_votes.user_id = users.user_id WHERE answer_id = ?';
-  return executeDb(sql, [answerId]);
-}
 
 module.exports = {
   getAnswersDb,
   postAnswerDb,
   updateAnswerDb,
   deleteAnswerDb,
-  getAnswerVotesDb,
-  postAnswerVoteDb,
+  getAnswerVoteByUserDb,
   updateAnswerVoteDb,
-  getAnswerVoteDb,
+  postAnswerVoteDb,
 };

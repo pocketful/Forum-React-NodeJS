@@ -9,10 +9,13 @@ answersRoute.get('/questions/:questionId/answers', controller.getAnswers);
 answersRoute.post('/questions/:questionId/answers', validateToken, validateAnswer, controller.postAnswer);
 answersRoute.patch('/answers/:answerId', validateToken, validateAnswer, controller.updateAnswer);
 answersRoute.delete('/answers/:answerId', validateToken, controller.deleteAnswer);
-// answers votes:
-answersRoute.get('/answers/:answerId', controller.getAnswerVotes);
-answersRoute.post('/answers/:answerId', validateToken, controller.postAnswerVote);
-answersRoute.patch('/answerss/:answerId', validateToken, controller.updateAnswerVote);
-answersRoute.get('/answerss/:answerId', validateToken, controller.getAnswerVote);
+
+// Voting for an answer:
+// Check if the user has already voted for a particular answer
+answersRoute.get('/answers/:answerId/vote', validateToken, controller.getAnswerVoteByUser);
+// Update an existing user vote for the answer
+answersRoute.patch('/answers/:answerId/vote', validateToken, controller.updateAnswerVote);
+// Insert a new vote for the answer
+answersRoute.post('/answers/:answerId/vote', validateToken, controller.postAnswerVote);
 
 module.exports = answersRoute;

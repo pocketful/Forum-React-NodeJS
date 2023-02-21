@@ -1,7 +1,7 @@
 const executeDb = require('../utils/executeDb');
 
 function getQuestionsDb() {
-  // with answers_count and username:
+  // with answers_count and username, email:
   const sql =
     'SELECT questions.*, COUNT(IF(answers.archived = 0, 1, NULL)) AS answers_count, users.username, users.email FROM questions LEFT JOIN answers ON questions.question_id = answers.question_id LEFT JOIN users ON questions.user_id = users.user_id WHERE questions.archived = 0 GROUP BY questions.question_id ORDER BY questions.created_at DESC';
   return executeDb(sql);

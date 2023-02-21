@@ -91,13 +91,14 @@ Authorization: Bearer ...
 
 
 ### Votes ========================================================================================
-### Get answer votes ----------------------------------
-GET http://localhost:3000/api/answers/3
+### Check if the user has already voted this answer -----
+GET http://localhost:3000/api/answers/2/vote
 Content-Type: application/json
+Authorization: Bearer ...
 
 
 ### Post answer vote ----------------------------------
-POST http://localhost:3000/api/answers/3
+POST http://localhost:3000/api/answers/2/vote
 Content-Type: application/json
 Authorization: Bearer ...
 
@@ -105,3 +106,12 @@ Authorization: Bearer ...
   "vote": 1
 }
 
+
+### Patch answer vote ----------------------------------
+PATCH http://localhost:3000/api/answers/2/vote
+Content-Type: application/json
+Authorization: Bearer ...
+
+{
+  "vote": -1
+}
