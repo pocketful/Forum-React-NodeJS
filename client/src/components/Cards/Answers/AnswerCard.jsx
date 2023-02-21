@@ -31,7 +31,8 @@ function AnswerCard(props) {
   const createdAt = formatDate(created_at);
   const updatedAt = formatDate(updated_at);
 
-  async function upVoteHandler(answerId) {
+
+  async function voteHandler(answerId, voteValue) {
     if (!token) {
       toast.error('Only registered users can vote.');
       return;
@@ -41,42 +42,15 @@ function AnswerCard(props) {
 
     // If user has already voted, update their vote
     if (userVote.length > 0) {
-      const result = await updateOneFetch(`answers/${answerId}/vote`, { vote: 1 }, token);
+      const result = await updateOneFetch(`answers/${answerId}/vote`, { vote: voteValue }, token);
       if (!result.success) {
         toast.error('We cannot include your vote, please try again later');
         return;
       }
-      
+
       // If user hasn't voted, insert their vote
     } else {
-      const result = await postFetch(`answers/${answerId}/vote`, { vote: 1 }, token);
-      if (!result.success) {
-        toast.error('We cannot update your vote, please try again later');
-        return;
-      }
-    }
-    onDataUpdated();
-  }
-
-  async function downVoteHandler(answerId) {
-    if (!token) {
-      toast.error('Only registered users can vote.');
-      return;
-    }
-    // Check if the user has already voted for this answer
-    const userVote = await getFetch(`answers/${answerId}/vote`, token);
-
-    // If user has already voted, update their existing vote
-    if (userVote.length > 0) {
-      const result = await updateOneFetch(`answers/${answerId}/vote`, { vote: -1 }, token);
-      if (!result.success) {
-        toast.error('We cannot include your vote, please try again later');
-        return;
-      }
-
-      // If user hasn't voted, insert their new vote
-    } else {
-      const result = await postFetch(`answers/${answerId}/vote`, { vote: -1 }, token);
+      const result = await postFetch(`answers/${answerId}/vote`, { vote: voteValue }, token);
       if (!result.success) {
         toast.error('We cannot update your vote, please try again later');
         return;
@@ -95,12 +69,12 @@ function AnswerCard(props) {
         <div className={style.votesWrapper}>
           <Icon
             icon="fa-thumbs-o-up"
-            onClick={() => upVoteHandler(answer_id)}
+            onClick={() => voteHandler(answer_id, 1)}
           />
           <p className={style.votes}>{!votes ? 0 : votes}</p>
           <Icon
             icon="fa-thumbs-o-down"
-            onClick={() => downVoteHandler(answer_id)}
+            onClick={() => voteHandler(answer_id, -1)}
           />
         </div>
 
