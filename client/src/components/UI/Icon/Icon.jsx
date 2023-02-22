@@ -1,6 +1,6 @@
 import style from './Icon.module.css';
 
-function Icon({ icon, size = 'normal', onClick }) {
+function Icon({ icon, size = 'medium', onClick }) {
   return (
     <i
       className={`fa ${icon} ${style[size]}`}

@@ -13,7 +13,7 @@ const initialValues = {
   content: '',
 };
 
-function AddAnswerForm({ dataUpdated }) {
+function AddAnswerForm({ onDataUpdated }) {
   const { id } = useParams();
   const { token } = useAuthCtx();
   const [feedbackCommon, setFeedbackCommon] = useState({
@@ -33,7 +33,7 @@ function AddAnswerForm({ dataUpdated }) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
         return;
       }
-      dataUpdated();
+      onDataUpdated();
       resetForm({ values: '' });
       setFeedbackCommon({ message: result.message, class: 'success' });
       setTimeout(() => {

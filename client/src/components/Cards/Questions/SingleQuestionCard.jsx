@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 import { useAuthCtx } from '../../../store/authContext';
 import TextIconButton from '../../UI/TextIconButton/TextIconButton';
 
-// question_id, user_id, title, content, created_at, updated_at, archived, username, email, image
 function SingleQuestionCard(props) {
   const {
     question_id,
@@ -24,8 +23,8 @@ function SingleQuestionCard(props) {
   const { token, userEmail } = useAuthCtx();
   const history = useHistory();
 
-  const createdAtFormatted = formattedDate(created_at);
-  const updatedAtFormatted = formattedDate(updated_at);
+  const createdAt = formattedDate(created_at);
+  const updatedAt = formattedDate(updated_at);
 
   async function deleteQueHandler(questionId) {
     if (!token) {
@@ -58,13 +57,12 @@ function SingleQuestionCard(props) {
         <div className={style.dates}>
           <p className={style.created}>
             {`asked on `}
-            {createdAtFormatted} by{' '}
-            <em className={style.username}>{username}</em>
+            {createdAt} by <em className={style.username}>{username}</em>
           </p>
           {updated_at !== null && (
             <p className={style.updated}>
               {`updated at `}
-              {updatedAtFormatted}
+              {updatedAt}
             </p>
           )}
         </div>
@@ -73,10 +71,7 @@ function SingleQuestionCard(props) {
       {isLoggedInUserPost && (
         <div className={style.updateDeleteWrapper}>
           <Link to={`/${question_id}/editQuestion`}>
-            <TextIconButton
-              text="Update"
-              icon="fa-pencil"
-            />
+            <TextIconButton text="Update" icon="fa-pencil" />
           </Link>
           <TextIconButton
             text="Delete"
