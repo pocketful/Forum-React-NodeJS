@@ -1,0 +1,14 @@
+.votesWrapper {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.votes {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: black;
+  color: #4f7b8b;
+  min-width: 30px;
+  text-align: center;
+}

@@ -36,21 +36,6 @@
   color: #4f7b8b;
 }
 
-.votesWrapper {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-}
-
-.votes {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: black;
-  color: #4f7b8b;
-  min-width: 30px;
-  text-align: center;
-}
-
 .created {
   font-size: 0.9rem;
   color: rgb(72, 72, 72);
@@ -88,9 +73,6 @@
   .dates {
     align-items: flex-start;
     line-height: 1.2;
-  }
-  .votes {
-    align-self: center;
   }
 }
 
