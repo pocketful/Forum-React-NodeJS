@@ -28,17 +28,19 @@ function AnswerCard(props) {
   return (
     <article className={style.card}>
       <p className={style.content}>{content}</p>
-      <div className={style.flexBig}>
-        <VoteButtons
-          endpoint={'answers'}
-          id={answer_id}
-          votes={votes}
-          onDataUpdated={onDataUpdated}
-        />
-        <div className={style.flex}>
+      <div className={style.votesUserWrapper}>
+        <div className={style.votesWrapper}>
+          <VoteButtons
+            endpoint={'answers'}
+            id={answer_id}
+            votes={votes}
+            onDataUpdated={onDataUpdated}
+          />
+        </div>
+        <div className={style.userWrapper}>
           <div className={style.dates}>
             <p className={style.created}>
-              {`asked on `}
+              {`answered `}
               {formatDate(created_at)} by{' '}
               <em className={style.username}>{username}</em>
             </p>

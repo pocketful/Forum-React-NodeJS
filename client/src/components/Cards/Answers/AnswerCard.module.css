@@ -11,14 +11,14 @@
   padding-bottom: 1em;
 }
 
-.flexBig {
+.votesUserWrapper {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: 10px;
 }
 
-.flex {
+.userWrapper {
   display: flex;
   gap: 10px;
   justify-content: flex-end;
@@ -37,21 +37,21 @@
 }
 
 .created {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: rgb(72, 72, 72);
 }
 
 .updated {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: grey;
-  padding-top: 0.2rem;
+  padding-top: 0.3rem;
 }
 
 .updateDeleteWrapper {
   display: flex;
   gap: 15px;
   justify-content: flex-end;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-top: 1em;
 }
 
@@ -59,20 +59,21 @@
   .card {
     padding: 1.2em;
   }
-  .flexBig {
+  .votesUserWrapper {
     flex-direction: column;
     align-items: flex-start;
   }
-  .flex {
+  .votesWrapper {
+    align-self: center;
+  }
+  .userWrapper {
     flex-direction: row-reverse;
-    align-items: flex-start;
   }
   .updateDeleteWrapper {
     flex-direction: row-reverse;
   }
   .dates {
-    align-items: flex-start;
-    line-height: 1.2;
+    line-height: 1.4;
   }
 }
 
@@ -80,11 +81,8 @@
   .card {
     padding: 1em;
   }
-  .flex {
+  .userWrapper {
     flex-direction: column-reverse;
     align-items: flex-start;
-  }
-  .dates {
-    line-height: 1.4;
   }
 }

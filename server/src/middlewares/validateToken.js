@@ -7,7 +7,7 @@ async function validateToken(req, res, next) {
   // if token doesn't exist
   if (!tokenFromHeader) {
     console.log('no token');
-    res.status(401).json({ success: false, message: 'No token.' });
+    res.status(401).json({ success: false, message: 'You have to login first.' });
     return;
   }
 
@@ -22,7 +22,7 @@ async function validateToken(req, res, next) {
     next();
   } catch (err) {
     console.log('err in validateToken middleware:', err);
-    res.status(403).json({ success: false, message: 'Invalid token, please login.' });
+    res.status(403).json({ success: false, message: 'You have to login first.' });
   }
 }
 

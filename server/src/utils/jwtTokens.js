@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { jwtSecret } = require('../config');
 
 function signingJwt(payload) {
-  return jwt.sign(payload, jwtSecret, { expiresIn: '1h' });
+  return jwt.sign(payload, jwtSecret, { expiresIn: '12h' });
 }
 
 function verifyToken(tokenFromHeader) {

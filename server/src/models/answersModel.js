@@ -37,7 +37,6 @@ function postAnswerVoteDb(answerId, userId, vote) {
   return executeDb(sql, [answerId, userId, vote]);
 }
 
-
 module.exports = {
   getAnswersDb,
   postAnswerDb,

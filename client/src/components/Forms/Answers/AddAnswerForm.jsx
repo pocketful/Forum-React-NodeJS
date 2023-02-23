@@ -7,7 +7,6 @@ import { useAuthCtx } from '../../../store/authContext';
 import Button from '../../UI/Button/Button';
 import Input from '../../UI/Input/Input';
 import style from '../User/UserForm.module.css';
-import toast from 'react-hot-toast';
 
 const initialValues = {
   content: '',
@@ -27,7 +26,6 @@ function AddAnswerForm({ onDataUpdated }) {
       content: Yup.string().min(3).required(),
     }),
     onSubmit: async (values, { resetForm }) => {
-      if (!token) toast.error('You have to login first.');
       const result = await postFetch(`questions/${id}/answers`, values, token);
       if (!result.success) {
         setFeedbackCommon({ message: result.message, class: 'danger' });
