@@ -16,7 +16,7 @@ function QuestionsPage() {
 
   async function getQuestions() {
     try {
-      const data = await getFetch('/questions');
+      const data = await getFetch('questions');
       setQuestionsArr(data);
       setAllQuestionsArr(data);
       setActiveFilters({ filter: 'All' });

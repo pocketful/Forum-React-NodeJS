@@ -17,10 +17,10 @@ Note that users can only modify and delete their own questions and answers.
 # 🎨 Main features
 
 - **Full-Stack Design**: Independently crafted the project design, ensuring a cohesive and user-friendly experience.
-- **Database**: Store tables for questions, answers, answer votes, and user data tables.
 - **User Authentication**: Incorporated JSON tokens for secure user authentication.
 - **Data Validation**: Implemented validation both in the backend and frontend for robust data integrity.
 - **Responsive design**: Ensured a seamless experience across various devices.
+- **Database**: The database setup for questions, answers, answer votes, and users uses constraints to maintain data integrity and relational links, automating updates and deletions for consistent and simplified database management.
 
 # ⚙️ Functionality
 
