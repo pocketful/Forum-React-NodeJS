@@ -13,10 +13,11 @@ function AnswerCard(props) {
     content,
     created_at,
     updated_at,
-    votes,
     username,
     email,
     image,
+    votes,
+    my_vote,
     onDelete,
     onDataUpdated,
   } = props;
@@ -32,8 +33,9 @@ function AnswerCard(props) {
         <div className={style.votesWrapper}>
           <VoteButtons
             endpoint={'answers'}
-            id={answer_id}
+            answerId={answer_id}
             votes={votes}
+            myVote={my_vote}
             onDataUpdated={onDataUpdated}
           />
         </div>

@@ -9,9 +9,11 @@ const {
 } = require('../models/answersModel');
 
 async function getAnswers(req, res) {
+  const { userId } = req;
   const { questionId } = req.params;
+  console.log('getAnswers controller userId :', userId);
   try {
-    const answers = await getAnswersDb(questionId);
+    const answers = await getAnswersDb(userId, questionId);
     return res.json(answers);
   } catch (err) {
     console.log('error in get answers controller:', err);

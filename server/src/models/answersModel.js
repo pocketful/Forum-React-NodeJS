@@ -1,10 +1,10 @@
 const executeDb = require('../utils/executeDb');
 
-function getAnswersDb(questionId) {
-  // with votes, user username and image
+function getAnswersDb(userId, questionId) {
+  // with votes, my_vote (1 / -1), username, image
   const sql =
-    'SELECT answers.*, SUM(answers_votes.vote) AS votes, users.username, users.email, users.image FROM answers LEFT JOIN answers_votes ON answers.answer_id = answers_votes.answer_id LEFT JOIN users ON answers.user_id = users.user_id WHERE answers.archived = 0 AND question_id = ? GROUP BY answers.answer_id';
-  return executeDb(sql, [questionId]);
+    'SELECT answers.*, users.username, users.email, users.image, SUM(answers_votes.vote) AS votes, MAX(CASE WHEN answers_votes.user_id = ? THEN answers_votes.vote END) AS my_vote FROM answers LEFT JOIN users ON answers.user_id = users.user_id LEFT JOIN answers_votes ON answers.answer_id = answers_votes.answer_id WHERE answers.archived = 0 AND question_id = ? GROUP BY answers.answer_id';
+  return executeDb(sql, [userId, questionId]);
 }
 
 function postAnswerDb(userId, questionId, content) {
@@ -22,6 +22,7 @@ function deleteAnswerDb(answerId) {
   return executeDb(sql, [answerId]);
 }
 
+// Voting for an answer:
 function getAnswerVoteByUserDb(answerId, userId) {
   const sql = 'SELECT * FROM answers_votes WHERE answer_id = ? AND user_id = ?';
   return executeDb(sql, [answerId, userId]);

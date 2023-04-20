@@ -7,13 +7,17 @@ import TextIconButton from '../../UI/TextIconButton/TextIconButton';
 import PropTypes from 'prop-types';
 
 function VoteButtons(props) {
-  const { endpoint, id, votes, onDataUpdated } = props;
+  const { endpoint, answerId, votes, myVote, onDataUpdated } = props;
 
   const [loading, setLoading] = useState(false);
 
   const { token } = useAuthCtx();
 
-  async function voteHandler(id, voteValue) {
+  //console.log('VoteButtons votes:', votes);
+  console.log('VoteButtons myVote:', myVote);
+
+  async function voteHandler(answerId, voteValue) {
+    console.log('clicked answerId', answerId);
     if (!token) {
       toast.error('Only registered users can vote.');
       return;
@@ -21,12 +25,12 @@ function VoteButtons(props) {
     setLoading(true);
     // Check if the user has already voted
     try {
-      const userVote = await getFetch(`${endpoint}/${id}/vote`, token);
+      const userVote = await getFetch(`${endpoint}/${answerId}/vote`, token);
 
       // If user has already voted, update their vote
       if (userVote.length > 0) {
         const result = await updateOneFetch(
-          `${endpoint}/${id}/vote`,
+          `${endpoint}/${answerId}/vote`,
           { vote: voteValue },
           token,
         );
@@ -38,7 +42,7 @@ function VoteButtons(props) {
         // If user hasn't voted, insert their vote
       } else {
         const result = await postFetch(
-          `${endpoint}/${id}/vote`,
+          `${endpoint}/${answerId}/vote`,
           { vote: voteValue },
           token,
         );
@@ -60,7 +64,7 @@ function VoteButtons(props) {
       <TextIconButton
         icon="fa-thumbs-o-up"
         size="medium"
-        onClick={() => voteHandler(id, 1)}
+        onClick={() => voteHandler(answerId, 1)}
         isDisabled={loading}
         label="Like"
       />
@@ -68,7 +72,7 @@ function VoteButtons(props) {
       <TextIconButton
         icon="fa-thumbs-o-down"
         size="medium"
-        onClick={() => voteHandler(id, -1)}
+        onClick={() => voteHandler(answerId, -1)}
         isDisabled={loading}
         label="Dislike"
       />
@@ -78,7 +82,7 @@ function VoteButtons(props) {
 
 VoteButtons.propTypes = {
   endpoint: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  answerId: PropTypes.number.isRequired,
   votes: PropTypes.string,
   onDataUpdated: PropTypes.func.isRequired,
 };

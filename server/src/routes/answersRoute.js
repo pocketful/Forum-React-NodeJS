@@ -2,11 +2,19 @@ const express = require('express');
 const controller = require('../controllers/answersController');
 const { validateAnswer } = require('../middlewares/validateData');
 const validateToken = require('../middlewares/validateToken');
+const decodeToken = require('../middlewares/decodeToken');
 
 const answersRoute = express.Router();
 
-answersRoute.get('/questions/:questionId/answers', controller.getAnswers);
-answersRoute.post('/questions/:questionId/answers', validateToken, validateAnswer, controller.postAnswer);
+// decodeToken to show logged in user votes
+answersRoute.get('/questions/:questionId/answers', decodeToken, controller.getAnswers);
+
+answersRoute.post(
+  '/questions/:questionId/answers',
+  validateToken,
+  validateAnswer,
+  controller.postAnswer,
+);
 answersRoute.patch('/answers/:answerId', validateToken, validateAnswer, controller.updateAnswer);
 answersRoute.delete('/answers/:answerId', validateToken, controller.deleteAnswer);
 
