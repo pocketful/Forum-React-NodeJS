@@ -25,5 +25,7 @@ answersRoute.get('/answers/:answerId/vote', validateToken, controller.getAnswerV
 answersRoute.patch('/answers/:answerId/vote', validateToken, controller.updateAnswerVote);
 // Insert a new vote for the answer
 answersRoute.post('/answers/:answerId/vote', validateToken, controller.postAnswerVote);
+// Delete an existing user vote for the answer
+answersRoute.delete('/answers/:answerId/:voteId', validateToken, controller.deleteAnswerVote);
 
 module.exports = answersRoute;

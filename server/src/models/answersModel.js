@@ -38,6 +38,11 @@ function postAnswerVoteDb(answerId, userId, vote) {
   return executeDb(sql, [answerId, userId, vote]);
 }
 
+function deleteAnswerVoteDb(voteId) {
+  const sql = 'DELETE FROM answers_votes WHERE vote_id = ?';
+  return executeDb(sql, [voteId]);
+}
+
 module.exports = {
   getAnswersDb,
   postAnswerDb,
@@ -46,4 +51,5 @@ module.exports = {
   getAnswerVoteByUserDb,
   updateAnswerVoteDb,
   postAnswerVoteDb,
+  deleteAnswerVoteDb,
 };

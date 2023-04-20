@@ -115,3 +115,9 @@ Authorization: Bearer ...
 {
   "vote": -1
 }
+
+
+### Delete answer vote ---------------------------------
+DELETE http://localhost:3000/api/answers/2/3
+Content-Type: application/json
+Authorization: Bearer ...

@@ -6,6 +6,7 @@ const {
   getAnswerVoteByUserDb,
   updateAnswerVoteDb,
   postAnswerVoteDb,
+  deleteAnswerVoteDb,
 } = require('../models/answersModel');
 
 async function getAnswers(req, res) {
@@ -131,6 +132,23 @@ async function postAnswerVote(req, res) {
   }
 }
 
+async function deleteAnswerVote(req, res) {
+  const { voteId } = req.params;
+  try {
+    const deleteResult = await deleteAnswerVoteDb(voteId);
+    if (deleteResult.affectedRows === 1) {
+      return res.status(200).json({ success: true, message: 'Answer vote successfully deleted.' });
+    }
+    if (deleteResult.affectedRows === 0) {
+      return res.status(400).json({ success: false, message: 'Unable to delete an answer vote.' });
+    }
+    throw new Error('unable to delete an answer vote');
+  } catch (err) {
+    console.log('error tryin to delete an answer vote:', err);
+    return res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+}
+
 module.exports = {
   getAnswers,
   postAnswer,
@@ -139,4 +157,5 @@ module.exports = {
   getAnswerVoteByUser,
   updateAnswerVote,
   postAnswerVote,
+  deleteAnswerVote,
 };
