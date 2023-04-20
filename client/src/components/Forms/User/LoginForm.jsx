@@ -13,7 +13,10 @@ const initialValues = {
 };
 
 function LoginForm({ onSuccessLogin }) {
-  const [feedbackCommon, setFeedbackCommon] = useState({ message: '', class: '' });
+  const [feedbackCommon, setFeedbackCommon] = useState({
+    message: '',
+    class: '',
+  });
   const { login } = useAuthCtx();
 
   const formik = useFormik({
@@ -24,16 +27,20 @@ function LoginForm({ onSuccessLogin }) {
     }),
 
     onSubmit: async (values) => {
-      const result = await postFetch('login', values);
-      if (!result.success) {
-        setFeedbackCommon({ message: result.message, class: 'danger' });
-        return;
+      try {
+        const result = await postFetch('login', values);
+        if (!result.success) {
+          setFeedbackCommon({ message: result.message, class: 'danger' });
+          return;
+        }
+        setFeedbackCommon({ message: result.message, class: 'success' });
+        login(result.token, values.email);
+        setTimeout(() => {
+          onSuccessLogin();
+        }, 1000);
+      } catch (err) {
+        console.error('Error during login:', err);
       }
-      setFeedbackCommon({ message: result.message, class: 'success' });
-      login(result.token, values.email);
-      setTimeout(() => {
-        onSuccessLogin();
-      }, 1000);
     },
   });
 
@@ -52,7 +59,9 @@ function LoginForm({ onSuccessLogin }) {
           <Button type="submit">Sign In</Button>
         </div>
         {feedbackCommon.message.length !== 0 && (
-          <p className={style[feedbackCommon.class]}>{feedbackCommon.message}</p>
+          <p className={style[feedbackCommon.class]}>
+            {feedbackCommon.message}
+          </p>
         )}
       </form>
     </>
