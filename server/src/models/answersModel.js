@@ -1,10 +1,22 @@
 const executeDb = require('../utils/executeDb');
 
+// Including vote-related information depends on whether userId is provided
 function getAnswersDb(userId, questionId) {
-  // with votes, my_vote (1 / -1), username, image
-  const sql =
-    'SELECT answers.*, users.username, users.email, users.image, SUM(answers_votes.vote) AS votes, MAX(CASE WHEN answers_votes.user_id = ? THEN answers_votes.vote END) AS my_vote FROM answers LEFT JOIN users ON answers.user_id = users.user_id LEFT JOIN answers_votes ON answers.answer_id = answers_votes.answer_id WHERE answers.archived = 0 AND question_id = ? GROUP BY answers.answer_id';
-  return executeDb(sql, [userId, questionId]);
+  const baseQuery = 'SELECT answers.*, users.username, users.email, users.image';
+
+  const myVoteQuery = userId
+    ? ', SUM(answers_votes.vote) AS votes, MAX(CASE WHEN answers_votes.user_id = ? THEN answers_votes.vote END) AS my_vote'
+    : '';
+
+  const fromClause = ' FROM answers LEFT JOIN users ON answers.user_id = users.user_id';
+
+  const joinClause = userId
+    ? ' LEFT JOIN answers_votes ON answers.answer_id = answers_votes.answer_id WHERE answers.archived = 0 AND question_id = ? GROUP BY answers.answer_id'
+    : ' WHERE answers.archived = 0 AND question_id = ? GROUP BY answers.answer_id';
+
+  const sql = `${baseQuery}${myVoteQuery}${fromClause}${joinClause}`;
+  const params = userId ? [userId, questionId] : [questionId];
+  return executeDb(sql, params);
 }
 
 function postAnswerDb(userId, questionId, content) {
