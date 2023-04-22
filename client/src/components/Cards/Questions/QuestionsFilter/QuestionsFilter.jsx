@@ -48,6 +48,7 @@ function QuestionsFilter(props) {
           }
           onClick={onSortDate}
           active={sort === 'ByDateAsc' || sort === 'ByDateDesc'}
+          width="medium"
         />
         <TextIconButton
           text="By Answers"
@@ -60,6 +61,7 @@ function QuestionsFilter(props) {
           }
           onClick={onSortAnswers}
           active={sort === 'ByAnswersAsc' || sort === 'ByAnswersDesc'}
+          width="large"
         />
       </div>
     </div>

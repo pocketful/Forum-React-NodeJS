@@ -89,6 +89,7 @@ function VoteButtons(props) {
         onClick={() => voteHandler(answerId, 1)}
         isDisabled={loading}
         label="Like"
+        width="small"
       />
       <p className={style.votes}>{!votes ? 0 : votes}</p>
       <TextIconButton
@@ -97,6 +98,7 @@ function VoteButtons(props) {
         onClick={() => voteHandler(answerId, -1)}
         isDisabled={loading}
         label="Dislike"
+        width="small"
       />
     </div>
   );

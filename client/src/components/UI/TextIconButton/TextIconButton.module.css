@@ -12,7 +12,19 @@
 }
 
 .text {
-  padding-right: 0.4em;
+  margin-right: 0.4em;
+}
+
+.width-small {
+  width: 1rem;
+}
+
+.width-medium {
+  width: 5.2rem;
+}
+
+.width-large {
+  min-width: 7rem;
 }
 
 .active * {

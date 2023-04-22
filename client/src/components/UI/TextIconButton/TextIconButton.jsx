@@ -10,11 +10,14 @@ function TextIconButton({
   active,
   isDisabled,
   label,
+  width,
 }) {
   return (
     <button
       type="button"
-      className={`${style.btn} ${active ? style['active'] : ''}`}
+      className={`${style.btn} ${active ? style['active'] : ''} ${
+        width ? style[`width-${width}`] : ''
+      }`}
       onClick={onClick}
       disabled={isDisabled}
       aria-label={label}
@@ -33,6 +36,7 @@ TextIconButton.propTypes = {
   active: PropTypes.bool,
   isDisabled: PropTypes.bool,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.bool,
 };
 
 export default TextIconButton;
