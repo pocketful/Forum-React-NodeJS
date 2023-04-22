@@ -34,12 +34,6 @@ function deleteAnswerDb(answerId) {
   return executeDb(sql, [answerId]);
 }
 
-// Voting for an answer:
-function getAnswerVoteByUserDb(answerId, userId) {
-  const sql = 'SELECT * FROM answers_votes WHERE answer_id = ? AND user_id = ?';
-  return executeDb(sql, [answerId, userId]);
-}
-
 function updateAnswerVoteDb(vote, answerId, userId) {
   const sql = 'UPDATE answers_votes SET vote = ? WHERE answer_id = ? AND user_id = ?';
   return executeDb(sql, [vote, answerId, userId]);
@@ -60,7 +54,6 @@ module.exports = {
   postAnswerDb,
   updateAnswerDb,
   deleteAnswerDb,
-  getAnswerVoteByUserDb,
   updateAnswerVoteDb,
   postAnswerVoteDb,
   deleteAnswerVoteDb,

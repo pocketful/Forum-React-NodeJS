@@ -3,7 +3,6 @@ const {
   postAnswerDb,
   updateAnswerDb,
   deleteAnswerDb,
-  getAnswerVoteByUserDb,
   updateAnswerVoteDb,
   postAnswerVoteDb,
   deleteAnswerVoteDb,
@@ -78,19 +77,6 @@ async function deleteAnswer(req, res) {
 }
 
 // Voting
-// Check if the user has already voted for this answer
-async function getAnswerVoteByUser(req, res) {
-  const { answerId } = req.params;
-  const { userId } = req;
-  try {
-    const answerVoteByUser = await getAnswerVoteByUserDb(answerId, userId);
-    console.log('answerVoteByUser:', answerVoteByUser);
-    return res.json(answerVoteByUser);
-  } catch (err) {
-    console.log('error in get answer votes by user controller:', err);
-    return res.status(500).json({ success: false, message: 'Something went wrong.' });
-  }
-}
 
 // Update an existing user vote for the answer
 async function updateAnswerVote(req, res) {
@@ -132,6 +118,7 @@ async function postAnswerVote(req, res) {
   }
 }
 
+// Delete a vote for the answer
 async function deleteAnswerVote(req, res) {
   const { answerId } = req.params;
   const { userId } = req;
@@ -155,7 +142,6 @@ module.exports = {
   postAnswer,
   updateAnswer,
   deleteAnswer,
-  getAnswerVoteByUser,
   updateAnswerVote,
   postAnswerVote,
   deleteAnswerVote,
