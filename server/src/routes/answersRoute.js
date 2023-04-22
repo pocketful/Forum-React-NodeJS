@@ -20,6 +20,6 @@ answersRoute.patch('/answers/:answerId/vote', handleToken(), controller.updateAn
 // Insert a new vote for the answer
 answersRoute.post('/answers/:answerId/vote', handleToken(), controller.postAnswerVote);
 // Delete an existing user vote for the answer
-answersRoute.delete('/answers/:answerId/:voteId', handleToken(), controller.deleteAnswerVote);
+answersRoute.delete('/answers/:answerId/vote', handleToken(), controller.deleteAnswerVote);
 
 module.exports = answersRoute;

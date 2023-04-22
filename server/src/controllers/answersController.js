@@ -94,9 +94,9 @@ async function getAnswerVoteByUser(req, res) {
 
 // Update an existing user vote for the answer
 async function updateAnswerVote(req, res) {
+  const { vote } = req.body;
   const { answerId } = req.params;
   const { userId } = req;
-  const { vote } = req.body;
   try {
     const insertResult = await updateAnswerVoteDb(vote, answerId, userId);
     if (insertResult.affectedRows === 1) {
@@ -133,9 +133,10 @@ async function postAnswerVote(req, res) {
 }
 
 async function deleteAnswerVote(req, res) {
-  const { voteId } = req.params;
+  const { answerId } = req.params;
+  const { userId } = req;
   try {
-    const deleteResult = await deleteAnswerVoteDb(voteId);
+    const deleteResult = await deleteAnswerVoteDb(answerId, userId);
     if (deleteResult.affectedRows === 1) {
       return res.status(200).json({ success: true, message: 'Answer vote successfully deleted.' });
     }

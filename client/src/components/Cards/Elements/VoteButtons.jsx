@@ -2,7 +2,7 @@ import style from './VoteButtons.module.css';
 import { useState } from 'react';
 import { useAuthCtx } from '../../../store/authContext';
 import toast from 'react-hot-toast';
-import { getFetch, postFetch, updateOneFetch } from '../../../helpers/fetch';
+import { deleteFetch, postFetch, updateOneFetch } from '../../../helpers/fetch';
 import TextIconButton from '../../UI/TextIconButton/TextIconButton';
 import PropTypes from 'prop-types';
 
@@ -10,47 +10,69 @@ function VoteButtons(props) {
   const { endpoint, answerId, votes, myVote, onDataUpdated } = props;
 
   const [loading, setLoading] = useState(false);
+  const [userVote, setUserVote] = useState(myVote); // null: Not voted, 1: Upvoted, -1: Downvoted
 
   const { token } = useAuthCtx();
 
-  //console.log('VoteButtons votes:', votes);
-  console.log('VoteButtons myVote:', myVote);
+  console.log('votes:', votes);
+  console.log('myVote:', myVote);
+  console.log('userVote:', userVote);
 
-  async function voteHandler(answerId, voteValue) {
-    console.log('clicked answerId', answerId);
+  // DELETE. If user has already voted, and clicked on the same icon again, delete their vote
+  async function deleteVoteHandler(answerId) {
     if (!token) {
       toast.error('Only registered users can vote.');
       return;
     }
     setLoading(true);
-    // Check if the user has already voted
     try {
-      const userVote = await getFetch(`${endpoint}/${answerId}/vote`, token);
+      const voteResult = await deleteFetch(
+        `${endpoint}/${answerId}/vote`,
+        token,
+      );
+      if (!voteResult.success) {
+        toast.error('We cannot delete your vote, please try again later');
+        return;
+      }
+      setUserVote(null);
+      onDataUpdated();
+    } catch (err) {
+      console.log('err in deleteVoteHandler:', err);
+    } finally {
+      setLoading(false);
+    }
+  }
 
-      // If user has already voted, update their vote
-      if (userVote.length > 0) {
-        const result = await updateOneFetch(
-          `${endpoint}/${answerId}/vote`,
-          { vote: voteValue },
-          token,
-        );
-        if (!result.success) {
+  // POST or PATCH a vote
+  async function voteHandler(answerId, voteValue) {
+    if (!token) {
+      toast.error('Only registered users can vote.');
+      return;
+    }
+    setLoading(true);
+    try {
+      if (userVote === voteValue) {
+        return deleteVoteHandler(answerId);
+      } else {
+        const voteResult = userVote
+          ? // If user has already voted, (and clicked on the different icon), update their vote
+            await updateOneFetch(
+              `${endpoint}/${answerId}/vote`,
+              { vote: voteValue },
+              token,
+            )
+          : // If user hasn't voted, (and clicked on any icon), instert their vote
+            await postFetch(
+              `${endpoint}/${answerId}/vote`,
+              { vote: voteValue },
+              token,
+            );
+        if (!voteResult.success) {
           toast.error('We cannot include your vote, please try again later');
           return;
         }
-
-        // If user hasn't voted, insert their vote
-      } else {
-        const result = await postFetch(
-          `${endpoint}/${answerId}/vote`,
-          { vote: voteValue },
-          token,
-        );
-        if (!result.success) {
-          toast.error('We cannot update your vote, please try again later');
-          return;
-        }
       }
+      setUserVote(voteValue);
       onDataUpdated();
     } catch (err) {
       console.log('err in voteHandler:', err);
@@ -62,7 +84,7 @@ function VoteButtons(props) {
   return (
     <div className={style.votesWrapper}>
       <TextIconButton
-        icon="fa-thumbs-o-up"
+        icon={`fa-thumbs${userVote === 1 ? '' : '-o'}-up`}
         size="medium"
         onClick={() => voteHandler(answerId, 1)}
         isDisabled={loading}
@@ -70,7 +92,7 @@ function VoteButtons(props) {
       />
       <p className={style.votes}>{!votes ? 0 : votes}</p>
       <TextIconButton
-        icon="fa-thumbs-o-down"
+        icon={`fa-thumbs${userVote === -1 ? '' : '-o'}-down`}
         size="medium"
         onClick={() => voteHandler(answerId, -1)}
         isDisabled={loading}
@@ -84,6 +106,7 @@ VoteButtons.propTypes = {
   endpoint: PropTypes.string.isRequired,
   answerId: PropTypes.number.isRequired,
   votes: PropTypes.string,
+  myVote: PropTypes.oneOf([1, -1, null]),
   onDataUpdated: PropTypes.func.isRequired,
 };
 

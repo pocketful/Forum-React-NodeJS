@@ -61,6 +61,15 @@ Authorization: Bearer ...
 
 
 ### Answers ========================================================================================
+### ---------------------------------- with token
+GET http://localhost:3000/api/questions/1/answers
+Content-Type: application/json
+Authorization: Bearer ...
+
+
+### ---------------------------------- without token
+
+
 GET http://localhost:3000/api/questions/1/answers
 
 
@@ -118,6 +127,6 @@ Authorization: Bearer ...
 
 
 ### Delete answer vote ---------------------------------
-DELETE http://localhost:3000/api/answers/2/3
+DELETE http://localhost:3000/api/answers/22/vote
 Content-Type: application/json
 Authorization: Bearer ...
