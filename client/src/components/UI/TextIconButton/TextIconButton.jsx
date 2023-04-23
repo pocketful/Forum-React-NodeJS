@@ -36,7 +36,7 @@ TextIconButton.propTypes = {
   active: PropTypes.bool,
   isDisabled: PropTypes.bool,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  width: PropTypes.bool,
+  width: PropTypes.oneOf(['small', 'medium', 'large']),
 };
 
 export default TextIconButton;

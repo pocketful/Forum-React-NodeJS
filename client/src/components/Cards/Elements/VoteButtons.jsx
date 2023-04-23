@@ -6,6 +6,14 @@ import { deleteFetch, postFetch, updateOneFetch } from '../../../helpers/fetch';
 import TextIconButton from '../../UI/TextIconButton/TextIconButton';
 import PropTypes from 'prop-types';
 
+/*
+  DELETE a vote. If user has already voted, and clicked on the same icon again
+  POST a vote. If user hasn't voted, and clicked on any icon
+  PATCH a vote. If user has already voted and clicked on the different icon
+*/
+
+const voteEndpoint = '/vote';
+
 function VoteButtons(props) {
   const { endpoint, answerId, votes, myVote, onDataUpdated } = props;
 
@@ -14,68 +22,47 @@ function VoteButtons(props) {
 
   const { token } = useAuthCtx();
 
-  console.log('votes:', votes);
-  console.log('myVote:', myVote);
-  console.log('userVote:', userVote);
-
-  // DELETE. If user has already voted, and clicked on the same icon again, delete their vote
-  async function deleteVoteHandler(answerId) {
+  async function handleVote(answerId, voteValue) {
     if (!token) {
       toast.error('Only registered users can vote.');
       return;
     }
     setLoading(true);
+
     try {
-      const voteResult = await deleteFetch(
-        `${endpoint}/${answerId}/vote`,
-        token,
-      );
+      const isDeletingVote = userVote === voteValue;
+
+      const voteAction = isDeletingVote
+        ? 'delete'
+        : userVote === null
+        ? 'post'
+        : 'patch';
+      let voteResult;
+
+      if (voteAction === 'delete') {
+        voteResult = await deleteFetch(
+          `${endpoint}/${answerId}${voteEndpoint}`,
+          token,
+        );
+      } else {
+        const fetchMethod = voteAction === 'post' ? postFetch : updateOneFetch;
+        voteResult = await fetchMethod(
+          `${endpoint}/${answerId}${voteEndpoint}`,
+          { vote: voteValue },
+          token,
+        );
+      }
       if (!voteResult.success) {
-        toast.error('We cannot delete your vote, please try again later');
+        const operation = voteAction === 'delete' ? 'remove' : 'record';
+        toast.error(
+          `We were unable to ${operation} your vote. Please try again later.`,
+        );
         return;
       }
-      setUserVote(null);
+      setUserVote(isDeletingVote ? null : voteValue);
       onDataUpdated();
     } catch (err) {
-      console.log('err in deleteVoteHandler:', err);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  // POST or PATCH a vote
-  async function voteHandler(answerId, voteValue) {
-    if (!token) {
-      toast.error('Only registered users can vote.');
-      return;
-    }
-    setLoading(true);
-    try {
-      if (userVote === voteValue) {
-        return deleteVoteHandler(answerId);
-      } else {
-        const voteResult = userVote
-          ? // If user has already voted, (and clicked on the different icon), update their vote
-            await updateOneFetch(
-              `${endpoint}/${answerId}/vote`,
-              { vote: voteValue },
-              token,
-            )
-          : // If user hasn't voted, (and clicked on any icon), instert their vote
-            await postFetch(
-              `${endpoint}/${answerId}/vote`,
-              { vote: voteValue },
-              token,
-            );
-        if (!voteResult.success) {
-          toast.error('We cannot include your vote, please try again later');
-          return;
-        }
-      }
-      setUserVote(voteValue);
-      onDataUpdated();
-    } catch (err) {
-      console.log('err in voteHandler:', err);
+      console.log('err in handleVote:', err);
     } finally {
       setLoading(false);
     }
@@ -86,7 +73,7 @@ function VoteButtons(props) {
       <TextIconButton
         icon={`fa-thumbs${userVote === 1 ? '' : '-o'}-up`}
         size="medium"
-        onClick={() => voteHandler(answerId, 1)}
+        onClick={() => handleVote(answerId, 1)}
         isDisabled={loading}
         label="Like"
         width="small"
@@ -95,7 +82,7 @@ function VoteButtons(props) {
       <TextIconButton
         icon={`fa-thumbs${userVote === -1 ? '' : '-o'}-down`}
         size="medium"
-        onClick={() => voteHandler(answerId, -1)}
+        onClick={() => handleVote(answerId, -1)}
         isDisabled={loading}
         label="Dislike"
         width="small"
