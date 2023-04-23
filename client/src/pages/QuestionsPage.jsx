@@ -105,7 +105,7 @@ function QuestionsPage() {
         <Loader />
       ) : !isServerOn ? (
         <ServerError />
-      ) : questionsArr.length === 0 ? (
+      ) : allQuestionsArr.length === 0 ? (
         <EmptyArrError name="questions" />
       ) : (
         <QuestionsCardList

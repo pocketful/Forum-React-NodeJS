@@ -1,7 +1,11 @@
 # Q&A Forum App
 
 Q&A Forum application, a full-stack platform built with React, Node.js (Express.js), and MySQL2.
-This project was independently designed to create a user-friendly forum, allowing users to ask questions, provide and vote answers, similar to [Stack Overflow](https://stackoverflow.com/questions).
+This project was independently designed to create a user-friendly forum, allowing users to ask questions, provide and vote for the answers, similar to [Stack Overflow](https://stackoverflow.com/questions).
+
+The project follows a microservices architecture with separate services for user registration, login, questions, and answers. Each service has dedicated routes, controllers, and models, sharing a common database. Communication is streamlined through a unified API under the '/api' endpoint, promoting modularity.
+
+React-powered interface leverages React components and hooks to deliver real-time updates.
 
 # 💻 Demo
 
@@ -16,11 +20,12 @@ Note that users can only modify and delete their own questions and answers.
 
 # 🎨 Main features
 
+- **Voting System**: Delete a vote by clicking the same icon, post a vote when no prior vote exists, or patch a vote by toggling between different icons.
 - **Full-Stack Design**: Independently crafted the project design, ensuring a cohesive and user-friendly experience.
 - **User Authentication**: Incorporated JSON tokens for secure user authentication.
 - **Data Validation**: Implemented validation both in the backend and frontend for robust data integrity.
 - **Responsive design**: Ensured a seamless experience across various devices.
-- **Database**: The database setup for questions, answers, answer votes, and users uses constraints to maintain data integrity and relational links, automating updates and deletions for consistent and simplified database management.
+- **Database**: The database setup for questions, answers, answer votes, and users, uses constraints to maintain data integrity and relational links, automating updates and deletions.
 
 # ⚙️ Functionality
 
@@ -44,7 +49,7 @@ Note that users can only modify and delete their own questions and answers.
 - **Answer**: Post responses to questions _(available only when logged in)_.
 - **Update**: Modify your own answer, with the UI indicating that the response has been updated _(available only when logged in)_.
 - **Delete**: Remove your own response _(available only when logged in)_.
-- **Like/Dislike**: Express preferences for other users' answers _(available only when logged in)_.
+- **Like/Dislike/Reset**: Express preferences for other users' answers _(available only when logged in)_.
 
 # 🔧 Technologies used
 
