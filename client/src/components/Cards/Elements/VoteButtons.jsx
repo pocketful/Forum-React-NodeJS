@@ -12,8 +12,6 @@ import PropTypes from 'prop-types';
   PATCH a vote. If user has already voted and clicked on the different icon
 */
 
-const voteEndpoint = '/vote';
-
 function VoteButtons(props) {
   const { endpoint, answerId, votes, myVote, onDataUpdated } = props;
 
@@ -30,42 +28,60 @@ function VoteButtons(props) {
     setLoading(true);
 
     try {
-      const isDeletingVote = userVote === voteValue;
+      const voteAction = determineVoteAction(voteValue);
+      const voteUrl = `${endpoint}/${answerId}/vote`;
+      const voteResult = await executeVoteAction(
+        voteAction,
+        voteUrl,
+        voteValue,
+      );
 
-      const voteAction = isDeletingVote
-        ? 'delete'
-        : userVote === null
-        ? 'post'
-        : 'patch';
-      let voteResult;
-
-      if (voteAction === 'delete') {
-        voteResult = await deleteFetch(
-          `${endpoint}/${answerId}${voteEndpoint}`,
-          token,
-        );
-      } else {
-        const fetchMethod = voteAction === 'post' ? postFetch : updateOneFetch;
-        voteResult = await fetchMethod(
-          `${endpoint}/${answerId}${voteEndpoint}`,
-          { vote: voteValue },
-          token,
-        );
-      }
       if (!voteResult.success) {
-        const operation = voteAction === 'delete' ? 'remove' : 'record';
-        toast.error(
-          `We were unable to ${operation} your vote. Please try again later.`,
-        );
+        handleError(voteAction);
         return;
       }
-      setUserVote(isDeletingVote ? null : voteValue);
+
+      updateVoteState(voteAction, voteValue);
       onDataUpdated();
     } catch (err) {
-      console.log('err in handleVote:', err);
+      console.log('Error in handleVote:', err);
     } finally {
       setLoading(false);
     }
+  }
+
+  function determineVoteAction(voteValue) {
+    if (userVote === voteValue) {
+      return 'delete';
+    } else if (userVote === null) {
+      return 'post';
+    } else {
+      return 'patch';
+    }
+  }
+
+  async function executeVoteAction(action, voteUrl, voteValue) {
+    switch (action) {
+      case 'delete':
+        return await deleteFetch(voteUrl, token);
+      case 'post':
+        return await postFetch(voteUrl, { vote: voteValue }, token);
+      case 'patch':
+        return await updateOneFetch(voteUrl, { vote: voteValue }, token);
+      default:
+        throw new Error('Invalid vote action');
+    }
+  }
+
+  function handleError(action) {
+    const operation = action === 'delete' ? 'remove' : 'record';
+    toast.error(
+      `We were unable to ${operation} your vote. Please try again later.`,
+    );
+  }
+
+  function updateVoteState(action, voteValue) {
+    setUserVote(action === 'delete' ? null : voteValue);
   }
 
   return (
