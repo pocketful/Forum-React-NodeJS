@@ -3,16 +3,17 @@ const {
   postAnswerDb,
   updateAnswerDb,
   deleteAnswerDb,
-  getAnswerVotesDb,
-  postAnswerVoteDb,
-  getAnswerVoteDb,
   updateAnswerVoteDb,
+  postAnswerVoteDb,
+  deleteAnswerVoteDb,
 } = require('../models/answersModel');
 
 async function getAnswers(req, res) {
+  const { userId } = req;
   const { questionId } = req.params;
+  console.log('getAnswers controller userId :', userId);
   try {
-    const answers = await getAnswersDb(questionId);
+    const answers = await getAnswersDb(userId, questionId);
     return res.json(answers);
   } catch (err) {
     console.log('error in get answers controller:', err);
@@ -75,17 +76,29 @@ async function deleteAnswer(req, res) {
   }
 }
 
-async function getAnswerVotes(req, res) {
+// Voting
+
+// Update an existing user vote for the answer
+async function updateAnswerVote(req, res) {
+  const { vote } = req.body;
   const { answerId } = req.params;
+  const { userId } = req;
   try {
-    const answerVotes = await getAnswerVotesDb(answerId);
-    return res.json(answerVotes);
+    const insertResult = await updateAnswerVoteDb(vote, answerId, userId);
+    if (insertResult.affectedRows === 1) {
+      return res.status(201).json({ success: true, message: 'Your vote successfully updated.' });
+    }
+    return res.status(400).json({ success: false, message: 'Failed to update your vote.' });
   } catch (err) {
-    console.log('error in get answer votes controller:', err);
+    console.log('error in vote controller:', err);
+    if (err.errno === 1054) {
+      return res.status(400).json({ success: false, message: 'Bad request.' });
+    }
     return res.status(500).json({ success: false, message: 'Something went wrong.' });
   }
 }
 
+// Insert a new vote for the answer
 async function postAnswerVote(req, res) {
   const { answerId } = req.params;
   const { userId } = req;
@@ -105,33 +118,21 @@ async function postAnswerVote(req, res) {
   }
 }
 
-async function updateAnswerVote(req, res) {
+// Delete a vote for the answer
+async function deleteAnswerVote(req, res) {
   const { answerId } = req.params;
-  const { content } = req.body;
   const { userId } = req;
   try {
-    const updateResult = await updateAnswerVoteDb(answerId, userId, content);
-    console.log('updateResult', updateResult);
-    if (updateResult.affectedRows === 1) {
-      return res.status(201).json({ success: true, message: 'Your vote successfully updated.' });
+    const deleteResult = await deleteAnswerVoteDb(answerId, userId);
+    if (deleteResult.affectedRows === 1) {
+      return res.status(200).json({ success: true, message: 'Answer vote successfully deleted.' });
     }
-    return res.status(400).json({ success: false, message: 'Failed to update a vote.' });
-  } catch (err) {
-    console.log('error in update vote controller:', err);
-    if (err.errno === 1054) {
-      return res.status(400).json({ success: false, message: 'Bad request.' });
+    if (deleteResult.affectedRows === 0) {
+      return res.status(400).json({ success: false, message: 'Unable to delete an answer vote.' });
     }
-    return res.status(500).json({ success: false, message: 'Something went wrong.' });
-  }
-}
-
-async function getAnswerVote(req, res) {
-  const { answerId } = req.params;
-  try {
-    const votes = await getAnswerVoteDb(answerId);
-    return res.json(votes);
+    throw new Error('unable to delete an answer vote');
   } catch (err) {
-    console.log('error in get votes controller:', err);
+    console.log('error tryin to delete an answer vote:', err);
     return res.status(500).json({ success: false, message: 'Something went wrong.' });
   }
 }
@@ -141,8 +142,7 @@ module.exports = {
   postAnswer,
   updateAnswer,
   deleteAnswer,
-  getAnswerVotes,
-  postAnswerVote,
   updateAnswerVote,
-  getAnswerVote
+  postAnswerVote,
+  deleteAnswerVote,
 };

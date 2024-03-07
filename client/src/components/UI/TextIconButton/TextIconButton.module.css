@@ -1,4 +1,4 @@
-.buttonTI {
+.btn {
   display: flex;
   align-items: center;
   background-color: transparent;
@@ -7,21 +7,41 @@
   font: inherit;
   letter-spacing: inherit;
   padding: 0;
+  text-align: right;
+  line-height: 1;
 }
 
 .text {
-  padding-right: 5px;
+  margin-right: 0.4em;
+}
+
+.width-small {
+  width: 1rem;
+}
+
+.width-medium {
+  width: 5.2rem;
+}
+
+.width-large {
+  min-width: 7rem;
 }
 
 .active * {
   color: #4f7b8b;
 }
 
-.buttonTI:hover * {
-  cursor: pointer;
+.btn:hover * {
   color: #4f7b8b;
+  cursor: pointer;
 }
 
-.buttonTI:active * {
+.btn:active * {
   color: #365764;
+}
+
+.btn:disabled {
+  /* opacity: 0.5; */
+  pointer-events: none;
+  cursor: not-allowed;
 }

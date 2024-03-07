@@ -15,6 +15,7 @@ const userLogSchema = Joi.object({
 
 async function validateUser(req, res, next) {
   console.log('req.path:', req.path);
+  let validateSchema = {};
   switch (req.path) {
     case '/login':
       console.log('userLogSchema');

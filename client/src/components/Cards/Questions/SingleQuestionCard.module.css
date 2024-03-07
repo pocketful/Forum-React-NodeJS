@@ -60,13 +60,12 @@
   }
   .flex {
     flex-direction: row-reverse;
-    align-items: flex-start;
   }
   .updateDeleteWrapper {
     flex-direction: row-reverse;
   }
   .dates {
-    align-items: flex-start;
+    line-height: 1.4;
   }
 }
 
@@ -78,8 +77,5 @@
   .flex {
     flex-direction: column-reverse;
     align-items: flex-start;
-  }
-  .dates {
-    line-height: 1.4;
   }
 }

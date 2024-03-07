@@ -13,6 +13,7 @@
     "no-console": "off",
     "linebreak-style": "off",
     "object-curly-newline": "off",
-    "ignoreChainWithDepth": 3
+    "newline-per-chained-call": "off",
+    "operator-linebreak": "off"
   }
 }

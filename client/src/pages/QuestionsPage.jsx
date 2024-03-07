@@ -16,7 +16,7 @@ function QuestionsPage() {
 
   async function getQuestions() {
     try {
-      const data = await getFetch('/questions');
+      const data = await getFetch('questions');
       setQuestionsArr(data);
       setAllQuestionsArr(data);
       setActiveFilters({ filter: 'All' });
@@ -28,15 +28,6 @@ function QuestionsPage() {
     }
   }
 
-  function filterUnansweredHandler() {
-    const questionsArrCopy = [...allQuestionsArr];
-    const unansweredQuestions = questionsArrCopy.filter(
-      (qObj) => qObj.answers_count === 0,
-    );
-    setQuestionsArr(unansweredQuestions);
-    setActiveFilters({ filter: 'Unanswered' });
-  }
-
   function filterAnsweredHandler() {
     const questionsArrCopy = [...allQuestionsArr];
     const answeredQuestions = questionsArrCopy.filter(
@@ -46,25 +37,13 @@ function QuestionsPage() {
     setActiveFilters({ filter: 'Answered' });
   }
 
-  function sortByAnswersHandler() {
-    const questionsArrCopy = [...questionsArr];
-    // Descending	 9-1  (Highest to lowest)
-    if (sortByAnsDown) {
-      questionsArrCopy.sort((a, b) => b.answers_count - a.answers_count);
-      setActiveFilters((prevFilters) => ({
-        ...prevFilters,
-        sort: 'ByAnswersDesc',
-      }));
-      // Ascending  1-9  (Lowest to highest)
-    } else {
-      questionsArrCopy.sort((a, b) => a.answers_count - b.answers_count);
-      setActiveFilters((prevFilters) => ({
-        ...prevFilters,
-        sort: 'ByAnswersAsc',
-      }));
-    }
-    setSortByAnsDown(!sortByAnsDown);
-    setQuestionsArr(questionsArrCopy);
+  function filterUnansweredHandler() {
+    const questionsArrCopy = [...allQuestionsArr];
+    const unansweredQuestions = questionsArrCopy.filter(
+      (qObj) => qObj.answers_count === 0,
+    );
+    setQuestionsArr(unansweredQuestions);
+    setActiveFilters({ filter: 'Unanswered' });
   }
 
   function sortByDateHandler() {
@@ -94,6 +73,27 @@ function QuestionsPage() {
     setQuestionsArr(questionsArrCopy);
   }
 
+  function sortByAnswersHandler() {
+    const questionsArrCopy = [...questionsArr];
+    // Descending	 9-1  (Highest to lowest)
+    if (sortByAnsDown) {
+      questionsArrCopy.sort((a, b) => b.answers_count - a.answers_count);
+      setActiveFilters((prevFilters) => ({
+        ...prevFilters,
+        sort: 'ByAnswersDesc',
+      }));
+      // Ascending  1-9  (Lowest to highest)
+    } else {
+      questionsArrCopy.sort((a, b) => a.answers_count - b.answers_count);
+      setActiveFilters((prevFilters) => ({
+        ...prevFilters,
+        sort: 'ByAnswersAsc',
+      }));
+    }
+    setSortByAnsDown(!sortByAnsDown);
+    setQuestionsArr(questionsArrCopy);
+  }
+
   useEffect(() => {
     getQuestions();
   }, []);
@@ -105,7 +105,7 @@ function QuestionsPage() {
         <Loader />
       ) : !isServerOn ? (
         <ServerError />
-      ) : questionsArr.length === 0 ? (
+      ) : allQuestionsArr.length === 0 ? (
         <EmptyArrError name="questions" />
       ) : (
         <QuestionsCardList

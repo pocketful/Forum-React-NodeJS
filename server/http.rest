@@ -61,6 +61,15 @@ Authorization: Bearer ...
 
 
 ### Answers ========================================================================================
+### ---------------------------------- with token
+GET http://localhost:3000/api/questions/1/answers
+Content-Type: application/json
+Authorization: Bearer ...
+
+
+### ---------------------------------- without token
+
+
 GET http://localhost:3000/api/questions/1/answers
 
 
@@ -91,13 +100,14 @@ Authorization: Bearer ...
 
 
 ### Votes ========================================================================================
-### Get answer votes ----------------------------------
-GET http://localhost:3000/api/answers/3
+### Check if the user has already voted this answer -----
+GET http://localhost:3000/api/answers/2/vote
 Content-Type: application/json
+Authorization: Bearer ...
 
 
 ### Post answer vote ----------------------------------
-POST http://localhost:3000/api/answers/3
+POST http://localhost:3000/api/answers/2/vote
 Content-Type: application/json
 Authorization: Bearer ...
 
@@ -105,3 +115,18 @@ Authorization: Bearer ...
   "vote": 1
 }
 
+
+### Patch answer vote ----------------------------------
+PATCH http://localhost:3000/api/answers/2/vote
+Content-Type: application/json
+Authorization: Bearer ...
+
+{
+  "vote": -1
+}
+
+
+### Delete answer vote ---------------------------------
+DELETE http://localhost:3000/api/answers/22/vote
+Content-Type: application/json
+Authorization: Bearer ...

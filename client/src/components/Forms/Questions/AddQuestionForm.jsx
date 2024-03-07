@@ -35,7 +35,7 @@ function AddQuestionForm({ onSuccessPost }) {
       setFeedbackCommon({ message: result.message, class: 'success' });
       setTimeout(() => {
         onSuccessPost();
-      }, 2000);
+      }, 1000);
     },
   });
 

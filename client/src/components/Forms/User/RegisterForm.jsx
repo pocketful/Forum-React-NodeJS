@@ -33,15 +33,19 @@ function RegisterForm({ onSuccessRegister }) {
       image: Yup.string().url().required(),
     }),
     onSubmit: async (values) => {
-      const result = await postFetch('register', values);
-      if (!result.success) {
-        setFeedbackCommon({ message: result.message, class: 'danger' });
-        return;
+      try {
+        const result = await postFetch('register', values);
+        if (!result.success) {
+          setFeedbackCommon({ message: result.message, class: 'danger' });
+          return;
+        }
+        setFeedbackCommon({ message: result.message, class: 'success' });
+        setTimeout(() => {
+          onSuccessRegister();
+        }, 1000);
+      } catch (err) {
+        console.error('Error during register:', err);
       }
-      setFeedbackCommon({ message: result.message, class: 'success' });
-      setTimeout(() => {
-        onSuccessRegister();
-      }, 2000);
     },
   });
 

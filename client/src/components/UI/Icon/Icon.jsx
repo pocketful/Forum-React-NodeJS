@@ -1,10 +1,10 @@
 import style from './Icon.module.css';
 
-function Icon({ icon, onClick, size = 'normal' }) {
+function Icon({ icon, size = 'medium', onClick }) {
   return (
     <i
-      onClick={onClick}
       className={`fa ${icon} ${style[size]}`}
+      onClick={onClick}
       aria-hidden="true"
     ></i>
   );
